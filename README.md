@@ -29,6 +29,12 @@ You'll have to allow each website's to AutoPlay with sound otherwise the script 
 Once on a website with a video, you have to manually allow Sound & Video for AutoPlay as shown in the picture below. You can revert it at any time.  
 ![image](https://user-images.githubusercontent.com/541722/154857139-a88799ad-b37c-48fe-8da6-ebead0935a26.png)
 
-### Recommended aditionnal userscripts
+# Recommended aditionnal userscripts
 This script is really far from perfect, to prevent most of the annoying popup when clicking anywhere  
 I'd recommmend PopUpBlocker ([Github](https://github.com/AdguardTeam/PopupBlocker)) - ([Direct Link](https://popupblocker.adguard.com/popupblocker.user.js)), an amazing Userscript By AdGuard's Team.
+
+# Recommended aditionnal Addons
+While this scripts contains a working solution to bypass TinyURL, FastForward is recommended to bypass it fasted, and more reliably.  
+  
+[FastForward for Chrome](https://chrome.google.com/webstore/detail/fastforward/icallnadddjmdinamnolclfjanhfoafe)  
+[FastForward for Firefox](https://addons.mozilla.org/en-US/firefox/addon/fastforwardteam/)  
