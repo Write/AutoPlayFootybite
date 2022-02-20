@@ -26,5 +26,9 @@ By default, Web browser doesn't allow to Autoplay with Sound.
 You'll have to allow each website's to AutoPlay with sound otherwise the script will mute the video and play it.
 
 ### Enable AutoPlay with Sound In Firefox
-Once on a website with a video, you have to manually allow Sound & Video for AutoPlay as shown in the picture below. You can revert it at any time.
+Once on a website with a video, you have to manually allow Sound & Video for AutoPlay as shown in the picture below. You can revert it at any time.  
 ![image](https://user-images.githubusercontent.com/541722/154857139-a88799ad-b37c-48fe-8da6-ebead0935a26.png)
+
+### Recommended aditionnal userscripts
+This script is really far from perfect, to prevent most of the annoying popup when clicking anywhere  
+I'd recommmend [PopUpBlocker](https://github.com/AdguardTeam/PopupBlocker) [Direct Link to Script](https://popupblocker.adguard.com/popupblocker.user.js), an amazing Userscript By AdGuard's Team.
