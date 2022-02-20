@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name        Autoplay
-// @namespace   Autoplay Block Ads Soccerstreams
+// @namespace   Autoplay Block Ads Soccerstreams & Bypass TinyURL.is
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
-// @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
+// @downloadURL https://github.com/Write/AutoPlaySoccerStreams/blob/main/Autoplay.user.js
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
+// @match       *://tinyurl.is/*
 // @match       *://hockeyweb.site/*
 // @match       *://weakstreams.com/*
 // @match       *://givemenbastreams.com/*
@@ -36,7 +37,7 @@
 // @match       *://bestnhl.com/*
 // @match       *://jmutech.xyz/*
 // @grant       none
-// @version     5.5
+// @version     5.6
 // @author      -
 // ==/UserScript==
 
@@ -95,6 +96,67 @@
         }
     }
 
+
+  /* ------------------------------ */
+  /* TinyURL's Bypass               */
+  /* ------------------------------ */
+  if ( match(current, "*://tinyurl.is/*" ))  {
+
+    // set countdown variable 
+    window.count = -1;
+    function resetCountDown() {
+        setTimeout(function() {
+          window.count = -1;
+          console.log(window.count)
+          resetCountDown();
+        }, 10);
+    }
+    resetCountDown();
+  
+    const checkElement = async selector => {
+      while ( document.querySelector(selector) === null) {
+        await new Promise( resolve => requestAnimationFrame(resolve) )
+      }
+      return document.querySelector(selector); 
+    };
+
+    checkElement('splash').then((selector) => {
+        console.log("Removing all Splash");
+        document.querySelectorAll('splash').forEach(el => el.remove())
+    });
+  
+    checkElement('section').then((selector) => {
+        console.log("Removing all section");
+        selector.remove();
+    });
+  
+    checkElement('a[dont=""]').then((selector) => {
+        console.log("Removing top Annoying weird HF with 'DON\'T'");
+        selector.remove();
+    });
+  
+    checkElement('a[class*="btn"]').then((selector) => {
+        console.log("Button detected");
+        console.log(selector.href)
+        document.querySelectorAll('a[class*="btn"]').forEach(el => console.log(el.href))
+        whileCheck();
+    });
+  
+    function whileCheck() {
+        setTimeout(function() {
+           if (document.querySelector('a[class*="btn"]').href.startsWith('https://tinyurl')) {
+             whileCheck();
+           }
+          else {
+            var url = document.querySelector('a[class*="btn"]').href
+            console.log("LINK FOUND : " + url);
+            window.location = url;
+          }
+        }, 10);
+    }
+    
+  }
+ 
   /* ----------------------- */
   /* Every site              */
   /* ----------------------- */
