@@ -41,7 +41,7 @@
 // @match       *://ragnaru.net/*
 // @match       *://nowlive.pro/*
 // @grant       none
-// @version     5.8
+// @version     5.9
 // @author      -
 // ==/UserScript==
 
@@ -100,7 +100,8 @@
         }
     }
 
-
+  console.dir ("= Autplay Script Loaded on : "+ current +" =")
+  
   /* ------------------------------ */
   /* TinyURL's Bypass               */
   /* ------------------------------ */
@@ -173,6 +174,20 @@
       selector.remove()
   });
 
+  /* ----------------------- */
+  /* *://uhdstreams.club/hd*  (mntlive13) */
+  /* ----------------------- */
+
+  if ( match(current, "*://uhdstreams.com/hd*" ) || match(current, '*://uhdstreams.club/hd/*') ) {
+    console.dir("=== uhdstreams page (mntlive13) ===")
+
+    console.dir("Removing all links & target = blank attributes on : " + current)
+    document.querySelectorAll('a').forEach(el => { el.removeAttribute('target'); el.removeAttribute('href'); })
+    
+    var uhdstream = ``
+    pasteStyle(uhdstream)
+  }
+  
   
   /* ---------------------------------- */
   /* *://jmutech.xyz/* (AZULITO)        */
@@ -187,7 +202,7 @@
       });
     })
     
-    var papastyle = `
+    var jmutechstyle = `
     .g1-content-narrow > .twitter-tweet, .g1-content-narrow > aside, .g1-content-narrow > audio, .g1-content-narrow > blockquote, .g1-content-narrow > canvas, .g1-content-narrow > code, .g1-content-narrow > div, .g1-content-narrow > dl, .g1-content-narrow > figure, .g1-content-narrow > form, .g1-content-narrow > h1, .g1-content-narrow > h2, .g1-content-narrow > h3, .g1-content-narrow > h4, .g1-content-narrow > h5, .g1-content-narrow > h6, .g1-content-narrow > hr, .g1-content-narrow > iframe, .g1-content-narrow > ol, .g1-content-narrow > p, .g1-content-narrow > pre, .g1-content-narrow > section, .g1-content-narrow > table, .g1-content-narrow > ul, .g1-content-narrow > video 
     { max-width : 100% }
     
@@ -195,7 +210,7 @@
       width: 100%
     }
     `
-    pasteStyle(papastyle)
+    pasteStyle(jmutechstyle)
   }
   
   /* ------------------------------------------------- */
@@ -229,8 +244,8 @@
       });
     })
     
-    var papastyle = `#wrapper { margin : 0 }`
-    pasteStyle(papastyle)
+    var bestnhlstyle = ``
+    pasteStyle(bestnhlstyle)
   }
   
   /* ----------------------- */
@@ -246,7 +261,7 @@
       });
     })
     
-    var papastyle = `
+    var poscitechstyle = `
     body, html,article {
       background: #141414;
     }
@@ -256,7 +271,7 @@
     body.archive .post-inner-content, body.blog .post-inner-content, .post-inner-content:first-child {
       border: none;
     }`
-    pasteStyle(papastyle)
+    pasteStyle(poscitechstyle)
   }
 
   
@@ -290,8 +305,8 @@
         });
       })
 
-      var papastyle = ``
-      pasteStyle(papastyle)
+      var sportsonlinestyle = ``
+      pasteStyle(sportsonlinestyle)
     }
 
   /* ----------------------- */
@@ -514,7 +529,7 @@
             var bitmovinType = typeof bitmovin
             console.log = console.dir
               if (bitmovinType === 'object') {
-              console.dir("=== Bitmovin Lecture ===")
+              console.dir("=== Bitmovin Autoplay on " + current)
               
                 /* Special case for best NHL */
                 if (match(current, "*://bestnhl.com/soccer/*")) {
@@ -567,7 +582,7 @@
                 }
             } // end Bitmovin
             else if (typeof Clappr === 'object') {
-            console.dir('Clappr Autoplay')
+            console.dir('Clappr Autoplay on ' + current)
                     document.querySelector('video').muted = false
                     /* simulate a click on player-poster */
                     document.querySelector('.player-poster').click()
@@ -596,7 +611,7 @@
                     }
             } //end Clappr
             else if (typeof videojs === 'function') {
-            console.dir('Videojs Autoplay')
+            console.dir('Videojs Autoplay on ' + current)
                     document.querySelector('video').muted = false
                     var promise = document.querySelector('video').play()
                     if (promise !== undefined) {
@@ -617,7 +632,7 @@
                     }
           } // end videojs
           else if (Hls.isSupported()) {
-          console.dir('HLS.js Autoplay / Not yet supported')
+          console.dir('HLS.js Autoplay on ' + current)
               document.querySelector('video').muted = false
               var promise = document.querySelector('video').play()
               if (promise !== undefined) {
