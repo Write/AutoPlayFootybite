@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Autoplay
-// @namespace   Autoplay Block Ads Soccerstreams & Bypass TinyURL.is
+// @namespace   Autoplay Block Ads Soccerstreams
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/blob/main/Autoplay.user.js
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
@@ -36,8 +36,12 @@
 // @match       *://poscitech.com/*
 // @match       *://bestnhl.com/*
 // @match       *://jmutech.xyz/*
+// @match       *://sportsonline.to/*
+// @match       *://wigistream.to/embed/*
+// @match       *://ragnaru.net/*
+// @match       *://nowlive.pro/*
 // @grant       none
-// @version     5.6
+// @version     5.8
 // @author      -
 // ==/UserScript==
 
@@ -230,7 +234,7 @@
   }
   
   /* ----------------------- */
-  /* *://papahd.club/*       */
+  /* *://poscitech.club/*       */
   /* ----------------------- */
   if ( match(current, "*://poscitech.com*") )  {
     console.dir("=== poscitech page ===")
@@ -272,6 +276,23 @@
     var papastyle = `#wrapper { margin : 0 }`
     pasteStyle(papastyle)
   }
+  
+    /* ----------------------- */
+    /* papahd's sub-iframe site    */
+    /* ----------------------- */
+    if ( match(current, "*://sportsonline.to/*") )  {
+      console.dir("=== Papahd page ===")
+      var hotgarbage = [ ];
+      hotgarbage.forEach(e => {
+        checkElement(e).then((selector) => {
+            console.log('Removing hot garbage -- ' + e);
+            selector.remove()
+        });
+      })
+
+      var papastyle = ``
+      pasteStyle(papastyle)
+    }
 
   /* ----------------------- */
   /* rsoccerstreams.com/     */
@@ -492,8 +513,8 @@
       setTimeout(function(){
             var bitmovinType = typeof bitmovin
             console.log = console.dir
-            if (bitmovinType === 'object') {
-                console.dir("=== Bitmovin Lecture ===")
+              if (bitmovinType === 'object') {
+              console.dir("=== Bitmovin Lecture ===")
               
                 /* Special case for best NHL */
                 if (match(current, "*://bestnhl.com/soccer/*")) {
@@ -516,13 +537,14 @@
                     }, 50);
                   }
                   }, 500);
-                }
-                else if (typeof player == 'object') {
-                  /* On essaie d'unmute le player et de jouer */
+                } // end BestNHL special case
+                // Bitmovin
+                else if (typeof player == 'object') { 
+                  /* Trying to unmute player and play it */
                   player.unmute()
                   player.play()
                   setTimeout(function(){
-                    /* Le player est en pause, on mute et lecture */
+                    /* Player is in pause, mute and play. */
                     if (!player.isPlaying()) {
                       player.mute()
                       player.play()
@@ -534,7 +556,7 @@
                   document.querySelector('video').muted = false
                   document.querySelector('video').play()
                   setTimeout(function(){
-                    /* Le player est en pause, on mute et lecture */
+                    /* Player is in pause, mute and play. */
                     if (document.querySelector('video').paused) {
                       console.log("=== Player is paused, mute and play. ===")
                       document.querySelector('video').muted = true
@@ -543,9 +565,9 @@
 
                   }, 100);
                 }
-            }
+            } // end Bitmovin
             else if (typeof Clappr === 'object') {
-                console.dir('Clappr Autoplay')
+            console.dir('Clappr Autoplay')
                     document.querySelector('video').muted = false
                     /* simulate a click on player-poster */
                     document.querySelector('.player-poster').click()
@@ -572,9 +594,9 @@
                         player.mute();
                         document.querySelector('video').play()
                     }
-            }
+            } //end Clappr
             else if (typeof videojs === 'function') {
-                console.dir('Videojs Autoplay')
+            console.dir('Videojs Autoplay')
                     document.querySelector('video').muted = false
                     var promise = document.querySelector('video').play()
                     if (promise !== undefined) {
@@ -593,7 +615,28 @@
                         console.log('Videojs Autoplay not set')
                         document.querySelector('video').play()
                     }
-        }
+          } // end videojs
+          else if (Hls.isSupported()) {
+          console.dir('HLS.js Autoplay / Not yet supported')
+              document.querySelector('video').muted = false
+              var promise = document.querySelector('video').play()
+              if (promise !== undefined) {
+                promise.then(function() {
+                console.log('HLS.js Auto play allowed')
+                // Autoplay started
+                document.querySelector('video').muted = false
+                }).catch(error => {
+                  console.log('HLS.js Autoplay with sound not allowed')
+                  // Autoplay not allowed!
+                  document.querySelector('video').muted = true
+                  document.querySelector('video').play()
+                });
+              }
+              else {
+                console.log('HLS.js Autoplay not set')
+                document.querySelector('video').play()
+              }
+          } // end HLS.js
         else { console.dir("No player found to autoplay")}
       }, 500);
 
