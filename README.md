@@ -7,19 +7,22 @@ Firefox can easily bypass website's right-click limitations by pressing Shift wh
 If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab.
 
 # How to install / use
-Install an userscript manager such as ViolentMonkey or TamperMonkey  
-  
+Install an userscript manager such as ViolentMonkey, TamperMonkey or Macaque (iOS)  
 Click on [Autoplay.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/main/Autoplay.user.js) > [Raw](https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js) and it'll be detected as a script by your userscript manager, then click install.  
 
 # Userscripts Manager Links
 
 ### ViolentMonkey Download  
 [Download ViolentMonkey for Chrome](https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)  
-[Download ViolentMonkey for Firefox](https://addons.mozilla.org/fr/firefox/addon/violentmonkey/)  
+[Download ViolentMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/)  
   
 ### TamperMonkey Download  
 [Download TamperMonkey for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)  
-[Download TamperMonkey for Firefox](https://addons.mozilla.org/us/firefox/addon/tampermonkey/)  
+[Download TamperMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)  
+[Download TamperMonkey for Safari (Paid)](https://apps.apple.com/app/apple-store/id1482490089)  
+
+### Macaque
+[Download Macaque for Safari (iOS) (Paid](https://macaque.app/)  
   
 # Activate AutoPlay with Sound
 By default, Web browser doesn't allow to Autoplay with Sound.
@@ -38,3 +41,8 @@ While this scripts contains a working solution to bypass TinyURL, [FastForward](
   
 [FastForward for Chrome](https://chrome.google.com/webstore/detail/fastforward/icallnadddjmdinamnolclfjanhfoafe)  
 [FastForward for Firefox](https://addons.mozilla.org/en-US/firefox/addon/fastforwardteam/)  
+
+
+And of course use uBlock Origin, the only good AdBlocker out there, which preserve your privacy the most.  
+[uBlock Origin for Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)
+[uBlock Origin for Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
