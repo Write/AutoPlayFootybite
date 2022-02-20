@@ -3,6 +3,7 @@
 // @namespace   Autoplay Block Ads Soccerstreams
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
+// @homepageURL https://github.com/Write/AutoPlaySoccerStreams
 // @match       *://hockeyweb.site/*
 // @match       *://weakstreams.com/*
 // @match       *://givemenbastreams.com/*
@@ -35,7 +36,7 @@
 // @match       *://bestnhl.com/*
 // @match       *://jmutech.xyz/*
 // @grant       none
-// @version     5.4
+// @version     5.5
 // @author      -
 // ==/UserScript==
 
