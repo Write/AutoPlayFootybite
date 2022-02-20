@@ -2,7 +2,7 @@
 AutoPlay, Remove Ads &amp; Annoying Stuff on the majority of Reddit SoccerStream's Streams.
 Now included : TinyURL bypass !   
   
-The script try to detect and Autoplay Players such as : Bitmovin, Clappr, VideoJS and Native HTML5.  
+The script try to detect and Autoplay Players such as : Bitmovin, Clappr, VideoJS, HLS.js and Native HTML5.  
 It autoplay & unmute (require additional steps as shown below) the video.  
 
 It also tries to remove automatically the redirection when you open the Stream's iframe in a new window by using MutationObserver's API and replacing the website JS code. Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on the player.
