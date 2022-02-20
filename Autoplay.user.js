@@ -40,8 +40,10 @@
 // @match       *://wigistream.to/embed/*
 // @match       *://ragnaru.net/*
 // @match       *://nowlive.pro/*
+// @match       *://www.tutele.sx/*
+// @match       *://*.tutele.sx/*
 // @grant       none
-// @version     6.1
+// @version     6.3
 // @author      -
 // ==/UserScript==
 
@@ -858,6 +860,15 @@
                   currentScript = currentScript.replace(/if\ \(document\.referrer\.indexOf\(b\)\!=-1\){\n.*\n}/g, "")
                   currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, "")
                   currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, "")
+              
+                  /* for tutele.sex (myoplay's subframe) */
+                  currentScript = currentScript.replace(/function RedirectTo\(\){\n.*}/m, "")
+                  currentScript = currentScript.replace(/if\(!isDomain\){\n.*}/gm, "")
+                  currentScript = currentScript.replace(/if \(window == window.top\) document.location = "\/"/gm, "")
+                  currentScript = currentScript.replace(/if\(self==top\) { .* }/g, "")
+                  currentScript = currentScript.replace(/location.href = ".*"+.*;/g, "")
+                
+                
                   e.innerHTML = ""
                   e.remove()
                   //console.log(currentScript)
