@@ -41,7 +41,7 @@
 // @match       *://ragnaru.net/*
 // @match       *://nowlive.pro/*
 // @grant       none
-// @version     5.9
+// @version     6.0
 // @author      -
 // ==/UserScript==
 
@@ -470,7 +470,7 @@
     
     var styleTechstribes = `
     #primary, #main, .cv-container, .entry-content, article, #player, .container {
-      width: 100% !important;
+      width: 100%;
     }
     `
     
@@ -478,17 +478,36 @@
   }
 
   /* ----------------------- */
-  /* myoplay.club            */
+  /* myoplay.club (Dvaix)    */
   /* ----------------------- */
   if (match(current, "*://myoplay.club*"))  {
-    var hotgarbage = [ '.main-header.normal-header','.footer-widget-area', '.sub-footer', 'iframe[src^="https://video.ibm.com"]', '.letters.type.eae-at-animation', '.elementor-button-wrapper', '.eae-particle-21d35dd', '.elementor-shape-top', '.elementor-widget', '.elementor-top-section', '.elementor-widget-container', 'div[style^="position: fixed; display: block"]'];
+    var hotgarbage = [ '.elementor-element-5eec605e.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider', 
+                      '.fadeIn.animated.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.animated-slow.elementor-element-4e9f2566.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
+                      '.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.elementor-element-3d57dc49.elementor-element.elementor-top-section.elementor-section.has_eae_slider > .elementor-column-gap-default.elementor-container',
+                      '.elementor-section-height-default.elementor-section-boxed.elementor-hidden-phone.eae-particle-yes.elementor-element-21d35dd.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
+                      '.elementor-section-height-default.elementor-section-boxed.elementor-hidden-phone.elementor-element-c83da38.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
+                      '.elementor-element-53397b8.elementor-element.elementor-top-column.elementor-col-100.elementor-column.has_eae_slider > .elementor-element-populated.elementor-column-wrap > .elementor-widget-wrap',
+                      '.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.elementor-element-8bb1600.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
+                      '.elementor-element-55a2a14.elementor-element.elementor-top-column.elementor-col-100.elementor-column.has_eae_slider > .elementor-element-populated.elementor-column-wrap > .elementor-widget-wrap',
+                      '.elementor-shape-top.elementor-shape > svg',
+                      '.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.elementor-element-3d57dc49.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
+                      '.main-header.normal-header','.footer-widget-area', '.sub-footer', 'iframe[src^="https://video.ibm.com"]', '.letters.type.eae-at-animation', '.elementor-button-wrapper', '.eae-particle-21d35dd', '.elementor-shape-top', '.elementor-widget', '.elementor-top-section', '.elementor-widget-container', 'div[style^="position: fixed; display: block"]'];
     hotgarbage.forEach(e => {
       checkElement(e).then((selector) => {
           console.log('Removing hot garbage -- ' + e);
           selector.remove()
       });
     })
+    
+    var myoplayStyle = `
+    .eae-particle-wrapper {
+      display: none;
+    }
+    `
+    pasteStyle(myoplayStyle);
+    
   }
+  
 
   /* ----------------------- */
   /* 1stream.top             */
