@@ -20,3 +20,10 @@ Click on [Autoplay.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/
 ### TamperMonkey Download
 [Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
 [Firefox](https://addons.mozilla.org/us/firefox/addon/tampermonkey/)
+
+# Activate AutoPlay with Sound
+By default, Web browser doesn't allow to Autoplay with Sound.
+You'll have to allow each website's to AutoPlay with sound otherwise the script will mute the video and play it.
+
+### Enable AutoPlay with Sound In Firefox
+ 
