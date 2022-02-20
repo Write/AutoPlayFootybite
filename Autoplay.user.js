@@ -2,7 +2,7 @@
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
-// @downloadURL https://github.com/Write/AutoPlaySoccerStreams/blob/main/Autoplay.user.js
+// @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @match       *://hockeyweb.site/*
 // @match       *://weakstreams.com/*
 // @match       *://givemenbastreams.com/*
