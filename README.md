@@ -13,14 +13,14 @@ Click on [Autoplay.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/
 
 # Userscripts Manager Links
 
-### ViolentMonkey Download
-[Chrome](https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)
-[Firefox](https://addons.mozilla.org/fr/firefox/addon/violentmonkey/)
-
-### TamperMonkey Download
-[Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-[Firefox](https://addons.mozilla.org/us/firefox/addon/tampermonkey/)
-
+### ViolentMonkey Download  
+[Download ViolentMonkey for Chrome](https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)  
+[Download ViolentMonkey for Firefox](https://addons.mozilla.org/fr/firefox/addon/violentmonkey/)  
+  
+### TamperMonkey Download  
+[Download TamperMonkey for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)  
+[Download TamperMonkey for Firefox](https://addons.mozilla.org/us/firefox/addon/tampermonkey/)  
+  
 # Activate AutoPlay with Sound
 By default, Web browser doesn't allow to Autoplay with Sound.
 You'll have to allow each website's to AutoPlay with sound otherwise the script will mute the video and play it.
