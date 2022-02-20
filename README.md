@@ -31,4 +31,4 @@ Once on a website with a video, you have to manually allow Sound & Video for Aut
 
 ### Recommended aditionnal userscripts
 This script is really far from perfect, to prevent most of the annoying popup when clicking anywhere  
-I'd recommmend PopUpBlocker ([Github](https://github.com/AdguardTeam/PopupBlocker)) - (Direct Link)[https://popupblocker.adguard.com/popupblocker.user.js)], an amazing Userscript By AdGuard's Team.
+I'd recommmend PopUpBlocker ([Github](https://github.com/AdguardTeam/PopupBlocker)) - ([Direct Link](https://popupblocker.adguard.com/popupblocker.user.js)), an amazing Userscript By AdGuard's Team.
