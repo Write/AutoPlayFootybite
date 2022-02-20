@@ -43,7 +43,7 @@
 // @match       *://www.tutele.sx/*
 // @match       *://*.tutele.sx/*
 // @grant       none
-// @version     6.3
+// @version     6.4
 // @author      -
 // ==/UserScript==
 
@@ -214,6 +214,25 @@
     `
     pasteStyle(jmutechstyle)
   }
+  
+  
+  /* ------------------------------------------------- */
+  /* http://sportinglive.co */
+  /* ------------------------------------------------- */
+  if ( match(current, "*://sportinglive.co*" ))  {
+    console.dir("=== sportinglive.co page ===")
+    var hotgarbage = [ '.nv-header-menu-block-wrap > .cv-container', '.widget-area', '.site-footer', '#id-custom_banner', '.site-header', '.nv-top-header-wrap', '.adsbyvli', '.entry-title' ];
+    hotgarbage.forEach(e => {
+      checkElement(e).then((selector) => {
+          console.log('Removing hot garbage -- ' + e);
+          selector.remove()
+      });
+    })
+    
+    var papastyle = `#primary, .home.blog #primary { float: none; width: 100%; }`
+    pasteStyle(papastyle)
+  }
+
   
   /* ------------------------------------------------- */
   /* *://thecyclingentertainment.com (CyclingStreams)  */
