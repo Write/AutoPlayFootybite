@@ -3,7 +3,8 @@ AutoPlay, Remove Ads &amp; Annoying Stuff on the majority of Reddit SoccerStream
 
 This script also tries to remove the automatic redirection when you open the Stream's iframe in a new window by using MutationObserver's API and replacing the website JS code.
 
-Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking, and if player is in an iframe you can click This frame > Open in a new tab.
+Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on the player.
+If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab.
 
 # How to install / use
 Install an userscript manager such as ViolentMonkey or TamperMonkey  
