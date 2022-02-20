@@ -1,10 +1,15 @@
 # AutoPlaySoccerStreams
 AutoPlay, Remove Ads &amp; Annoying Stuff on the majority of Reddit SoccerStream's Streams.
+Now included : TinyURL bypass !   
+  
+The script try to detect and Autoplay Players such as : Bitmovin, Clappr, VideoJS and Native HTML5.  
+It autoplay & unmute (require additional steps as shown below) the video.  
 
 This script also tries to remove the automatic redirection when you open the Stream's iframe in a new window by using MutationObserver's API and replacing the website JS code.
 
 Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on the player.
 If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab.
+
 
 # How to install / use
 Install an userscript manager such as ViolentMonkey, TamperMonkey or Macaque (iOS)  
