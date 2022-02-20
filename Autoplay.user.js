@@ -43,7 +43,7 @@
 // @match       *://www.tutele.sx/*
 // @match       *://*.tutele.sx/*
 // @grant       none
-// @version     6.4
+// @version     6.6
 // @author      -
 // ==/UserScript==
 
@@ -229,14 +229,14 @@
       });
     })
     
-    var papastyle = `#primary, .home.blog #primary { float: none; width: 100%; }`
-    pasteStyle(papastyle)
+    var sportingliveStyle = `#primary, .home.blog #primary { float: none; width: 100%; }`
+    pasteStyle(sportingliveStyle)
   }
 
   
   /* ------------------------------------------------- */
   /* *://thecyclingentertainment.com (CyclingStreams)  */
-  /* Only work in Chrome                               */
+  /* This website seems to only work in Chrome         */
   /* ------------------------------------------------- */
   if ( match(current, "*://thecyclingentertainment.com*" ))  {
     console.dir("=== thecyclingentertainment page ===")
@@ -248,8 +248,8 @@
       });
     })
     
-    var papastyle = `#wrapper { margin : 0 }`
-    pasteStyle(papastyle)
+    var cyclingStyle = `#wrapper { margin : 0 }`
+    pasteStyle(cyclingStyle)
   }
 
   /* ----------------------- */
