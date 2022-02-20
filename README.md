@@ -37,7 +37,7 @@ This script is really far from perfect, to prevent most of the annoying popup wh
 I'd recommmend PopUpBlocker ([Github](https://github.com/AdguardTeam/PopupBlocker)) - ([Direct Link](https://popupblocker.adguard.com/popupblocker.user.js)), an amazing Userscript By AdGuard's Team.
 
 # Recommended aditionnal Addons
-While this scripts contains a working solution to bypass TinyURL, [FastForward](https://fastforward.team/install) is the recommended solution to bypass it fast and more reliably.  
+While this scripts contains a working solution to bypass TinyURL, [FastForward](https://fastforward.team/install) is the recommended solution to bypass such link  fast and reliably.  
   
 [FastForward for Chrome](https://chrome.google.com/webstore/detail/fastforward/icallnadddjmdinamnolclfjanhfoafe)  
 [FastForward for Firefox](https://addons.mozilla.org/en-US/firefox/addon/fastforwardteam/)  
