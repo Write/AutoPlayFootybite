@@ -44,7 +44,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     7.4
+// @version     7.5
 // @author      -
 // ==/UserScript==
 
@@ -213,8 +213,8 @@
       });
     })
     
-    var techoreelsStyle = ``
-    pasteStyle(techoreelsStyle)
+    var uhdstream = ``
+    pasteStyle(uhdstream)
   }
   
   /* ----------------------- */
@@ -227,8 +227,8 @@
     console.dir("Removing all links & target = blank attributes on : " + current)
     document.querySelectorAll('a').forEach(el => { el.removeAttribute('target'); el.removeAttribute('href'); })
     
-    var uhdstreamsStyle = ``
-    pasteStyle(uhdstreamsStyle)
+    var uhdstream = ``
+    pasteStyle(uhdstream)
   }
   
   
@@ -246,7 +246,7 @@
       });
     })
     
-    var jmutechStyle = `
+    var jmutechstyle = `
     .g1-content-narrow > .twitter-tweet, .g1-content-narrow > aside, .g1-content-narrow > audio, .g1-content-narrow > blockquote, .g1-content-narrow > canvas, .g1-content-narrow > code, .g1-content-narrow > div, .g1-content-narrow > dl, .g1-content-narrow > figure, .g1-content-narrow > form, .g1-content-narrow > h1, .g1-content-narrow > h2, .g1-content-narrow > h3, .g1-content-narrow > h4, .g1-content-narrow > h5, .g1-content-narrow > h6, .g1-content-narrow > hr, .g1-content-narrow > iframe, .g1-content-narrow > ol, .g1-content-narrow > p, .g1-content-narrow > pre, .g1-content-narrow > section, .g1-content-narrow > table, .g1-content-narrow > ul, .g1-content-narrow > video 
     { max-width : 100% }
     
@@ -254,7 +254,7 @@
       width: 100%
     }
     `
-    pasteStyle(jmutechStyle)
+    pasteStyle(jmutechstyle)
   }
   
   
@@ -745,11 +745,11 @@
               console.dir("=== Bitmovin Autoplay on " + current)
               
                 /* Special case for best NHL */
-                if (match(current, "*://bestnhl.com/soccer/*")) {
+                if (match(current, "*://bestnhl.com*")) {
                   console.dir("=== BESTNHL Handle AutoPlay with Bitmovin ===") 
-                  /* Delaying bitmovin player detection to 500ms */
+                  /* Delaying bitmovin player detection to 2s */
                   setTimeout(function(){
-                  console.dir("=== BESTNHL / Bitmovin: Delayed try of play ===") 
+                  console.dir("=== BESTNHL / Bitmovin: Delayed autoplay for BestNHL to ensure it's loaded ===") 
                   if (bitmovin.player('my-player') !== "undefined") {
                    /* On essaie d'unmute le player et de jouer */
                     bitmovin.player('my-player').unmute()
@@ -764,7 +764,7 @@
                       }
                     }, 50);
                   }
-                  }, 500);
+                  }, 2000);
                 } // end BestNHL special case
                 // Bitmovin
                 else if (typeof player == 'object') { 
