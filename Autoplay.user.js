@@ -42,8 +42,9 @@
 // @match       *://nowlive.pro/*
 // @match       *://www.tutele.sx/*
 // @match       *://*.tutele.sx/*
+// @match       *://blacktiesports.net/*
 // @grant       none
-// @version     7.1
+// @version     7.3
 // @author      -
 // ==/UserScript==
 
@@ -176,6 +177,46 @@
       selector.remove()
   });
 
+  /* ------------------------------ */
+  /* blacktiesports . net  */
+  /* ------------------------------ */
+
+  if ( match(current, "*://blacktiesports.net*" ) ) {
+    console.dir("=== Blacktiesports.net ===")
+
+    var hotgarbage = [  '#controls > div', '.navbar-transparent.navbar-expand-lg.navbar', 'h3', '.col-md', '.bookmark.card.p-4'];
+  
+    hotgarbage.forEach(e => {
+      checkElement(e).then((selector) => {
+          console.log('Removing hot garbage -- ' + e);
+          selector.remove()
+      });
+    })
+    
+    var uhdstream = ``
+    pasteStyle(uhdstream)
+  }
+  
+  /* ------------------------------ */
+  /* techoreels . com  */
+  /* ------------------------------ */
+
+  if ( match(current, "*://techoreels.com*" ) ) {
+    console.dir("=== techoreels.com ===")
+
+    var hotgarbage = [  '.shadow-lg.p-5.bg-primary.flex-wrap.justify-between.items-center.flex' ];
+  
+    hotgarbage.forEach(e => {
+      checkElement(e).then((selector) => {
+          console.log('Removing hot garbage -- ' + e);
+          selector.remove()
+      });
+    })
+    
+    var uhdstream = ``
+    pasteStyle(uhdstream)
+  }
+  
   /* ----------------------- */
   /* *://uhdstreams.club/hd*  (mntlive13) */
   /* ----------------------- */
@@ -196,7 +237,8 @@
   /* ---------------------------------- */
   if ( match(current, "*://jmutech.xyz/*" ))  {
     console.dir("=== jmutech (Azulito) page ===")
-    var hotgarbage = [ '.g1-column-1of3.g1-column.g1-sidebar-padded.g1-sidebar', '.g1-row-layout-page.g1-row.g1-footer > .g1-row-background', '.g1-footer', 'h1.g1-mega', 'div.g1-row:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)'];
+    var hotgarbage = [ '.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row', 
+                      '.g1-column-1of3.g1-column.g1-sidebar-padded.g1-sidebar', '.g1-row-layout-page.g1-row.g1-footer > .g1-row-background', '.g1-footer', 'h1.g1-mega', 'div.g1-row:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)'];
     hotgarbage.forEach(e => {
       checkElement(e).then((selector) => {
           console.log('Removing hot garbage -- ' + e);
@@ -502,7 +544,8 @@
   /* myoplay.club (Dvaix)    */
   /* ----------------------- */
   if (match(current, "*://myoplay.club*"))  {
-    var hotgarbage = [ '.elementor-element-5eec605e.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider', 
+    var hotgarbage = [ '.elementor-element-5eec605e.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider',
+                      '.elementor-element-5cc92362.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider',
                       '.fadeIn.animated.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.animated-slow.elementor-element-4e9f2566.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
                       '.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.elementor-element-3d57dc49.elementor-element.elementor-top-section.elementor-section.has_eae_slider > .elementor-column-gap-default.elementor-container',
                       '.elementor-section-height-default.elementor-section-boxed.elementor-hidden-phone.eae-particle-yes.elementor-element-21d35dd.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
