@@ -44,7 +44,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     7.5
+// @version     7.6
 // @author      -
 // ==/UserScript==
 
@@ -297,9 +297,9 @@
   /* ----------------------- */
   /* *://bestnhl.com/*       */
   /* ----------------------- */
-  if ( match(current, "*://bestnhl.com/soccer/stream*" ))  {
+  if ( match(current, "*://bestnhl.com*" ))  {
     console.dir("=== BestNHL page ===")
-    var hotgarbage = [ '.bbevent.container', '.col-md-12' ];
+    var hotgarbage = [ '.bbevent.container', '.site-nav-outer' ];
     hotgarbage.forEach(e => {
       checkElement(e).then((selector) => {
           console.log('Removing hot garbage -- ' + e);
@@ -307,7 +307,12 @@
       });
     })
     
-    var bestnhlstyle = ``
+    var bestnhlstyle = `
+    body { height: 100%; }
+    .bbevent { height: 110px; margin-bottom: 5px; } 
+    .bbevent .watch-li {
+      margin: 30px; 
+    }`
     pasteStyle(bestnhlstyle)
   }
   
