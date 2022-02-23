@@ -44,7 +44,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     7.6
+// @version     7.7
 // @author      -
 // ==/UserScript==
 
@@ -307,13 +307,47 @@
       });
     })
     
-    var bestnhlstyle = `
-    body { height: 100%; }
-    .bbevent { height: 110px; margin-bottom: 5px; } 
+    var bestnhlStyle = `
+    html {
+      background: #b3b3b3;
+    }
+    br { display: none; }
+    body { height: 100%; background: unset; }
+    .imagehome, .imageaway {
+      width: unset;
+      height: 30px;
+    }
+    .col-md-12 { 
+      background-color: #000;
+      background-image: none;
+      margin: 5px 0px;
+      color: white;
+      border-radius: 3px;
+    }
+    .col-md-12 button.btn {
+      color: white;
+    }
+    .bbevent { 
+      box-shadow: none;
+      border: none;
+      height: 70px; margin-bottom: 5px;
+      border-radius: 4px;
+      transition: none;
+    }
     .bbevent .watch-li {
-      margin: 30px; 
-    }`
-    pasteStyle(bestnhlstyle)
+      margin: 20px 20px 0px 0px;
+      font-size: 14px;
+      transition: none;
+    }
+    .bbevent h4, .bbevent h5 {
+      margin-bottom: 0px;
+    }
+    .bbevent .watch-li a {
+      transition: none;
+      padding: 5px 10px 3px 10px;
+    }
+    `
+    pasteStyle(bestnhlStyle)
   }
   
   /* ----------------------- */
