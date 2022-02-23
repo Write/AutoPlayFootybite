@@ -44,7 +44,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     7.7
+// @version     7.9
 // @author      -
 // ==/UserScript==
 
@@ -345,6 +345,12 @@
     .bbevent .watch-li a {
       transition: none;
       padding: 5px 10px 3px 10px;
+    }
+    /* target player's outer div, this is ugly */
+    div[style*="float: left\"] {
+      margin: auto;
+      width: 100%;
+      float: none;
     }
     `
     pasteStyle(bestnhlStyle)
