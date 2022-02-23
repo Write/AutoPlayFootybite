@@ -7,6 +7,7 @@
 // @match       *://tinyurl.is/*
 // @match       *://hockeyweb.site/*
 // @match       *://hockeyweb.live/*
+// @match       *://sportson.site/*
 // @match       *://weakstreams.com/*
 // @match       *://givemenbastreams.com/*
 // @match       *://uhdstreams.club/*
@@ -45,7 +46,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     8.3
+// @version     8.4
 // @author      -
 // ==/UserScript==
 
@@ -179,12 +180,12 @@
   });
 
   /* ------------------------------ */
-  /* hockeyweb.live
+  /* hockeyweb.live, sportson.site
    * Website doesn't work on Firefox
   /* ------------------------------ */
 
-  if ( match(current, "*://hockeyweb.live*" ) || match(current, "*://hockeyweb.site*" ) ) {
-    console.dir("=== hockeyweb ===")
+  if ( match(current, "*://hockeyweb.live*" ) || match(current, "*://hockeyweb.site*" ) || match(current, "*://sportson.site*" ) ) {
+    console.dir("=== hockeyweb / sportson ===")
 
     var hotgarbage = [  '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', '.header-after1.widget-title', '.site-info', '.trail-items','.aft-sticky-sidebar.widget-area', '.primary-footer'];
   
