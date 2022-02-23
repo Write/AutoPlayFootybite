@@ -44,7 +44,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     7.9
+// @version     8.0
 // @author      -
 // ==/UserScript==
 
@@ -307,6 +307,10 @@
       });
     })
     
+    
+    document.querySelectorAll('.col-sm-8').forEach(el => { el.classList.remove('col-sm-8'); el.classList.add('col-8') })
+    document.querySelectorAll('.col-sm-4').forEach(el => { el.classList.remove('col-sm-4'); el.classList.add('col-4') })
+                                               
     var bestnhlStyle = `
     html {
       background: #b3b3b3;
@@ -320,9 +324,9 @@
     .col-md-12 { 
       background-color: #000;
       background-image: none;
-      margin: 5px 0px;
+      margin: 2px 0px;
       color: white;
-      border-radius: 3px;
+      border-radius: 0px;
     }
     .col-md-12 button.btn {
       color: white;
@@ -330,21 +334,29 @@
     .bbevent { 
       box-shadow: none;
       border: none;
-      height: 70px; margin-bottom: 5px;
-      border-radius: 4px;
+      height: 80px;
+      margin-bottom: 1px;
+      border-radius: 0px;
       transition: none;
+      
     }
     .bbevent .watch-li {
-      margin: 20px 20px 0px 0px;
+      margin: 25px 20px 0px 0px;
       font-size: 14px;
       transition: none;
+    }
+    .bbevent h4 {
+      font-size: 14px;
+    }
+    .bbevent h5 {
+      font-size: 12px;
     }
     .bbevent h4, .bbevent h5 {
       margin-bottom: 0px;
     }
     .bbevent .watch-li a {
       transition: none;
-      padding: 5px 10px 3px 10px;
+      padding: 0px 10px 0px 10px;
     }
     /* target player's outer div, this is ugly */
     div[style*="float: left\"] {
