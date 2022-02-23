@@ -46,7 +46,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     8.4
+// @version     8.5
 // @author      -
 // ==/UserScript==
 
@@ -187,7 +187,7 @@
   if ( match(current, "*://hockeyweb.live*" ) || match(current, "*://hockeyweb.site*" ) || match(current, "*://sportson.site*" ) ) {
     console.dir("=== hockeyweb / sportson ===")
 
-    var hotgarbage = [  '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', '.header-after1.widget-title', '.site-info', '.trail-items','.aft-sticky-sidebar.widget-area', '.primary-footer'];
+    var hotgarbage = [  '#id-custom_banner', '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', '.header-after1.widget-title', '.site-info', '.trail-items','.aft-sticky-sidebar.widget-area', '.primary-footer'];
   
     hotgarbage.forEach(e => {
       checkElement(e).then((selector) => {
