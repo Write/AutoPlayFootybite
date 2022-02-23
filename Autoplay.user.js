@@ -6,6 +6,7 @@
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
 // @match       *://tinyurl.is/*
 // @match       *://hockeyweb.site/*
+// @match       *://hockeyweb.live/*
 // @match       *://weakstreams.com/*
 // @match       *://givemenbastreams.com/*
 // @match       *://uhdstreams.club/*
@@ -44,7 +45,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     8.1
+// @version     8.3
 // @author      -
 // ==/UserScript==
 
@@ -177,6 +178,32 @@
       selector.remove()
   });
 
+  /* ------------------------------ */
+  /* hockeyweb.live
+   * Website doesn't work on Firefox
+  /* ------------------------------ */
+
+  if ( match(current, "*://hockeyweb.live*" ) || match(current, "*://hockeyweb.site*" ) ) {
+    console.dir("=== hockeyweb ===")
+
+    var hotgarbage = [  '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', '.header-after1.widget-title', '.site-info', '.trail-items','.aft-sticky-sidebar.widget-area', '.primary-footer'];
+  
+    hotgarbage.forEach(e => {
+      checkElement(e).then((selector) => {
+          console.log('Removing hot garbage -- ' + e);
+          selector.remove()
+      });
+    })
+    
+    var styleHockeyweb = `
+    div#primary {
+      width: 100%;
+    }
+    `
+    pasteStyle(styleHockeyweb)
+  }
+  
+  
   /* ------------------------------ */
   /* blacktiesports . net  */
   /* ------------------------------ */
@@ -537,7 +564,7 @@
   /* http://givemenbastreams.com */
   /* --------------------------- */
   if (match(current, "*://givemenbastreams.com*"))  {
-    var hotgarbage = [ '#secondary'];
+    var hotgarbage = [ '#secondary', 'nav.flex' ];
     hotgarbage.forEach(e => {
       checkElement(e).then((selector) => {
           console.log('Removing hot garbage -- ' + e);
@@ -553,6 +580,15 @@
         newBtn.addEventListener('click', function(){ document.location.reload(); });
         injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
     })
+    
+    var styleGivemenbastreams = `
+    nav.flex {
+        display: none;
+    }
+    `
+    
+    pasteStyle(styleGivemenbastreams);
+
   }
   
   /* ----------------------- */
@@ -620,6 +656,15 @@
       });
     })
     
+    var styleMyoplay = `
+    .eae-particle-wrapper {
+      display: none;
+    }
+    .has_eae_slider.elementor-column.elementor-col-66.elementor-top-column.elementor-element.elementor-element-1bbce7a6 {
+      width: 100%;
+    }
+    `
+    pasteStyle(styleMyoplay);
     
   /* ----------------------- */
   /* Myoplay anti-anti-rightclick */
@@ -750,12 +795,6 @@
     /* END Myoplay anti-anti-rightclick */
     /* -------------------------------- */
     
-    var myoplayStyle = `
-    .eae-particle-wrapper {
-      display: none;
-    }
-    `
-    pasteStyle(myoplayStyle);
     
   } // End Myoplay
   
