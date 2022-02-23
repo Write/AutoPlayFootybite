@@ -44,7 +44,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     8.0
+// @version     8.1
 // @author      -
 // ==/UserScript==
 
@@ -793,37 +793,63 @@
     /* Autoplay     */
     /* ------------ */
 
+    /* Removing other iframe on bestnhl to allow autoplay to work correctly */
+    if (match(current, "*://bestnhl.com/soccer/stream/*")) {  
+      setTimeout(function(){
+          console.dir("=== Removing other iframes ===" + current);
+                      // Select correct player, because all players seems to be loaded at the same time but with display: none;
+                      // This check the if #ipopp's parent div contains display: none. If not, it's the correct div.
+                      var playersFrame = null;
+                      document.querySelectorAll('iframe#ipopp').forEach(el => { 
+                        var displayState = el.parentNode.style.display;
+                        console.log(displayState); 
+                        if (displayState == "") {
+                          console.dir("==== Visible player found ====")
+                          playersFrame = el;
+                        }
+                        else {
+                          el.parentNode.remove()
+                          console.dir("==== Removing other iframe... ===")
+                        }
+                      })
+      }, 2000);
+    }
+    /* end bestnhl exception */
+
       /* Autoplay feature */
       /* Bitmovin autoplay*/
       setTimeout(function(){
             var bitmovinType = typeof bitmovin
             console.log = console.dir
+        
+              // BITMOVIN START
               if (bitmovinType === 'object') {
               console.dir("=== Bitmovin Autoplay on " + current)
               
                 /* Special case for best NHL */
                 if (match(current, "*://bestnhl.com*")) {
-                  console.dir("=== BESTNHL Handle AutoPlay with Bitmovin ===") 
+                  console.dir("=== BESTNHL Handle AutoPlay with Bitmovin ===")
                   /* Delaying bitmovin player detection to 2s */
                   setTimeout(function(){
-                  console.dir("=== BESTNHL / Bitmovin: Delayed autoplay for BestNHL to ensure it's loaded ===") 
-                  if (bitmovin.player('my-player') !== "undefined") {
-                   /* On essaie d'unmute le player et de jouer */
-                    bitmovin.player('my-player').unmute()
-                    bitmovin.player('my-player').play()
-                    setTimeout(function(){
-                      /* Le player est en pause, on mute et lecture */
-                      console.dir("=== BESTNHL / Bitmovin : setTimeout")
-                      if (!bitmovin.player('my-player').isPlaying()) {
-                        console.dir("=== BESTNHL / Bitmovin : Player is paused. Trying to mute & play ===")
-                        bitmovin.player('my-player').mute()
-                        bitmovin.player('my-player').play()
-                      }
-                    }, 50);
-                  }
+                    if (bitmovin.player('my-player') !== "null") {
+                      /* Trying to unmute player and play it */
+                      bitmovin.player('my-player').unmute()
+                      bitmovin.player('my-player').play()
+                      setTimeout(function(){
+                        /* Player is in pause, mute and play. */
+                        console.dir("=== BESTNHL / Bitmovin : setTimeout")
+                        if (!bitmovin.player('my-player').isPlaying()) {
+                          console.dir("=== BESTNHL / Bitmovin : Player is paused. Trying to mute & play ===")
+                          bitmovin.player('my-player').mute()
+                          bitmovin.player('my-player').play()
+                        }
+                      }, 50);
+                    }
                   }, 2000);
-                } // end BestNHL special case
-                // Bitmovin
+                } 
+                // End Bitmovin BestNHL Special Case
+
+                // Bitmovin (real) START
                 else if (typeof player == 'object') { 
                   /* Trying to unmute player and play it */
                   player.unmute()
@@ -850,7 +876,7 @@
 
                   }, 100);
                 }
-            } // end Bitmovin
+            } // BITMOVIN END
             else if (typeof Clappr === 'object') {
             console.dir('Clappr Autoplay on ' + current)
                     document.querySelector('video').muted = false
