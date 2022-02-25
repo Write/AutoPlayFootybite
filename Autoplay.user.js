@@ -46,7 +46,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     8.5
+// @version     8.6
 // @author      -
 // ==/UserScript==
 
