@@ -38,6 +38,7 @@
 // @match       *://poscitech.com/*
 // @match       *://bestnhl.com/*
 // @match       *://jmutech.xyz/*
+// @match       *://theanh.tech/*
 // @match       *://sportsonline.to/*
 // @match       *://wigistream.to/embed/*
 // @match       *://ragnaru.net/*
@@ -46,7 +47,7 @@
 // @match       *://*.tutele.sx/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     8.7
+// @version     8.8
 // @author      -
 // ==/UserScript==
 
@@ -263,7 +264,7 @@
   /* ---------------------------------- */
   /* *://jmutech.xyz/* (AZULITO)        */
   /* ---------------------------------- */
-  if ( match(current, "*://jmutech.xyz/*" ))  {
+  if ( match(current, "*://jmutech.xyz*" ) || match(current, '*://theanh.tech*') ) {
     console.dir("=== jmutech (Azulito) page ===")
     var hotgarbage = [ '.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row', 
                       '.g1-column-1of3.g1-column.g1-sidebar-padded.g1-sidebar', '.g1-row-layout-page.g1-row.g1-footer > .g1-row-background', '.g1-footer', 'h1.g1-mega', 'div.g1-row:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)'];
