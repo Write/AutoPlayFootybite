@@ -48,7 +48,7 @@
 // @match       *://timesports.cc/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     8.9
+// @version     9.0
 // @author      -
 // ==/UserScript==
 
@@ -506,7 +506,7 @@ if (match(current, "*://weakstreams.com*"))  {
       var newBtn = document.createElement('a')
       newBtn.className = 'button'
       newBtn.style = 'cursor: pointer;display:block; float:left;margin-bottom: 5px;margin-left:30px'
-      newBtn.text = 'PLEIN ECRAN'
+      newBtn.text = 'FULLSCREEN'
       newBtn.addEventListener('click', function(){ player.core.mediaControl.toggleFullscreen(); player.unmute(); player.play(); });
       injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
     
@@ -514,7 +514,7 @@ if (match(current, "*://weakstreams.com*"))  {
       var newBtn = document.createElement('a')
       newBtn.className = 'button'
       newBtn.style = 'cursor: pointer; margin-left: 10px !important; display:block;float:right;margin-bottom: 5px;margin-right:30px'
-      newBtn.text = 'RECHARGER PAGE'
+      newBtn.text = 'RELOAD'
       newBtn.addEventListener('click', function(){ document.location.reload(); });
       injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
   })
@@ -549,7 +549,7 @@ if (match(current, "*://fabtech.work*"))  {
       var newBtn = document.createElement('a')
       newBtn.className = 'button'
       newBtn.style = 'cursor: pointer;display:block; float:left;z-index:9999;position:fixed; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;'
-      newBtn.text = 'PLEIN ECRAN'
+      newBtn.text = 'FULLSCREEN'
       newBtn.addEventListener('click', function(){ player.requestFullscreen(); player.muted(false); player.play(); });
       injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
     
@@ -557,7 +557,7 @@ if (match(current, "*://fabtech.work*"))  {
       var newBtn = document.createElement('a')
       newBtn.className = 'button'
       newBtn.style = 'cursor: pointer; display:block;float:right;z-index:9999;position:sticky; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;'
-      newBtn.text = 'RECHARGER PAGE'
+      newBtn.text = 'RELOAD'
       newBtn.addEventListener('click', function(){ document.location.reload(); });
       injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
   })
