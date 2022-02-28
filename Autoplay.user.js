@@ -48,7 +48,7 @@
 // @match       *://timesports.cc/*
 // @match       *://blacktiesports.net/*
 // @grant       none
-// @version     9.2
+// @version     9.
 // @author      -
 // ==/UserScript==
 
