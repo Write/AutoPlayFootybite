@@ -5,6 +5,7 @@
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @updateURL   https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
+// @icon         https://icons.duckduckgo.com/ip2/redi1.soccerstreams.net.ico
 // @match       *://tinyurl.is/*
 // @match       *://hockeyweb.site/*
 // @match       *://hockeyweb.live/*
@@ -59,7 +60,7 @@
 // @match       *://assia4.com/*
 // @match       *://foxgame.xyz/*
 // @match       *://sportslandnews.com/*
-// @version     9.4.3
+// @version     9.4.4
 // @author      Write
 // ==/UserScript==
 
