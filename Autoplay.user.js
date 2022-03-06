@@ -59,15 +59,14 @@
 // @match       *://assia4.com/*
 // @match       *://foxgame.xyz/*
 // @match       *://sportslandnews.com/*
-// @grant       none
-// @version     9.4.1
+// @version     9.4.2
 // @author      -
 // ==/UserScript==
 
 (function () {
     'use strict';
 
-    const current = window.location.href
+    const current = window.location.href;
 
     /* ----------------------- */
     /* Functions / Utils       */
@@ -94,31 +93,19 @@
             document.head.appendChild(node);
         }
         else {
+            /* No head yet, stick it whereever */
             document.documentElement.appendChild(node);
         }
     }
 
     const checkElement = async selector => {
         while (document.querySelector(selector) === null) {
-            await new Promise(resolve => requestAnimationFrame(resolve))
+            await new Promise(resolve => requestAnimationFrame(resolve));
         }
         return document.querySelector(selector);
     };
 
-    function pasteStyle(str) {
-        var node = document.createElement('style');
-        node.type = 'text/css';
-        node.appendChild(document.createTextNode(str.replace(/;/g, ' !important;')));
-        if (document.head !== null) {
-            document.head.appendChild(node);
-        }
-        else {
-            /* No head yet, stick it whereever */
-            document.documentElement.appendChild(node);
-        }
-    }
-
-    console.dir("= Autplay Script Loaded on : " + current + " =")
+    console.dir("= Autplay Script Loaded on : " + current + " =");
 
     /* ------------------------------ */
     /* TinyURL's Bypass               */
@@ -130,7 +117,7 @@
         function resetCountDown() {
             setTimeout(function () {
                 window.count = -1;
-                console.log(window.count)
+                console.log(window.count);
                 resetCountDown();
             }, 10);
         }
@@ -138,14 +125,14 @@
 
         const checkElement = async selector => {
             while (document.querySelector(selector) === null) {
-                await new Promise(resolve => requestAnimationFrame(resolve))
+                await new Promise(resolve => requestAnimationFrame(resolve));
             }
             return document.querySelector(selector);
         };
 
         checkElement('splash').then((selector) => {
             console.log("Removing all Splash");
-            document.querySelectorAll('splash').forEach(el => el.remove())
+            document.querySelectorAll('splash').forEach(el => el.remove());
         });
 
         checkElement('section').then((selector) => {
@@ -160,8 +147,8 @@
 
         checkElement('a[class*="btn"]').then((selector) => {
             console.log("Button detected");
-            console.log(selector.href)
-            document.querySelectorAll('a[class*="btn"]').forEach(el => console.log(el.href))
+            console.log(selector.href);
+            document.querySelectorAll('a[class*="btn"]').forEach(el => console.log(el.href));
             whileCheck();
         });
 
@@ -171,7 +158,7 @@
                     whileCheck();
                 }
                 else {
-                    var url = document.querySelector('a[class*="btn"]').href
+                    var url = document.querySelector('a[class*="btn"]').href;
                     console.log("LINK FOUND : " + url);
                     window.location = url;
                 }
@@ -185,125 +172,136 @@
     /* ----------------------- */
     checkElement('#\\30').then((selector) => {
         console.log("Removing hot garbage");
-        selector.remove()
+        selector.remove();
     });
     checkElement('#ni-overlay').then((selector) => {
         console.log("Removing hot garbage");
-        selector.remove()
+        selector.remove();
     });
+
+    /* ----------------------- */
+    /* soccerstreams.com/     */
+    /* ----------------------- */
+    if (match(current, "*://*rsoccerstreams.com*") || match(current, "*://*soccerstreams.net*") || match(current, "*://*footybite.cc*")) {
+
+        console.dir("=== Main soccerstreams page ===");
+        var hotgarbage = ['.mt-3.mb-3.text-center', '.alert-warning.alert', '.alert-dismissible', '#event-sticky-info', '.col-md-4'];
+        hotgarbage.forEach(e => {
+            checkElement(e).then((selector) => {
+                console.log('Removing hot garbage -- ' + e);
+                selector.remove();
+            });
+        });
+
+        document.querySelectorAll('.col-md-8').forEach(el => { el.classList.remove('col-md-8'); el.classList.add('col-md-12'); });
+    }
 
     /* ------------------------------- */
     /* hockeyweb.live, sportson.site   */
     /* website doesn't work on Firefox */
     /* ------------------------------- */
     if (match(current, "*://hockeyweb.live*") || match(current, "*://hockeyweb.site*") || match(current, "*://sportson.site*")) {
-        console.dir("=== hockeyweb / sportson ===")
 
+        console.dir("=== hockeyweb / sportson ===");
         var hotgarbage = ['#id-custom_banner', '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', '.header-after1.widget-title', '.site-info', '.trail-items', '.aft-sticky-sidebar.widget-area', '.primary-footer'];
-
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
         var styleHockeyweb = `
         div#primary {
             width: 100%;
         }
-        `
-        pasteStyle(styleHockeyweb)
+        `;
+        pasteStyle(styleHockeyweb);
     }
 
     /* ------------------------------ */
     /* nizarstream . com           */
     /* ------------------------------ */
     if (match(current, "*://nizarstream.com*")) {
-        console.dir("=== nizarstream.xcomyz ===")
 
+        console.dir("=== nizarstream.xcomyz ===");
         var hotgarbage = ['.navbar', 'p', 'center', 'center', '.alert', 'div[style^=position\\:\\ fixed]', 'div[style^=\\ background]', 'h6', 'a[href*=totalsportek]', 'a[href*=totalsportek]'];
-
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var styleNizarstream = ``
-        pasteStyle(styleNizarstream)
+        var styleNizarstream = ``;
+        pasteStyle(styleNizarstream);
     }
 
     /* ------------------------------ */
     /* elixx . xyz           */
     /* ------------------------------ */
     if (match(current, "*://elixx.xyz*")) {
-        console.dir("=== elixx.xyz ===")
 
+        console.dir("=== elixx.xyz ===");
         var hotgarbage = ['iframe[src^=\\/schedule\\.html', 'p', 'p', 'p'];
-
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var styleElixx = ``
-        pasteStyle(styleElixx)
+        var styleElixx = ``;
+        pasteStyle(styleElixx);
     }
-
 
     /* ------------------------------ */
     /* blacktiesports . net           */
     /* ------------------------------ */
     if (match(current, "*://blacktiesports.net*")) {
-        console.dir("=== Blacktiesports.net ===")
 
+        console.dir("=== Blacktiesports.net ===");
         var hotgarbage = ['#controls > div', '.navbar-transparent.navbar-expand-lg.navbar', 'h3', '.col-md', '.bookmark.card.p-4'];
-
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var styleBlacktiesports = ``
-        pasteStyle(styleBlacktiesports)
+        var styleBlacktiesports = ``;
+        pasteStyle(styleBlacktiesports);
     }
 
     /* ------------------------------ */
     /* techoreels . com               */
     /* ------------------------------ */
     if (match(current, "*://techoreels.com*")) {
-        console.dir("=== techoreels.com ===")
 
+        console.dir("=== techoreels.com ===");
         var hotgarbage = ['.shadow-lg.p-5.bg-primary.flex-wrap.justify-between.items-center.flex'];
-
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var styleTechoreels = ``
-        pasteStyle(styleTechoreels)
+        var styleTechoreels = ``;
+        pasteStyle(styleTechoreels);
     }
 
     /* ------------------------------------ */
     /* *://uhdstreams.club/hd*  (mntlive13) */
     /* ------------------------------------ */
     if (match(current, "*://uhdstreams.com/hd*") || match(current, '*://uhdstreams.club/hd/*')) {
-        console.dir("=== uhdstreams page (mntlive13) ===")
 
-        console.dir("Removing all links & target = blank attributes on : " + current)
-        document.querySelectorAll('a').forEach(el => { el.removeAttribute('target'); el.removeAttribute('href'); })
+        console.dir("=== uhdstreams page (mntlive13) ===");
+        console.dir("Removing all links & target = blank attributes on : " + current);
+        document.querySelectorAll('a').forEach(el => { el.removeAttribute('target'); el.removeAttribute('href'); });
 
-        var uhdstream = ``
-        pasteStyle(uhdstream)
+        var uhdstream = ``;
+        pasteStyle(uhdstream);
     }
 
 
@@ -311,25 +309,26 @@
     /* *://jmutech.xyz/* (AZULITO)        */
     /* ---------------------------------- */
     if (match(current, "*://jmutech.xyz*") || match(current, '*://theanh.tech*')) {
-        console.dir("=== jmutech (Azulito) page ===")
+
+        console.dir("=== jmutech (Azulito) page ===");
         var hotgarbage = ['.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row',
             '.g1-column-1of3.g1-column.g1-sidebar-padded.g1-sidebar', '.g1-row-layout-page.g1-row.g1-footer > .g1-row-background', '.g1-footer', 'h1.g1-mega', 'div.g1-row:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
         var jmutechstyle = `
         .g1-content-narrow > .twitter-tweet, .g1-content-narrow > aside, .g1-content-narrow > audio, .g1-content-narrow > blockquote, .g1-content-narrow > canvas, .g1-content-narrow > code, .g1-content-narrow > div, .g1-content-narrow > dl, .g1-content-narrow > figure, .g1-content-narrow > form, .g1-content-narrow > h1, .g1-content-narrow > h2, .g1-content-narrow > h3, .g1-content-narrow > h4, .g1-content-narrow > h5, .g1-content-narrow > h6, .g1-content-narrow > hr, .g1-content-narrow > iframe, .g1-content-narrow > ol, .g1-content-narrow > p, .g1-content-narrow > pre, .g1-content-narrow > section, .g1-content-narrow > table, .g1-content-narrow > ul, .g1-content-narrow > video 
         { max-width : 100% }
-  
+
         .g1-column-2of3 {
             width: 100%
         }
-        `
-        pasteStyle(jmutechstyle)
+        `;
+        pasteStyle(jmutechstyle);
     }
 
 
@@ -337,17 +336,18 @@
     /* http://sportinglive.co                      */
     /* ------------------------------------------- */
     if (match(current, "*://sportinglive.co*")) {
-        console.dir("=== sportinglive.co page ===")
+
+        console.dir("=== sportinglive.co page ===");
         var hotgarbage = ['.nv-header-menu-block-wrap > .cv-container', '.widget-area', '.site-footer', '#id-custom_banner', '.site-header', '.nv-top-header-wrap', '.adsbyvli', '.entry-title'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var sportingliveStyle = `#primary, .home.blog #primary { float: none; width: 100%; }`
-        pasteStyle(sportingliveStyle)
+        var sportingliveStyle = `#primary, .home.blog #primary { float: none; width: 100%; }`;
+        pasteStyle(sportingliveStyle);
     }
 
 
@@ -356,34 +356,36 @@
     /* This website seems to only work in Chrome         */
     /* ------------------------------------------------- */
     if (match(current, "*://thecyclingentertainment.com*")) {
-        console.dir("=== thecyclingentertainment page ===")
+
+        console.dir("=== thecyclingentertainment page ===");
         var hotgarbage = ['.aft-sticky-sidebar.widget-area', '.masthead-banner', '.font-family-1.em-breadcrumbs', '.entry-title', '.primary-footer', '.site-info'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var cyclingStyle = `#wrapper { margin : 0 }`
-        pasteStyle(cyclingStyle)
+        var cyclingStyle = `#wrapper { margin : 0 }`;
+        pasteStyle(cyclingStyle);
     }
 
     /* ----------------------- */
     /* *://bestnhl.com/*       */
     /* ----------------------- */
     if (match(current, "*://bestnhl.com*")) {
-        console.dir("=== BestNHL page ===")
+
+        console.dir("=== BestNHL page ===");
         var hotgarbage = ['.bbevent.container', '.site-nav-outer'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        document.querySelectorAll('.col-sm-8').forEach(el => { el.classList.remove('col-sm-8'); el.classList.add('col-8') })
-        document.querySelectorAll('.col-sm-4').forEach(el => { el.classList.remove('col-sm-4'); el.classList.add('col-4') })
+        document.querySelectorAll('.col-sm-8').forEach(el => { el.classList.remove('col-sm-8'); el.classList.add('col-8'); });
+        document.querySelectorAll('.col-sm-4').forEach(el => { el.classList.remove('col-sm-4'); el.classList.add('col-4'); });
 
         var bestnhlStyle = `
         html {
@@ -412,7 +414,7 @@
             margin-bottom: 1px;
             border-radius: 0px;
             transition: none;
-  
+
         }
         .bbevent .watch-li {
             margin: 25px 20px 0px 0px;
@@ -438,25 +440,26 @@
             width: 100%;
             float: none;
         }
-        `
-        pasteStyle(bestnhlStyle)
+        `;
+        pasteStyle(bestnhlStyle);
     }
 
     /* ----------------------- */
     /* *://poscitech.club/*       */
     /* ----------------------- */
-    if (match(current, "*://*poscitech.com*")) {
-        console.dir("=== poscitech page ===")
-        var hotgarbage = ['#secondary', '#colophon', 'nav', 'h1', '.site-info'];
+    if (match(current, "*://poscitech.com*")) {
+
+        console.dir("=== poscitech page ===");
+        var hotgarbage = ['#secondary', '#colophon', 'nav'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
         var poscitechstyle = `
-        body, html,article, .content-area {
+        body, html,article {
             background: #141414;
         }
         .post-inner-content {
@@ -464,8 +467,8 @@
         }
         body.archive .post-inner-content, body.blog .post-inner-content, .post-inner-content:first-child {
             border: none;
-        }`
-        pasteStyle(poscitechstyle)
+        }`;
+        pasteStyle(poscitechstyle);
     }
 
 
@@ -473,17 +476,17 @@
     /* *://papahd.club/*       */
     /* ----------------------- */
     if (match(current, "*://papahd.club*")) {
-        console.dir("=== Papahd page ===")
-        var hotgarbage = ['p', 'p', '#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]', 'h2'];
+        console.dir("=== papahd page ===");
+        var hotgarbage = ['#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var papastyle = `#wrapper { margin : 0 }`
-        pasteStyle(papastyle)
+        var papastyle = `#wrapper { margin : 0 }`;
+        pasteStyle(papastyle);
     }
 
     /* ----------------------- */
@@ -495,27 +498,12 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
-        var sportsonlinestyle = ``
-        pasteStyle(sportsonlinestyle)
-    }
-
-    /* ----------------------- */
-    /* rsoccerstreams.com/     */
-    /* ----------------------- */
-    if (match(current, "*://*rsoccerstreams.com*") || match(current, "*://*soccerstreams.net*") || match(current, "*://*footybite.cc*")) {
-        console.dir("=== Main soccerstreams page ===")
-        var hotgarbage = ['.mt-3.mb-3.text-center', '.alert-warning.alert', '.alert-dismissible', '#event-sticky-info', '.col-md-4'];
-        hotgarbage.forEach(e => {
-            checkElement(e).then((selector) => {
-                console.log('Removing hot garbage -- ' + e);
-                selector.remove()
-            });
-        })
-        document.querySelectorAll('.col-md-8').forEach(el => { el.classList.remove('col-md-8'); el.classList.add('col-md-12') })
+        var sportsonlinestyle = ``;
+        pasteStyle(sportsonlinestyle);
     }
 
     /* ----------------------- */
@@ -526,9 +514,9 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
     }
 
     /* ----------------------- */
@@ -542,27 +530,27 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
         window.addEventListener("load", function () {
-            var injectBeforeThis = document.querySelector('.entry-content')
-            var newBtn = document.createElement('a')
-            newBtn.className = 'button'
-            newBtn.style = 'cursor: pointer;display:block; float:left;margin-bottom: 5px;margin-left:30px'
-            newBtn.text = 'FULLSCREEN'
+            var injectBeforeThis = document.querySelector('.entry-content');
+            var newBtn = document.createElement('a');
+            newBtn.className = 'button';
+            newBtn.style = 'cursor: pointer;display:block; float:left;margin-bottom: 5px;margin-left:30px';
+            newBtn.text = 'FULLSCREEN';
             newBtn.addEventListener('click', function () { player.core.mediaControl.toggleFullscreen(); player.unmute(); player.play(); });
-            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
+            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis);
 
-            var injectBeforeThis = document.querySelector('.entry-content')
-            var newBtn = document.createElement('a')
-            newBtn.className = 'button'
-            newBtn.style = 'cursor: pointer; margin-left: 10px !important; display:block;float:right;margin-bottom: 5px;margin-right:30px'
-            newBtn.text = 'RELOAD'
+            var injectBeforeThis = document.querySelector('.entry-content');
+            var newBtn = document.createElement('a');
+            newBtn.className = 'button';
+            newBtn.style = 'cursor: pointer; margin-left: 10px !important; display:block;float:right;margin-bottom: 5px;margin-right:30px';
+            newBtn.text = 'RELOAD';
             newBtn.addEventListener('click', function () { document.location.reload(); });
-            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
-        })
+            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis);
+        });
 
         var stylingWeakstreams = `
         html, body, #page, #content, .entry-content, .entry-header {
@@ -572,7 +560,7 @@
             padding-top: 15px;
         }
         .entry-header, .entry-title, .content-area, span, .site-name, .smtitle { color: rgb(205, 200, 194); }
-        `
+        `;
 
         pasteStyle(stylingWeakstreams);
     }
@@ -586,26 +574,27 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
-        window.addEventListener("load", function () {
-            var injectBeforeThis = document.querySelector('.g1-content-narrow.g1-typography-xl.entry-content')
-            var newBtn = document.createElement('a')
-            newBtn.className = 'button'
-            newBtn.style = 'cursor: pointer;display:block; float:left;z-index:9999;position:fixed; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;'
-            newBtn.text = 'FULLSCREEN'
-            newBtn.addEventListener('click', function () { player.requestFullscreen(); player.muted(false); player.play(); });
-            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
+        });
 
-            var injectBeforeThis = document.querySelector('.entry-content')
-            var newBtn = document.createElement('a')
-            newBtn.className = 'button'
-            newBtn.style = 'cursor: pointer; display:block;float:right;z-index:9999;position:sticky; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;'
-            newBtn.text = 'RELOAD'
+        window.addEventListener("load", function () {
+            var injectBeforeThis = document.querySelector('.g1-content-narrow.g1-typography-xl.entry-content');
+            var newBtn = document.createElement('a');
+            newBtn.className = 'button';
+            newBtn.style = 'cursor: pointer;display:block; float:left;z-index:9999;position:fixed; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;';
+            newBtn.text = 'FULLSCREEN';
+            newBtn.addEventListener('click', function () { player.requestFullscreen(); player.muted(false); player.play(); });
+            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis);
+
+            var injectBeforeThis = document.querySelector('.entry-content');
+            var newBtn = document.createElement('a');
+            newBtn.className = 'button';
+            newBtn.style = 'cursor: pointer; display:block;float:right;z-index:9999;position:sticky; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;';
+            newBtn.text = 'RELOAD';
             newBtn.addEventListener('click', function () { document.location.reload(); });
-            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
-        })
+            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis);
+        });
     }
 
     /* --------------------------- */
@@ -616,24 +605,25 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
+
         window.addEventListener("load", function () {
-            var injectBeforeThis = document.querySelector('.w-full.rounded.overflow-hidden.shadow-md.bg-white')
-            var newBtn = document.createElement('a')
-            newBtn.className = 'button'
-            newBtn.style = 'cursor: pointer; display:block;float:right;z-index:9999;position:sticky; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;background: #ffffff26; margin-bottom: 5px;'
-            newBtn.text = 'RECHARGER PAGE'
+            var injectBeforeThis = document.querySelector('.w-full.rounded.overflow-hidden.shadow-md.bg-white');
+            var newBtn = document.createElement('a');
+            newBtn.className = 'button';
+            newBtn.style = 'cursor: pointer; display:block;float:right;z-index:9999;position:sticky; padding:3px; font-weight: bold;box-shadow: 0px 0px 4px #cccccc6e;border-radius: 4px;background: #ffffff26; margin-bottom: 5px;';
+            newBtn.text = 'RECHARGER PAGE';
             newBtn.addEventListener('click', function () { document.location.reload(); });
-            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis)
-        })
+            injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis);
+        });
 
         var styleGivemenbastreams = `
         nav.flex {
-            display: none;
+          display: none;
         }
-        `
+        `;
 
         pasteStyle(styleGivemenbastreams);
     }
@@ -646,9 +636,9 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
         checkElement('div[data-player]').then((selector) => {
             selector.style = "width: 100%";
@@ -663,9 +653,9 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
         checkElement('div[data-player]').then((selector) => {
             selector.style = "width: 100%";
@@ -673,9 +663,9 @@
 
         var styleTechstribes = `
         #primary, #main, .cv-container, .entry-content, article, #player, .container {
-            width: 100%;
+          width: 100%;
         }
-        `
+        `;
 
         pasteStyle(styleTechstribes);
     }
@@ -699,9 +689,9 @@
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
-                selector.remove()
+                selector.remove();
             });
-        })
+        });
 
         var styleMyoplay = `
         .eae-particle-wrapper {
@@ -710,7 +700,7 @@
         .has_eae_slider.elementor-column.elementor-col-66.elementor-top-column.elementor-element.elementor-element-1bbce7a6 {
             width: 100%;
         }
-        `
+        `;
         pasteStyle(styleMyoplay);
 
         /* ---------------------------- */
@@ -850,7 +840,7 @@
     if (match(current, "*://1stream.top*")) {
         checkElement('#main-header-right').then((selector) => {
             console.log("Removing garbage");
-            selector.remove()
+            selector.remove();
         });
     }
 
@@ -860,15 +850,15 @@
     if (match(current, "*://redditsport.live/*")) {
         checkElement('.col-sm-4').then((selector) => {
             console.log("Removing garbage");
-            selector.remove()
+            selector.remove();
         });
         checkElement('.col-sm-3').then((selector) => {
             console.log("Removing garbage");
-            selector.remove()
+            selector.remove();
         });
         checkElement('.col h2').then((selector) => {
             console.log("Removing garbage");
-            selector.remove()
+            selector.remove();
         });
     }
 
@@ -887,14 +877,14 @@
                 var displayState = el.parentNode.style.display;
                 console.log(displayState);
                 if (displayState == "") {
-                    console.dir("==== Visible player found ====")
+                    console.dir("==== Visible player found ====");
                     playersFrame = el;
                 }
                 else {
-                    el.parentNode.remove()
-                    console.dir("==== Removing other iframe... ===")
+                    el.parentNode.remove();
+                    console.dir("==== Removing other iframe... ===");
                 }
-            })
+            });
         }, 2000);
     }
     /* end bestnhl exception */
@@ -902,29 +892,29 @@
     /* Autoplay feature */
     /* Bitmovin autoplay*/
     setTimeout(function () {
-        var bitmovinType = typeof bitmovin
-        console.log = console.dir
+        var bitmovinType = typeof bitmovin;
+        console.log = console.dir;
 
         /* BITMOVIN START */
         if (bitmovinType === 'object') {
-            console.dir("=== Bitmovin Autoplay on " + current)
+            console.dir("=== Bitmovin Autoplay on " + current);
 
             /* Special case for best NHL */
             if (match(current, "*://bestnhl.com*")) {
-                console.dir("=== BESTNHL Handle AutoPlay with Bitmovin ===")
+                console.dir("=== BESTNHL Handle AutoPlay with Bitmovin ===");
                 /* Delaying bitmovin player detection to 2s */
                 setTimeout(function () {
                     if (bitmovin.player('my-player') !== "null") {
                         /* Trying to unmute player and play it */
-                        bitmovin.player('my-player').unmute()
-                        bitmovin.player('my-player').play()
+                        bitmovin.player('my-player').unmute();
+                        bitmovin.player('my-player').play();
                         setTimeout(function () {
                             /* Player is in pause, mute and play. */
-                            console.dir("=== BESTNHL / Bitmovin : setTimeout")
+                            console.dir("=== BESTNHL / Bitmovin : setTimeout");
                             if (!bitmovin.player('my-player').isPlaying()) {
-                                console.dir("=== BESTNHL / Bitmovin : Player is paused. Trying to mute & play ===")
-                                bitmovin.player('my-player').mute()
-                                bitmovin.player('my-player').play()
+                                console.dir("=== BESTNHL / Bitmovin : Player is paused. Trying to mute & play ===");
+                                bitmovin.player('my-player').mute();
+                                bitmovin.player('my-player').play();
                             }
                         }, 50);
                     }
@@ -935,173 +925,173 @@
             /* Bitmovin (real) START */
             else if (typeof player == 'object') {
                 /* Trying to unmute player and play it */
-                player.unmute()
-                player.play()
+                player.unmute();
+                player.play();
                 setTimeout(function () {
                     /* Player is in pause, mute and play. */
                     if (!player.isPlaying()) {
-                        player.mute()
-                        player.play()
+                        player.mute();
+                        player.play();
                     }
                 }, 100);
             }
             else {
                 /* Player undefined, fallback to querySelector */
-                document.querySelector('video').muted = false
-                document.querySelector('video').play()
+                document.querySelector('video').muted = false;
+                document.querySelector('video').play();
                 setTimeout(function () {
                     /* Player is in pause, mute and play. */
                     if (document.querySelector('video').paused) {
-                        console.log("=== Player is paused, mute and play. ===")
-                        document.querySelector('video').muted = true
-                        document.querySelector('video').play()
+                        console.log("=== Player is paused, mute and play. ===");
+                        document.querySelector('video').muted = true;
+                        document.querySelector('video').play();
                     }
 
                 }, 100);
             }
         } /* BITMOVIN END */
         else if (typeof Clappr === 'object') {
-            console.dir('Clappr Autoplay on ' + current)
-            document.querySelector('video').muted = false
+            console.dir('Clappr Autoplay on ' + current);
+            document.querySelector('video').muted = false;
             /* simulate a click on player-poster */
-            document.querySelector('.player-poster').click()
-            var promise = document.querySelector('video').play()
+            document.querySelector('.player-poster').click();
+            var promise = document.querySelector('video').play();
             if (promise !== undefined) {
                 promise.then(function () {
-                    console.log('Clappr Auto play allowed')
+                    console.log('Clappr Auto play allowed');
                     /* Autoplay started */
-                    document.querySelector('video').muted = false
+                    document.querySelector('video').muted = false;
 
                     player.unmute();
                 }).catch(error => {
-                    console.log('Clappr Autoplay with sound not allowed')
+                    console.log('Clappr Autoplay with sound not allowed');
                     /* Autoplay not allowed! */
-                    document.querySelector('video').muted = true
-                    document.querySelector('video').play()
-                    player.setVolume(0)
+                    document.querySelector('video').muted = true;
+                    document.querySelector('video').play();
+                    player.setVolume(0);
                     player.mute();
-                    document.querySelector('.player-poster').click()
+                    document.querySelector('.player-poster').click();
                 });
             }
             else {
-                console.log('Clappr Autoplay not set')
+                console.log('Clappr Autoplay not set');
                 player.mute();
-                document.querySelector('video').play()
+                document.querySelector('video').play();
             }
         } /* end Clappr */
         else if (typeof videojs === 'function') {
-            console.dir('Videojs Autoplay on ' + current)
-            document.querySelector('video').muted = false
-            var promise = document.querySelector('video').play()
+            console.dir('Videojs Autoplay on ' + current);
+            document.querySelector('video').muted = false;
+            var promise = document.querySelector('video').play();
             if (promise !== undefined) {
                 promise.then(function () {
-                    console.log('Videojs Auto play allowed')
+                    console.log('Videojs Auto play allowed');
                     /* Autoplay started */
-                    document.querySelector('video').muted = false
+                    document.querySelector('video').muted = false;
                 }).catch(error => {
-                    console.log('Videojs Autoplay with sound not allowed')
+                    console.log('Videojs Autoplay with sound not allowed');
                     /* Autoplay not allowed! */
-                    document.querySelector('video').muted = true
-                    document.querySelector('video').play()
+                    document.querySelector('video').muted = true;
+                    document.querySelector('video').play();
                 });
             }
             else {
-                console.log('Videojs Autoplay not set')
-                document.querySelector('video').play()
+                console.log('Videojs Autoplay not set');
+                document.querySelector('video').play();
             }
         } // end videojs */
         else if (Hls.isSupported()) {
-            console.dir('HLS.js Autoplay on ' + current)
-            document.querySelector('video').muted = false
-            var promise = document.querySelector('video').play()
+            console.dir('HLS.js Autoplay on ' + current);
+            document.querySelector('video').muted = false;
+            var promise = document.querySelector('video').play();
             if (promise !== undefined) {
                 promise.then(function () {
-                    console.log('HLS.js Auto play allowed')
+                    console.log('HLS.js Auto play allowed');
                     /* Autoplay started */
-                    document.querySelector('video').muted = false
+                    document.querySelector('video').muted = false;
                 }).catch(error => {
-                    console.log('HLS.js Autoplay with sound not allowed')
+                    console.log('HLS.js Autoplay with sound not allowed');
                     /* Autoplay not allowed! */
-                    document.querySelector('video').muted = true
-                    document.querySelector('video').play()
+                    document.querySelector('video').muted = true;
+                    document.querySelector('video').play();
                 });
             }
             else {
-                console.log('HLS.js Autoplay not set')
-                document.querySelector('video').play()
+                console.log('HLS.js Autoplay not set');
+                document.querySelector('video').play();
             }
         } // end HLS.js
-        else { console.dir("No player found to autoplay") }
+        else { console.dir("No player found to autoplay"); }
     }, 500);
 
     /* Destroy js scripts */
     /* Also destroy js redirect */
     new MutationObserver((_, observer) => {
         var scripts = document.querySelectorAll('script');
-        var currentScript
+        var currentScript;
         scripts.forEach(function (e) {
-            var ua = navigator.userAgent
+            var ua = navigator.userAgent;
             if (e.src.search('cdn4ads') >= 0) {
-                e.innerHTML = ''
-                e.remove()
+                e.innerHTML = '';
+                e.remove();
             }
             if (e.src.search('suv4') >= 0) {
-                e.innerHTML = ''
-                e.remove()
+                e.innerHTML = '';
+                e.remove();
             }
             if (e.src.search('v1.0.js') >= 0) {
-                e.innerHTML = ''
-                e.remove()
+                e.innerHTML = '';
+                e.remove();
             }
             if (e.src.search('mahimeta') >= 0) {
-                e.innerHTML = ''
-                e.remove()
+                e.innerHTML = '';
+                e.remove();
             }
             if (e.src.search('quant') >= 0) {
-                e.innerHTML = ''
-                e.remove()
+                e.innerHTML = '';
+                e.remove();
             }
             if (e.src.search('ads') >= 0) {
-                e.innerHTML = ""
-                e.remove()
+                e.innerHTML = "";
+                e.remove();
             }
             if (e.src.search('tag.js') >= 0) {
-                e.innerHTML = ''
-                e.remove()
+                e.innerHTML = '';
+                e.remove();
             }
             if (e.src.search('tag.min.js') >= 0) {
-                e.innerHTML = ""
-                e.remove()
+                e.innerHTML = "";
+                e.remove();
             }
             /* Whitelisting */
             if (match(current, '*techoreels.com*') || (match(current, '*https://bestnhl.com/*'))) {
-                return
+                return;
             }
             if (e.textContent.search('window.location') >= 0 && e.textContent.search('darkreader') == -1 && e.textContent.search('universal-bypass') == -1) {
-                console.log("Mutation observer: window.location detected")
-                observer.disconnect()
+                console.log("Mutation observer: window.location detected");
+                observer.disconnect();
                 currentScript = e.innerHTML;
-                currentScript = currentScript.replace(/eval\(function \(p, a, c, k, e, d\) {.*}/gm, '')
+                currentScript = currentScript.replace(/eval\(function \(p, a, c, k, e, d\) {.*}/gm, '');
 
-                currentScript = currentScript.replace(/window.location.replace\(".*?"\)/g, 'console.log("snif snif")')
-                currentScript = currentScript.replace(/if\(window==window.top\) {window.location.replace\(".*"\);}/g, "")
-                currentScript = currentScript.replace(/if\ \(document\.referrer\.indexOf\(b\)\!=-1\){\n.*\n}/g, "")
-                currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, "")
-                currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, "")
+                currentScript = currentScript.replace(/window.location.replace\(".*?"\)/g, 'console.log("snif snif")');
+                currentScript = currentScript.replace(/if\(window==window.top\) {window.location.replace\(".*"\);}/g, "");
+                currentScript = currentScript.replace(/if\ \(document\.referrer\.indexOf\(b\)\!=-1\){\n.*\n}/g, "");
+                currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, "");
+                currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, "");
 
                 /* for tutele.sex (myoplay's subframe) */
-                currentScript = currentScript.replace(/function RedirectTo\(\){\n.*}/m, "")
-                currentScript = currentScript.replace(/if\(!isDomain\){\n.*}/gm, "")
-                currentScript = currentScript.replace(/if \(window == window.top\) document.location = "\/"/gm, "")
-                currentScript = currentScript.replace(/if\(self==top\) { .* }/g, "")
-                currentScript = currentScript.replace(/location.href = ".*"+.*;/g, "")
+                currentScript = currentScript.replace(/function RedirectTo\(\){\n.*}/m, "");
+                currentScript = currentScript.replace(/if\(!isDomain\){\n.*}/gm, "");
+                currentScript = currentScript.replace(/if \(window == window.top\) document.location = "\/"/gm, "");
+                currentScript = currentScript.replace(/if\(self==top\) { .* }/g, "");
+                currentScript = currentScript.replace(/location.href = ".*"+.*;/g, "");
 
 
-                e.innerHTML = ""
-                e.remove()
+                e.innerHTML = "";
+                e.remove();
                 /* console.log(currentScript) */
-                addScript(currentScript)
+                addScript(currentScript);
             }
-        })
+        });
     }).observe(document.documentElement, { childList: true, subtree: true });
 })();
