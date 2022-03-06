@@ -59,8 +59,8 @@
 // @match       *://assia4.com/*
 // @match       *://foxgame.xyz/*
 // @match       *://sportslandnews.com/*
-// @version     9.4.2
-// @author      -
+// @version     9.4.3
+// @author      Write
 // ==/UserScript==
 
 (function () {
