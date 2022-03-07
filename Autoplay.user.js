@@ -1,11 +1,14 @@
 // ==UserScript==
+// @version     9.4.5
+// @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @updateURL   https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
-// @icon         https://icons.duckduckgo.com/ip2/redi1.soccerstreams.net.ico
+// @icon        https://icons.duckduckgo.com/ip2/redi1.soccerstreams.net.ico
+// @run-at      document-start
 // @match       *://tinyurl.is/*
 // @match       *://hockeyweb.site/*
 // @match       *://hockeyweb.live/*
@@ -60,8 +63,6 @@
 // @match       *://assia4.com/*
 // @match       *://foxgame.xyz/*
 // @match       *://sportslandnews.com/*
-// @version     9.4.4
-// @author      Write
 // ==/UserScript==
 
 (function () {
