@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.4.7
+// @version     9.4.8
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
