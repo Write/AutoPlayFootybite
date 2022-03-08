@@ -204,13 +204,12 @@
     }
 
     /* ------------------------------ */
-    /* nizarstream . com           */
+    /* nflscoop . com           */
     /* ------------------------------ */
     if (match(current, "*://nflscoop.net*")) {
 
         console.dir("=== nflscoop.net ===");
         var hotgarbage = ['#content-pages', 'yt-live-chat-app', '#exp_182eb771-00c1-4401-84ed-a5859b5e4704', '#chat-messages',
-                         
                          'section.elementor-section:nth-child(2)' ];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -219,8 +218,8 @@
             });
         });
 
-        var styleNizarstream = ``;
-        pasteStyle(styleNizarstream);
+        var styleNflscoop = ``;
+        pasteStyle(styleNflscoop);
     }
 
     /* ------------------------------- */
