@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.4.5
+// @version     9.4.7
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -63,6 +63,8 @@
 // @match       *://assia4.com/*
 // @match       *://foxgame.xyz/*
 // @match       *://sportslandnews.com/*
+// @match       *://nflscoop.net/*
+// @match       *://aas.works/*
 // ==/UserScript==
 
 (function () {
@@ -195,7 +197,30 @@
             });
         });
 
-        document.querySelectorAll('.col-md-8').forEach(el => { el.classList.remove('col-md-8'); el.classList.add('col-md-12'); });
+        checkElement('.col-md-8').then((selector) => {
+            document.querySelectorAll('.col-md-8').forEach(el => { el.classList.remove('col-md-8'); el.classList.add('col-md-12'); });
+        });
+
+    }
+
+    /* ------------------------------ */
+    /* nizarstream . com           */
+    /* ------------------------------ */
+    if (match(current, "*://nflscoop.net*")) {
+
+        console.dir("=== nflscoop.net ===");
+        var hotgarbage = ['#content-pages', 'yt-live-chat-app', '#exp_182eb771-00c1-4401-84ed-a5859b5e4704', '#chat-messages',
+                         
+                         'section.elementor-section:nth-child(2)' ];
+        hotgarbage.forEach(e => {
+            checkElement(e).then((selector) => {
+                console.log('Removing hot garbage -- ' + e);
+                selector.remove();
+            });
+        });
+
+        var styleNizarstream = ``;
+        pasteStyle(styleNizarstream);
     }
 
     /* ------------------------------- */
@@ -259,11 +284,12 @@
 
     /* ------------------------------ */
     /* blacktiesports . net           */
+    /* Doesn't seems to work for now  */
     /* ------------------------------ */
     if (match(current, "*://blacktiesports.net*")) {
 
         console.dir("=== Blacktiesports.net ===");
-        var hotgarbage = ['#controls > div', '.navbar-transparent.navbar-expand-lg.navbar', 'h3', '.col-md', '.bookmark.card.p-4'];
+        var hotgarbage = [ 'footer.container', '.bookmark.card.p-4'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -310,10 +336,10 @@
     /* ---------------------------------- */
     /* *://jmutech.xyz/* (AZULITO)        */
     /* ---------------------------------- */
-    if (match(current, "*://jmutech.xyz*") || match(current, '*://theanh.tech*')) {
+    if (match(current, "*://jmutech.xyz*") || match(current, '*://theanh.tech*') || match(current, '*://aas.works/*')) {
 
         console.dir("=== jmutech (Azulito) page ===");
-        var hotgarbage = ['.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row',
+        var hotgarbage = ['.g1-row.g1-row-layout-page.g1-socials-section.g1-dark', '.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row',
             '.g1-column-1of3.g1-column.g1-sidebar-padded.g1-sidebar', '.g1-row-layout-page.g1-row.g1-footer > .g1-row-background', '.g1-footer', 'h1.g1-mega', 'div.g1-row:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -527,7 +553,7 @@
     /* ----------------------- */
     if (match(current, "*://weakstreams.com*")) {
 
-        var hotgarbage = ['div [class*=styles__MatchInfo]', '.content-sidebar', 'div.discord', '#gamecard', '#footer-sidebar', 'h3', '#colophon', '.ads-placment', '.ads-placment', '.ads-placment', '.site-info', 'div.adsbyvli', '.adsbyvli', 'a[style*=z-index\\:\\ 2147483647]',
+        var hotgarbage = [ '.entry-header', '#masthead', '.header-main', 'div [class*=styles__MatchInfo]', '.content-sidebar', 'div.discord', '#gamecard', '#footer-sidebar', 'h3', '#colophon', '.ads-placment', '.ads-placment', '.ads-placment', '.site-info', 'div.adsbyvli', '.adsbyvli', 'a[style*=z-index\\:\\ 2147483647]',
             'a[style*=width\\:\\ 2287]', 'a[style*=width\\:\\ 2287]', 'div[class*=row\\ ml-1\\ mr-1\\ pt-2\\ mt-4]'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -555,6 +581,8 @@
         });
 
         var stylingWeakstreams = `
+        #main { margin: 0; }
+        #content { width: 100%; }
         html, body, #page, #content, .entry-content, .entry-header {
             background: #18191c;
         }
@@ -676,7 +704,9 @@
     /* myoplay.club (Dvaix)    */
     /* ----------------------- */
     if (match(current, "*://myoplay.club*")) {
-        var hotgarbage = ['.elementor-element-5eec605e.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider',
+        var hotgarbage = [
+            '.elementor-col-33',
+            '.elementor-element-5eec605e.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider',
             '.elementor-element-5cc92362.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider',
             '.fadeIn.animated.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.animated-slow.elementor-element-4e9f2566.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
             '.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.elementor-element-3d57dc49.elementor-element.elementor-top-section.elementor-section.has_eae_slider > .elementor-column-gap-default.elementor-container',
@@ -840,9 +870,12 @@
     /* 1stream.top             */
     /* ----------------------- */
     if (match(current, "*://1stream.top*")) {
-        checkElement('#main-header-right').then((selector) => {
-            console.log("Removing garbage");
-            selector.remove();
+        var hotgarbage = ['#main-header-right', '.top-head-player', '#hide-chat-btn', '.col-md-3', '.col-md-12' ];
+        hotgarbage.forEach(e => {
+            checkElement(e).then((selector) => {
+                console.log('Removing hot garbage -- ' + e);
+                selector.remove();
+            });
         });
     }
 
