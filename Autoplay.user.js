@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.4.8
+// @version     9.4.9
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -210,7 +210,7 @@
 
         console.dir("=== nflscoop.net ===");
         var hotgarbage = ['#content-pages', 'yt-live-chat-app', '#exp_182eb771-00c1-4401-84ed-a5859b5e4704', '#chat-messages',
-                         'section.elementor-section:nth-child(2)' ];
+            'section.elementor-section:nth-child(2)'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -288,7 +288,7 @@
     if (match(current, "*://blacktiesports.net*")) {
 
         console.dir("=== Blacktiesports.net ===");
-        var hotgarbage = [ 'footer.container', '.bookmark.card.p-4'];
+        var hotgarbage = ['footer.container', '.bookmark.card.p-4'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -498,7 +498,6 @@
         pasteStyle(poscitechstyle);
     }
 
-
     /* ----------------------- */
     /* *://papahd.club/*       */
     /* ----------------------- */
@@ -520,6 +519,7 @@
     /* papahd's sub-iframe site    */
     /* ----------------------- */
     if (match(current, "*://sportsonline.to/*")) {
+
         console.dir("=== papahd's iframe > sportsonline page ===")
         var hotgarbage = [];
         hotgarbage.forEach(e => {
@@ -552,7 +552,7 @@
     /* ----------------------- */
     if (match(current, "*://weakstreams.com*")) {
 
-        var hotgarbage = [ '.entry-header', '#masthead', '.header-main', 'div [class*=styles__MatchInfo]', '.content-sidebar', 'div.discord', '#gamecard', '#footer-sidebar', 'h3', '#colophon', '.ads-placment', '.ads-placment', '.ads-placment', '.site-info', 'div.adsbyvli', '.adsbyvli', 'a[style*=z-index\\:\\ 2147483647]',
+        var hotgarbage = ['.entry-header', '#masthead', '.header-main', 'div [class*=styles__MatchInfo]', '.content-sidebar', 'div.discord', '#gamecard', '#footer-sidebar', 'h3', '#colophon', '.ads-placment', '.ads-placment', '.ads-placment', '.site-info', 'div.adsbyvli', '.adsbyvli', 'a[style*=z-index\\:\\ 2147483647]',
             'a[style*=width\\:\\ 2287]', 'a[style*=width\\:\\ 2287]', 'div[class*=row\\ ml-1\\ mr-1\\ pt-2\\ mt-4]'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -598,6 +598,7 @@
     /* fabtech.work            */
     /* ----------------------- */
     if (match(current, "*://fabtech.work*")) {
+
         var hotgarbage = ['#secondary', '.g1-row-layout-page.g1-row.g1-footer > .g1-row-background', '.g1-column', '.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row > .g1-row-background',
             '.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row > .g1-row-inner > .g1-dropable.g1-column'];
         hotgarbage.forEach(e => {
@@ -630,6 +631,7 @@
     /* http://givemenbastreams.com */
     /* --------------------------- */
     if (match(current, "*://givemenbastreams.com*")) {
+
         var hotgarbage = ['#secondary', 'nav.flex'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -650,7 +652,7 @@
 
         var styleGivemenbastreams = `
         nav.flex {
-          display: none;
+            display: none;
         }
         `;
 
@@ -661,6 +663,7 @@
     /* techstribes.com         */
     /* ----------------------- */
     if (match(current, "*://techstribes.com*")) {
+
         var hotgarbage = ['#live-chat-iframe', '#dismiss-btn'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -678,6 +681,7 @@
     /* sportsnest.co           */
     /* ----------------------- */
     if (match(current, "*://sportsnest.co*")) {
+
         var hotgarbage = ['#close', 'tr', 'td', 'td', 'h4', '#ad', '.nv-top-header-wrap', '.nv-header-menu-block-wrap', '.nv-logo-section-wrapper', '.site-footer'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -692,7 +696,7 @@
 
         var styleTechstribes = `
         #primary, #main, .cv-container, .entry-content, article, #player, .container {
-          width: 100%;
+            width: 100%;
         }
         `;
 
@@ -703,6 +707,7 @@
     /* myoplay.club (Dvaix)    */
     /* ----------------------- */
     if (match(current, "*://myoplay.club*")) {
+
         var hotgarbage = [
             '.elementor-col-33',
             '.elementor-element-5eec605e.elementor-element.elementor-top-column.elementor-col-33.elementor-column.has_eae_slider',
@@ -716,7 +721,9 @@
             '.elementor-element-55a2a14.elementor-element.elementor-top-column.elementor-col-100.elementor-column.has_eae_slider > .elementor-element-populated.elementor-column-wrap > .elementor-widget-wrap',
             '.elementor-shape-top.elementor-shape > svg',
             '.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.elementor-element-3d57dc49.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
-            '.main-header.normal-header', '.footer-widget-area', '.sub-footer', 'iframe[src^="https://video.ibm.com"]', '.letters.type.eae-at-animation', '.elementor-button-wrapper', '.eae-particle-21d35dd', '.elementor-shape-top', '.elementor-widget', '.elementor-top-section', '.elementor-widget-container', 'div[style^="position: fixed; display: block"]'];
+            '.main-header.normal-header', '.footer-widget-area', '.sub-footer', 'iframe[src^="https://video.ibm.com"]', '.letters.type.eae-at-animation', '.elementor-button-wrapper', '.eae-particle-21d35dd', '.elementor-shape-top', '.elementor-widget', '.elementor-top-section', '.elementor-widget-container', 'div[style^="position: fixed; display: block"]'
+        ];
+
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -869,7 +876,8 @@
     /* 1stream.top             */
     /* ----------------------- */
     if (match(current, "*://1stream.top*")) {
-        var hotgarbage = ['#main-header-right', '.top-head-player', '#hide-chat-btn', '.col-md-3', '.col-md-12' ];
+
+        var hotgarbage = ['#main-header-right', '.top-head-player', '#hide-chat-btn', '.col-md-3', '.col-md-12'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
