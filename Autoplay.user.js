@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.4.9
+// @version     9.5.0
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -327,8 +327,8 @@
         console.dir("Removing all links & target = blank attributes on : " + current);
         document.querySelectorAll('a').forEach(el => { el.removeAttribute('target'); el.removeAttribute('href'); });
 
-        var uhdstream = ``;
-        pasteStyle(uhdstream);
+        var uhdstreamsStyle = ``;
+        pasteStyle(uhdstreamsStyle);
     }
 
 
@@ -474,10 +474,10 @@
     /* ----------------------- */
     /* *://poscitech.club/*       */
     /* ----------------------- */
-    if (match(current, "*://poscitech.com*")) {
+    if (match(current, "*://*poscitech.com*")) {
 
         console.dir("=== poscitech page ===");
-        var hotgarbage = ['#secondary', '#colophon', 'nav'];
+        var hotgarbage = [ '.brand', '.entry-header', '.site-info', '#secondary', '#colophon', 'nav'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -494,7 +494,14 @@
         }
         body.archive .post-inner-content, body.blog .post-inner-content, .post-inner-content:first-child {
             border: none;
-        }`;
+        }
+        #primary {
+            width: 100%;
+        }
+        #main {
+            height: 90vh;
+        }
+        `;
         pasteStyle(poscitechstyle);
     }
 
