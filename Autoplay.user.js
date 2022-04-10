@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.5.0
+// @version     9.6.1
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -22,6 +22,7 @@
 // @match       *://uhdstreams.club/*
 // @match       *://bdnewszh.com/*
 // @match       *://thecyclingentertainment.com/*
+// @match       *://motornews.live/*
 // @match       *://scoresunday.com/*
 // @match       *://sportinglive.co/*
 // @match       *://cr7soccer.club/*
@@ -31,8 +32,10 @@
 // @match       *://*.footybite.cc/*
 // @match       *://soccerstreams.net/*
 // @match       *://*.soccerstreams.net/*
-// @match       *://*techoreels.com/*
+// @match       *://techoreels.com/*
 // @match       *://myoplay.club/*
+// @match       *://www.tutele.sx/*
+// @match       *://*.tutele.sx/*
 // @match       *://fabtech.work/*
 // @match       *://techstribes.com/*
 // @match       *://elixx.xyz/*
@@ -44,6 +47,8 @@
 // @match       *://*.poscitech.com/*
 // @match       *://nizarstream.com/*
 // @match       *://*.nizarstream.com/*
+// @match       *://www.techstips.live/*
+// @match       *://techstips.live/*
 // @match       *://player.licenses4.me/*
 // @match       *://bestnhl.com/*
 // @match       *://jmutech.xyz/*
@@ -53,18 +58,26 @@
 // @match       *://npstream.net/*
 // @match       *://*.npstream.net/*
 // @match       *://wigistream.to/embed/*
+// @match       *://*.streamservice443.net/*
+// @match       *://streamservice443.net/*
 // @match       *://ragnaru.net/*
 // @match       *://nowlive.pro/*
-// @match       *://www.tutele.sx/*
-// @match       *://*.tutele.sx/*
 // @match       *://timesports.cc/*
 // @match       *://blacktiesports.net/*
+// @match       *://blacktiesports.to/*
 // @match       *://torridplay.com/*
 // @match       *://assia4.com/*
 // @match       *://foxgame.xyz/*
 // @match       *://sportslandnews.com/*
 // @match       *://nflscoop.net/*
 // @match       *://aas.works/*
+// @match       *://matchtime.co/*
+// @match       *://www.pawastreams.live/*
+// @match       *://tezgoal.com/*
+// @match       *://dzeko11.net/*
+// @match       *://streamsoccers.com/*
+// @match       *://streamhd247.online/*
+// @match       *://streamhd247.online/*
 // ==/UserScript==
 
 (function () {
@@ -116,64 +129,44 @@
     /* ------------------------------ */
     if (match(current, "*://tinyurl.is/*")) {
 
-        /* set countdown variable */
-        window.count = -1;
-        function resetCountDown() {
-            setTimeout(function () {
-                window.count = -1;
-                console.log(window.count);
-                resetCountDown();
-            }, 10);
-        }
-        resetCountDown();
+      /*
+      * Tinyurl.is use 'count' var for countdown
+      * Instead of reverse engineer everything,
+      * just set the counter to -1 every 10ms
+      * ---
+      * Was useful back then the link was populated
+      * only once the countdown were 0
+      * This doesn't seems to be the case anymore.
+      * ---
+      */
+      
+      /*
+      window.count = -1;
+      function resetCountDown() {
+          setTimeout(function () {
+              window.count = -1;
+              console.log(window.count);
+              resetCountDown();
+          }, 10);
+      }
+      resetCountDown();
+      */
 
-        const checkElement = async selector => {
-            while (document.querySelector(selector) === null) {
-                await new Promise(resolve => requestAnimationFrame(resolve));
-            }
-            return document.querySelector(selector);
-        };
-
-        checkElement('splash').then((selector) => {
-            console.log("Removing all Splash");
-            document.querySelectorAll('splash').forEach(el => el.remove());
-        });
-
-        checkElement('section').then((selector) => {
-            console.log("Removing all section");
-            selector.remove();
-        });
-
-        checkElement('a[dont=""]').then((selector) => {
-            console.log("Removing top Annoying weird HF with 'DON\'T'");
-            selector.remove();
-        });
-
-        checkElement('a[class*="btn"]').then((selector) => {
-            console.log("Button detected");
-            console.log(selector.href);
-            document.querySelectorAll('a[class*="btn"]').forEach(el => console.log(el.href));
-            whileCheck();
-        });
-
-        function whileCheck() {
-            setTimeout(function () {
-                if (document.querySelector('a[class*="btn"]').href.startsWith('https://tinyurl')) {
-                    whileCheck();
-                }
-                else {
-                    var url = document.querySelector('a[class*="btn"]').href;
-                    console.log("LINK FOUND : " + url);
-                    window.location = url;
-                }
-            }, 10);
-        }
+      /*
+      * As soon as there is an element that match `a[class*="btn"]` selector
+      * and doesn't contain a tinyurl value in hre, follow it's link.
+      */
+      checkElement('a[class*="btn"]:not([href^=http\\:\\/\\/tinyurl])').then((selector) => {
+          var url = selector.href;
+          console.log("LINK FOUND : " + url);
+          window.location = url;
+      });
 
     }
 
-    /* ----------------------- */
-    /* Every site              */
-    /* ----------------------- */
+    /* ----------------------- *
+     * Every site              *
+     * ----------------------- */
     checkElement('#\\30').then((selector) => {
         console.log("Removing hot garbage");
         selector.remove();
@@ -182,7 +175,21 @@
         console.log("Removing hot garbage");
         selector.remove();
     });
+    checkElement('polygon').then((selector) => {
+        console.log("Removing hot garbage");
+        selector.remove();
+    });
 
+    /* ----------------------- */
+    /* https://tezgoal.com     */
+    /* ----------------------- */
+    if (match(current, "*://tezgoal.com/*") || match(current, "*://dzeko11.net/*")) {
+      
+      loadAntiAntiRightClick();
+      checkElement('video').then((selector) => {
+          selector.click();
+      });
+    }
     /* ----------------------- */
     /* soccerstreams.com/     */
     /* ----------------------- */
@@ -285,7 +292,7 @@
     /* blacktiesports . net           */
     /* Doesn't seems to work for now  */
     /* ------------------------------ */
-    if (match(current, "*://blacktiesports.net*")) {
+    if (match(current, "*://blacktiesports.net*") || match(current, "*://blacktiesports.to*")) {
 
         console.dir("=== Blacktiesports.net ===");
         var hotgarbage = ['footer.container', '.bookmark.card.p-4'];
@@ -380,9 +387,10 @@
 
     /* ------------------------------------------------- */
     /* *://thecyclingentertainment.com (CyclingStreams)  */
+    /* motornews.live                                    */
     /* This website seems to only work in Chrome         */
     /* ------------------------------------------------- */
-    if (match(current, "*://thecyclingentertainment.com*")) {
+    if (match(current, "*://thecyclingentertainment.com*") || match(current, "*://motornews.live*")) {
 
         console.dir("=== thecyclingentertainment page ===");
         var hotgarbage = ['.aft-sticky-sidebar.widget-area', '.masthead-banner', '.font-family-1.em-breadcrumbs', '.entry-title', '.primary-footer', '.site-info'];
@@ -671,7 +679,7 @@
     /* ----------------------- */
     if (match(current, "*://techstribes.com*")) {
 
-        var hotgarbage = ['#live-chat-iframe', '#dismiss-btn'];
+        var hotgarbage = ['#live-chat-iframe', '#dismiss-btn', 'section.elementor-section:nth-child(4)', 'div.elementor-inner-column:nth-child(3) > div:nth-child(1)'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -747,136 +755,6 @@
         }
         `;
         pasteStyle(styleMyoplay);
-
-        /* ---------------------------- */
-        /* Myoplay anti-anti-rightclick */
-        /* ---------------------------- */
-        window.addEventListener('contextmenu', function contextmenu(event) {
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            var handler = new eventHandler(event);
-            window.removeEventListener(event.type, contextmenu, true);
-            var eventsCallBack = new eventsCall(function () { });
-            handler.fire();
-            window.addEventListener(event.type, contextmenu, true);
-            if (handler.isCanceled && (eventsCallBack.isCalled)) {
-                event.preventDefault();
-            }
-        }, true);
-
-        if (window && typeof window != undefined) {
-
-            var doc = document;
-            var body = document.body;
-
-            var docEvents = [
-                doc.oncontextmenu = null,
-                doc.onselectstart = null,
-                doc.ondragstart = null,
-                doc.onmousedown = null
-            ];
-
-            var bodyEvents = [
-                body.oncontextmenu = null,
-                body.onselectstart = null,
-                body.ondragstart = null,
-                body.onmousedown = null,
-                body.oncut = null,
-                body.oncopy = null,
-                body.onpaste = null
-            ];
-
-            [].forEach.call(
-                ['copy', 'cut', 'paste', 'select', 'selectstart'],
-                function (event) {
-                    document.addEventListener(event, function (e) { e.stopPropagation(); }, true);
-                }
-            );
-
-            [].forEach.call(
-                ['click', 'contextmenu', 'copy', 'cut', 'paste', 'mouseup', 'mousedown', 'keyup', 'keydown', 'drag', 'dragstart', 'select', 'selectstart'],
-                function (event) {
-                    document.addEventListener(event, function (e) { e.stopPropagation(); }, true);
-                }
-            );
-
-            window.addEventListener('devtoolschange', function contextmenu(event) {
-                event.stopPropagation();
-                event.stopImmediatePropagation();
-                var handler = new eventHandler(event);
-                window.removeEventListener(event.type, contextmenu, true);
-                var eventsCallBack = new eventsCall(function () { });
-                handler.fire();
-                window.addEventListener(event.type, contextmenu, true);
-                if (handler.isCanceled && (eventsCallBack.isCalled)) {
-                    event.preventDefault();
-                }
-            }, true);
-
-            window.addEventListener('contextmenu', function contextmenu(event) {
-                event.stopPropagation();
-                event.stopImmediatePropagation();
-                var handler = new eventHandler(event);
-                window.removeEventListener(event.type, contextmenu, true);
-                var eventsCallBack = new eventsCall(function () { });
-                handler.fire();
-                window.addEventListener(event.type, contextmenu, true);
-                if (handler.isCanceled && (eventsCallBack.isCalled)) {
-                    event.preventDefault();
-                }
-            }, true);
-        }
-
-        function eventsCall() {
-            this.events = ['DOMAttrModified', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMCharacterDataModified', 'DOMSubtreeModified'];
-            this.bind();
-        }
-
-        eventsCall.prototype.bind = function () {
-            this.events.forEach(function (event) {
-                document.addEventListener(event, this, true);
-            }.bind(this));
-        };
-
-        eventsCall.prototype.handleEvent = function () {
-            this.isCalled = true;
-        };
-
-        eventsCall.prototype.unbind = function () {
-            this.events.forEach(function (event) { }.bind(this));
-        };
-
-        function eventHandler(event) {
-            this.event = event;
-            this.contextmenuEvent = this.createEvent(this.event.type);
-        }
-
-        eventHandler.prototype.createEvent = function (type) {
-            var target = this.event.target;
-            var event = target.ownerDocument.createEvent('MouseEvents');
-            event.initMouseEvent(
-                type, this.event.bubbles, this.event.cancelable,
-                target.ownerDocument.defaultView, this.event.detail,
-                this.event.screenX, this.event.screenY, this.event.clientX, this.event.clientY,
-                this.event.ctrlKey, this.event.altKey, this.event.shiftKey, this.event.metaKey,
-                this.event.button, this.event.relatedTarget
-            );
-            return event;
-        };
-
-        eventHandler.prototype.fire = function () {
-            var target = this.event.target;
-            var contextmenuHandler = function (event) {
-                event.preventDefault();
-            }.bind(this);
-            target.dispatchEvent(this.contextmenuEvent);
-            this.isCanceled = this.contextmenuEvent.defaultPrevented;
-        };
-        /* -------------------------------- */
-        /* END Myoplay anti-anti-rightclick */
-        /* -------------------------------- */
-
-
     } /* End Myoplay */
 
     /* ----------------------- */
@@ -1143,4 +1021,141 @@
             }
         });
     }).observe(document.documentElement, { childList: true, subtree: true });
+  
+  
+    function loadAntiAntiRightClick() {
+        window.addEventListener('contextmenu', function contextmenu(event) {
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            var handler = new eventHandler(event);
+            window.removeEventListener(event.type, contextmenu, true);
+            var eventsCallBack = new eventsCall(function () { });
+            handler.fire();
+            window.addEventListener(event.type, contextmenu, true);
+            if (handler.isCanceled && (eventsCallBack.isCalled)) {
+                event.preventDefault();
+            }
+        }, true);
+
+        if (window && typeof window != undefined) {
+
+            var doc = document;
+            var body = document.body;
+
+            var docEvents = [
+                doc.oncontextmenu = null,
+                doc.onselectstart = null,
+                doc.ondragstart = null,
+                doc.onmousedown = null
+            ];
+
+            var bodyEvents = [
+                body.oncontextmenu = null,
+                body.onselectstart = null,
+                body.ondragstart = null,
+                body.onmousedown = null,
+                body.oncut = null,
+                body.oncopy = null,
+                body.onpaste = null
+            ];
+
+            [].forEach.call(
+                ['copy', 'cut', 'paste', 'select', 'selectstart'],
+                function (event) {
+                    document.addEventListener(event, function (e) { e.stopPropagation(); }, true);
+                }
+            );
+
+            [].forEach.call(
+                ['click', 'contextmenu', 'copy', 'cut', 'paste', 'mouseup', 'mousedown', 'keyup', 'keydown', 'drag', 'dragstart', 'select', 'selectstart'],
+                function (event) {
+                    document.addEventListener(event, function (e) { e.stopPropagation(); }, true);
+                }
+            );
+
+            window.addEventListener('devtoolschange', function contextmenu(event) {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                var handler = new eventHandler(event);
+                window.removeEventListener(event.type, contextmenu, true);
+                var eventsCallBack = new eventsCall(function () { });
+                handler.fire();
+                window.addEventListener(event.type, contextmenu, true);
+                if (handler.isCanceled && (eventsCallBack.isCalled)) {
+                    event.preventDefault();
+                }
+            }, true);
+
+            window.addEventListener('contextmenu', function contextmenu(event) {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                var handler = new eventHandler(event);
+                window.removeEventListener(event.type, contextmenu, true);
+                var eventsCallBack = new eventsCall(function () { });
+                handler.fire();
+                window.addEventListener(event.type, contextmenu, true);
+                if (handler.isCanceled && (eventsCallBack.isCalled)) {
+                    event.preventDefault();
+                }
+            }, true);
+        }
+
+        function eventsCall() {
+            this.events = ['DOMAttrModified', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMCharacterDataModified', 'DOMSubtreeModified'];
+            this.bind();
+        }
+
+        eventsCall.prototype.bind = function () {
+            this.events.forEach(function (event) {
+                document.addEventListener(event, this, true);
+            }.bind(this));
+        };
+
+        eventsCall.prototype.handleEvent = function () {
+            this.isCalled = true;
+        };
+
+        eventsCall.prototype.unbind = function () {
+            this.events.forEach(function (event) { }.bind(this));
+        };
+
+        function eventHandler(event) {
+            this.event = event;
+            this.contextmenuEvent = this.createEvent(this.event.type);
+        }
+
+        eventHandler.prototype.createEvent = function (type) {
+            var target = this.event.target;
+            var event = target.ownerDocument.createEvent('MouseEvents');
+            event.initMouseEvent(
+                type, this.event.bubbles, this.event.cancelable,
+                target.ownerDocument.defaultView, this.event.detail,
+                this.event.screenX, this.event.screenY, this.event.clientX, this.event.clientY,
+                this.event.ctrlKey, this.event.altKey, this.event.shiftKey, this.event.metaKey,
+                this.event.button, this.event.relatedTarget
+            );
+            return event;
+        };
+
+        eventHandler.prototype.fire = function () {
+            var target = this.event.target;
+            var contextmenuHandler = function (event) {
+                event.preventDefault();
+            }.bind(this);
+            target.dispatchEvent(this.contextmenuEvent);
+            this.isCanceled = this.contextmenuEvent.defaultPrevented;
+        };
+    }
+  
+  
+    /* ------------------------------------- *
+     * Wigistream and most annoying websites *
+     * blocking rightclicking                *
+     * ------------------------------------- */
+  
+    if (match(current, '*://wigistream.to/embed/*') || match(current, '*://streamservice443.net/*') || match(current, '*://player.licenses4.me/*') || match(current, "*://myoplay.club*") ||
+        match(current, '*tutele.sx/*')) {
+      loadAntiAntiRightClick();
+    }
+
 })();
