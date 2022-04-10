@@ -5,9 +5,10 @@ Now included : TinyURL bypass !
 The script try to detect and Autoplay Players such as : Bitmovin, Clappr, VideoJS, HLS.js and Native HTML5.  
 It autoplay & unmute (require additional steps as shown below) the video.  
 
-It also tries to remove automatically the redirection when you open the Stream's iframe in a new window by using MutationObserver's API and replacing the website JS code. Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on the player.
-If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab.
-
+It also tries to remove automatically the redirection when you open the Stream's iframe in a new window by using MutationObserver's API and replacing the website's JS code.  
+  
+Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on a player.
+If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab or inspect it to get it's real link.
 
 # How to install / use
 Install an userscript manager such as ViolentMonkey, TamperMonkey or Macaque (iOS)  
