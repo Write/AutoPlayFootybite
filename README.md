@@ -22,11 +22,12 @@ Click on [Autoplay.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/
 ### TamperMonkey Download  
 [Download TamperMonkey for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)  
 [Download TamperMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)  
-[Download TamperMonkey for Safari (Paid)](https://apps.apple.com/app/apple-store/id1482490089)  
 
-### Macaque
+
+### macOS and iOS
 [Download Userscripts for Safari (iOS and macOS) (Free)](https://apps.apple.com/us/app/userscripts/id1463298887) ([Github link](https://github.com/quoid/userscripts))  
-[Download Macaque for Safari (iOS) (Paid)](https://macaque.app/)    
+[Download TamperMonkey for Safari (macOS only) (Paid)](https://apps.apple.com/app/apple-store/id1482490089)  
+[Download Macaque for Safari (iOS only) (Paid)](https://macaque.app/)    
   
 # Activate AutoPlay with Sound
 By default, Web browser doesn't allow to Autoplay with Sound.
