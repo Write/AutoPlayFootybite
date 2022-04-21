@@ -5,9 +5,10 @@ Now included : TinyURL bypass !
 The script try to detect and Autoplay Players such as : Bitmovin, Clappr, VideoJS, HLS.js and Native HTML5.  
 It autoplay & unmute (require additional steps as shown below) the video.  
 
-It also tries to remove automatically the redirection when you open the Stream's iframe in a new window by using MutationObserver's API and replacing the website JS code. Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on the player.
-If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab.
-
+It also tries to remove automatically the redirection when you open the Stream's iframe in a new window by using MutationObserver's API and replacing the website's JS code.  
+  
+Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on a player.
+If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab or inspect it to get it's real link.
 
 # How to install / use
 Install an userscript manager such as ViolentMonkey, TamperMonkey or Macaque (iOS)  
@@ -22,10 +23,12 @@ Click on [Autoplay.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/
 ### TamperMonkey Download  
 [Download TamperMonkey for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)  
 [Download TamperMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)  
-[Download TamperMonkey for Safari (Paid)](https://apps.apple.com/app/apple-store/id1482490089)  
 
-### Macaque
-[Download Macaque for Safari (iOS) (Paid)](https://macaque.app/)  
+
+### macOS and iOS
+[Download Userscripts for Safari (iOS and macOS) (Free)](https://apps.apple.com/us/app/userscripts/id1463298887) ([Github link](https://github.com/quoid/userscripts))  
+[Download TamperMonkey for Safari (macOS only) (Paid)](https://apps.apple.com/app/apple-store/id1482490089)  
+[Download Macaque for Safari (iOS only) (Paid)](https://macaque.app/)    
   
 # Activate AutoPlay with Sound
 By default, Web browser doesn't allow to Autoplay with Sound.
