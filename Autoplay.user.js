@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.6.1
+// @version     9.6.3
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -41,6 +41,7 @@
 // @match       *://elixx.xyz/*
 // @match       *://sportsnest.co/*
 // @match       *://papahd.club/*
+// @match       *://3papahd3.icu/*
 // @match       *://hinhnenhd.info/*
 // @match       *://gamerarcades.com/*
 // @match       *://poscitech.com/*
@@ -516,7 +517,7 @@
     /* ----------------------- */
     /* *://papahd.club/*       */
     /* ----------------------- */
-    if (match(current, "*://papahd.club*")) {
+    if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*")) {
         console.dir("=== papahd page ===");
         var hotgarbage = ['#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]'];
         hotgarbage.forEach(e => {
