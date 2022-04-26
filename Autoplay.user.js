@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.7.1
+// @version     9.8.1
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -164,9 +164,9 @@
       * and doesn't contain a tinyurl value in hre, follow it's link.
       */
       var styleTinyurl = `
-        body, html {
-            background: #141414;
-      }
+          body, html {
+                background: #141414;
+          }
       `;
       pasteStyle(styleTinyurl);
       
@@ -310,7 +310,7 @@
     if (match(current, "*://blacktiesports.net*") || match(current, "*://blacktiesports.to*")) {
 
         console.dir("=== Blacktiesports.net ===");
-        var hotgarbage = ['footer.container', '.bookmark.card.p-4'];
+        var hotgarbage = ['p', '.bmc-btn-container', 'footer.container', '.bookmark.card.p-4'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -318,7 +318,14 @@
             });
         });
 
-        var styleBlacktiesports = ``;
+        var styleBlacktiesports = `
+          img, a, #overlayer {
+              display: none;
+          }
+          html, body {
+              background: #141414;
+          }
+        `;
         pasteStyle(styleBlacktiesports);
     }
 
@@ -347,9 +354,16 @@
 
         console.dir("=== uhdstreams page (mntlive13) ===");
         console.dir("Removing all links & target = blank attributes on : " + current);
-        document.querySelectorAll('a').forEach(el => { el.removeAttribute('target'); el.removeAttribute('href'); });
+      
+        window.addEventListener("DOMContentLoaded", function() {
+          document.querySelectorAll('a').forEach(el => { el.removeAttribute('target'); el.removeAttribute('href'); });
+        });
 
-        var uhdstreamsStyle = ``;
+        var uhdstreamsStyle = `
+          img {
+            display: none; 
+          }`;
+
         pasteStyle(uhdstreamsStyle);
     }
 
@@ -661,7 +675,7 @@
             var injectBeforeThis = document.querySelector('.entry-content');
             var newBtn = document.createElement('a');
             newBtn.className = 'button';
-            newBtn.style = 'cursor: pointer;display:block; float:left;margin-bottom: 5px;margin-left:30px';
+            newBtn.style = 'cursor: pointer;display:block; float:left;margin-bottom: 5px;margin-left:30px;position: absolute;z-index: 999;';
             newBtn.text = 'FULLSCREEN';
             newBtn.addEventListener('click', function () { player.core.mediaControl.toggleFullscreen(); player.unmute(); player.play(); });
             injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis);
@@ -669,13 +683,19 @@
             var injectBeforeThis = document.querySelector('.entry-content');
             var newBtn = document.createElement('a');
             newBtn.className = 'button';
-            newBtn.style = 'cursor: pointer; margin-left: 10px !important; display:block;float:right;margin-bottom: 5px;margin-right:30px';
+            newBtn.style = 'cursor: pointer; margin-left: 10px !important; display:block;float:right;margin-bottom: 5px;margin-right: 30px;right: 0px; position: absolute;z-index: 999;';
             newBtn.text = 'RELOAD';
             newBtn.addEventListener('click', function () { document.location.reload(); });
             injectBeforeThis.parentElement.insertBefore(newBtn, injectBeforeThis);
         });
 
         var stylingWeakstreams = `
+          #video-player {
+            top: 25px;
+            position: absolute;
+          }
+
+        .hentry { position: relative; }
         #main { margin: 0; }
         #content { width: 100%; }
         html, body, #page, #content, .entry-content, .entry-header {
@@ -803,9 +823,10 @@
     /* ----------------------- */
     /* myoplay.club (Dvaix)    */
     /* ----------------------- */
-    if (match(current, "*://myoplay.club*")) {
+    if (match(current, "*://myoplay.club*") || match(current, "*://*tutele.sx*")) {
 
         var hotgarbage = [
+            '#overlayer',
             '.elementor-shape', '.elementor-shape','.elementor-shape', '.elementor-shape-bottom',
             '.elementor-section-height-default.elementor-section-boxed.elementor-element-a652f79.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
             '.elementor-section-height-default.elementor-section-boxed.eae-particle-yes.elementor-element-56a2f97.elementor-element.elementor-top-section.elementor-section.has_eae_slider',
@@ -832,8 +853,14 @@
         });
 
         var styleMyoplay = `
+        #overlayer {
+          display: none;
+        }
         body {
           background: rgba(0, 0, 0, 0);
+        }
+        a { 
+          display: none;
         }
         .elementor-column.elementor-col-66 {
           width: 100%;
@@ -856,13 +883,23 @@
     /* ----------------------- */
     if (match(current, "*://1stream.top*")) {
 
-        var hotgarbage = ['#main-header-right', '.top-head-player', '#hide-chat-btn', '.col-md-3', '.col-md-12'];
+        var hotgarbage = ['.navbar', '#main-header-right', '.top-head-player', '#hide-chat-btn', '.col-md-3', '.col-md-12'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
                 selector.remove();
             });
         });
+      
+        var style1stream = `
+          img, a, #overlayer {
+              display: none;
+          }
+          html, body {
+              background: #141414;
+          }
+        `;
+        pasteStyle(style1stream);
     }
 
     /* ----------------------- */
@@ -881,6 +918,7 @@
             console.log("Removing garbage");
             selector.remove();
         });
+      
     }
 
     /* ------------ */
@@ -971,7 +1009,10 @@
                 }, 100);
             }
         } /* BITMOVIN END */
-        else if (typeof Clappr === 'object' && (!match(current, '*sportinglive.co*'))) {
+        else if (typeof Clappr === 'object' && (!match(current, '*://uhdstreams.club*') && 
+                                                !match(current, '*://givemenbastreams.com*') &&
+                                                !match(current, '*sportinglive.co*') &&
+                                                !match(current, '*tutele.sx*'))) {
             console.dir('Clappr Autoplay on ' + current);
             document.querySelector('video').muted = false;
             /* simulate a click on player-poster */
@@ -1100,7 +1141,7 @@
                 currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, "");
                 currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, "");
 
-                /* for tutele.sex (myoplay's subframe) */
+                /* for tutele.sx (myoplay's subframe) */
                 currentScript = currentScript.replace(/function RedirectTo\(\){\n.*}/m, "");
                 currentScript = currentScript.replace(/if\(!isDomain\){\n.*}/gm, "");
                 currentScript = currentScript.replace(/if \(window == window.top\) document.location = "\/"/gm, "");
@@ -1247,8 +1288,10 @@
      * blocking rightclicking                *
      * ------------------------------------- */
   
-    if (match(current, "*://tezgoal.com/*") || match(current, "*://dzeko11.net/*") || match(current, '*://wigistream.to/embed/*') || match(current, '*://streamservice443.net/*') || match(current, '*://player.licenses4.me/*') || match(current, "*://myoplay.club*") ||
-        match(current, '*tutele.sx/*')) {
+    if (match(current, "*://uhdstreams.com/hd*") || match(current, '*://uhdstreams.club/hd/*') ||
+        match(current, "*://tezgoal.com/*")         || match(current, "*://dzeko11.net/*") || 
+        match(current, '*://wigistream.to/embed/*') || match(current, '*://streamservice443.net/*') ||
+        match(current, '*://player.licenses4.me/*') || match(current, "*://myoplay.club*")) {
       console.log("==== Antiantirightclick loaded ====");
       loadAntiAntiRightClick();
     }
