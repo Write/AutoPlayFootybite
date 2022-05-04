@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.9.1
+// @version     10.0.1
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -21,6 +21,7 @@
 // @match       *://redditsport.live/*
 // @match       *://uhdstreams.club/*
 // @match       *://bdnewszh.com/*
+// @match       *://www.bdnewszh.com/*
 // @match       *://thecyclingentertainment.com/*
 // @match       *://motornews.live/*
 // @match       *://scoresunday.com/*
@@ -36,6 +37,8 @@
 // @match       *://myoplay.club/*
 // @match       *://www.tutele.sx/*
 // @match       *://*.tutele.sx/*
+// @match       *://www.tutele.nl/*
+// @match       *://*.tutele.nl/*
 // @match       *://fabtech.work/*
 // @match       *://techstribes.com/*
 // @match       *://elixx.xyz/*
@@ -59,6 +62,7 @@
 // @match       *://npstream.net/*
 // @match       *://*.npstream.net/*
 // @match       *://wigistream.to/embed/*
+// @match       *://swarm.video/*
 // @match       *://*.streamservice443.net/*
 // @match       *://streamservice443.net/*
 // @match       *://ragnaru.net/*
@@ -79,6 +83,11 @@
 // @match       *://streamsoccers.com/*
 // @match       *://streamhd247.online/*
 // @match       *://stakes100.xyz/*
+// @match       *://youpit.xyz/*
+// @match       *://silverspoon.site/*
+// @match       *://p2pstreams.live/*
+// @match       *://xestreams.com/*
+// @match       *://nflsportz.com/*
 // ==/UserScript==
 
 (function () {
@@ -198,6 +207,209 @@
         selector.remove();
     });
 
+    /* ------------------------- */
+    /* http://p2pstreams.live  */
+    /* ------------------------- */
+    if (match(current, "*://p2pstreams.live*") || match(current, "*://xestreams.com*")) {
+      checkElement('video').then((selector) => {
+          selector.click();
+      });
+
+      console.dir("=== silverspoon.xyz ===");
+      var hotgarbage = [ "script[spintro]", '.sharethis-inline-share-buttons', ".clearfix", "#app > main > div > div.w-full.rounded.lg\\:w-3\\/12", ".mobileHide", ".chat-box", "#txtarea", '#ga-overlay', 'ins', '#dismiss-btn', '.entry-header', '.adsbymahimeta', '.top-header', 'nav', '.adsbyvli', '.masthead', 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar' ];
+
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Removing hot garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleP2pstreams = `
+          .media-control[data-media-control] .media-control-background[data-background] {
+              background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+              background-color: initial;
+          }
+          .media-control[data-media-control] .media-control-background[data-background] {
+              background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+              background-color: initial;
+          }
+          .media-control[data-media-control] .media-control-background[data-background] {
+              position: absolute;
+              height: 40%;
+              width: 100%;
+              bottom: 0;
+              background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+              will-change: transform, opacity;
+              transition: opacity 0.1s ease-out;
+          }
+          body, html, .bg-gray-200, .inside-article {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+          }
+          .rounded { border-radius: 0; border: 0; }
+          .shadow-md { box-shadow: none; }
+          .shadow-lg, img, a, br, td { display: none; }
+          .responsive-iframe, iframe, player, #player {
+              display: block;
+              height: 75vh;
+              width: 100%;
+              margin: auto;
+              padding: 0;
+              margin: 0;
+              position: fixed;
+          }
+          #str, .mb-5 {
+              background: #141414;
+              padding: 0;
+              margin: 0;
+          }
+
+      `;
+      
+      pasteStyle(styleP2pstreams);
+    }
+
+    /* ------------------------- */
+    /* https://silverspoon.site  */
+    /* ------------------------- */
+    if (match(current, "*://silverspoon.site*")) {
+      checkElement('video').then((selector) => {
+          selector.click();
+      });
+
+      console.dir("=== silverspoon.xyz ===");
+      var hotgarbage = ['#ga-overlay', 'ins', '#dismiss-btn', '.entry-header', '.adsbymahimeta', '.top-header', 'nav', '.adsbyvli', '.masthead', 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar' ];
+
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Removing hot garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleSilverspoon = `
+          body, html, .bg-gray-200, .inside-article {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+          }
+          .rounded { border-radius: 0; border: 0; }
+          .shadow-md { box-shadow: none; }
+          .shadow-lg, img, a, br, td, .top-bar, .side-menu-wrap, .top-header { display: none; }
+          iframe {
+              display: block;
+              height: 75vh;
+              width: 100%;
+              margin: auto;
+          }
+          .site-content .content-area {
+            width: 100%;
+          }
+          .grid-container {
+            max-width: unset;
+          }
+          .jconfirm, .adsbymahimeta {
+            display: none;
+          }
+          #content, .entry-content {
+            padding: 0;
+            margin: 0;
+          }
+          .wrap, #player { width: 100%; max-width: unset; }
+      `;
+      
+      pasteStyle(styleSilverspoon);
+    }
+  
+
+    /* ----------------------- */
+    /* https://youpit.xyz  */
+    /* ----------------------- */
+    if (match(current, "*://youpit.xyz/*")) {
+      checkElement('video').then((selector) => {
+          selector.click();
+      });
+
+      console.dir("=== youpit.xyz ===");
+      var hotgarbage = [ 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar', '.site-footer' ];
+
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Removing hot garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleYoupit = `
+          body, html, .bg-gray-200, .inside-article {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+          }
+          .rounded { border-radius: 0; border: 0; }
+          .shadow-md { box-shadow: none; }
+          .shadow-lg, img, a, br { display: none; }
+          iframe {
+              display: block;
+              height: 75vh;
+              width: 100%;
+              margin: auto;
+          }
+          .site-content .content-area {
+            width: 100%;
+          }
+          video {
+            width: 100%;
+          }
+          .grid-container {
+            max-width: unset;
+          }
+      `;
+      
+      pasteStyle(styleYoupit);
+    }
+  
+
+    /* ----------------------- */
+    /* https://cr7soccer.club  */
+    /* ----------------------- */
+    if (match(current, "*://cr7soccer.club/*")) {
+      checkElement('video').then((selector) => {
+          selector.click();
+      });
+
+      console.dir("=== cr7soccer ===");
+      var hotgarbage = [ '.navbar', '.page-content.p-4.bg-white.shadow-md.overflow-hidden.rounded.w-full', '#app > main > div > div.w-full.rounded.overflow-hidden'];
+
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Removing hot garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleCr7soccerclub = `
+          body, html, .bg-gray-200, .aievfbmsyu.idc0_338 {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+          }
+          .rounded { border-radius: 0; border: 0; }
+          .shadow-md { box-shadow: none; }
+          .shadow-lg, img, a, br { display: none; }
+          iframe {
+              display: block;
+              height: 75vh;
+              width: 100%;
+              margin: auto;
+          }
+      `;
+      
+      pasteStyle(styleCr7soccerclub);
+    }
+  
     /* ----------------------- */
     /* https://tezgoal.com     */
     /* ----------------------- */
@@ -208,7 +420,7 @@
       });
 
       console.dir("=== tezgoal ===");
-      var hotgarbage = ['.navbar', '.page-content.p-4.bg-white.shadow-md.overflow-hidden.rounded.w-full', '#app > main > div > div.w-full.rounded.overflow-hidden'];
+      var hotgarbage = [ '.navbar', '.page-content.p-4.bg-white.shadow-md.overflow-hidden.rounded.w-full', '#app > main > div > div.w-full.rounded.overflow-hidden'];
 
       hotgarbage.forEach(e => {
            checkElement(e).then((selector) => {
@@ -224,6 +436,7 @@
           .rounded { border-radius: 0; border: 0; }
           .shadow-md { box-shadow: none; }
           .shadow-lg { display: none; }
+
       `;
 
       pasteStyle(styleTezgoal);
@@ -273,7 +486,7 @@
     if (match(current, "*://nizarstream.com*")) {
 
         console.dir("=== nizarstream.xcomyz ===");
-        var hotgarbage = ['.navbar', 'p', 'center', 'center', '.alert', 'div[style^=position\\:\\ fixed]', 'div[style^=\\ background]', 'h6', 'a[href*=totalsportek]', 'a[href*=totalsportek]'];
+        var hotgarbage = ['noscript', '.navbar', 'p', 'center', 'center', '.alert', 'div[style^=position\\:\\ fixed]', 'div[style^=\\ background]', 'h6', 'a[href*=totalsportek]', 'a[href*=totalsportek]'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -291,7 +504,7 @@
     if (match(current, "*://elixx.xyz*")) {
 
         console.dir("=== elixx.xyz ===");
-        var hotgarbage = ['iframe[src^=\\/schedule\\.html', 'p', 'p', 'p', 'h3', 'span', 'span'];
+        var hotgarbage = ['h4', 'iframe[src^=\\/schedule\\.html', 'p', 'p', 'p', 'h3', 'span', 'span'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -299,7 +512,16 @@
             });
         });
 
-        var styleElixx = `h3 { display: none; }`;
+        var styleElixx = `
+        h3, h4, p, img, br, hr { display: none; }
+        #iframe-wrapper > iframe { 
+          width: 100%;
+          height: 75vh;
+        }
+        #iframe-wrapper {
+          vertical-align: unset;
+        }
+        `;
         pasteStyle(styleElixx);
     }
 
@@ -332,10 +554,12 @@
     /* ------------------------------ */
     /* techoreels . com               */
     /* ------------------------------ */
-    if (match(current, "*://techoreels.com*")) {
+    if (match(current, "*://techoreels.com*"), match(current, "*://givemenbastreams.com*")) {
 
         console.dir("=== techoreels.com ===");
-        var hotgarbage = ['.shadow-lg.p-5.bg-primary.flex-wrap.justify-between.items-center.flex'];
+        var hotgarbage = ['#app > main > div > div > div > div.w-full.mt-5', 'span','span','span','span','span','span','span','span', 'tbody', '#app > main > div > div.w-full.rounded.overflow-hidden',
+                          '.dark-mode-toggle', 'div[id^=waldo]',
+                          '.shadow-lg.p-5.bg-primary.flex-wrap.justify-between.items-center.flex'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -343,7 +567,18 @@
             });
         });
 
-        var styleTechoreels = ``;
+        var styleTechoreels = `
+        
+        body, html, .p-5 {
+          background: #141414;
+          padding: 0;
+          margin: 0;
+        }
+        
+        div[id^=waldo], p {
+          display: none;
+        }
+        `;
         pasteStyle(styleTechoreels);
     }
 
@@ -374,7 +609,7 @@
     if (match(current, "*://jmutech.xyz*") || match(current, '*://theanh.tech*') || match(current, '*://aas.works/*')) {
 
         console.dir("=== jmutech (Azulito) page ===");
-        var hotgarbage = ['.g1-row.g1-row-layout-page.g1-socials-section.g1-dark', '.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row',
+        var hotgarbage = ['#page > div.g1-row.g1-row-layout-page.g1-hb-row.g1-hb-row-mobile.g1-hb-row-b.g1-hb-row-2.g1-hb-boxed.g1-hb-sticky-off.g1-hb-shadow-off > div.g1-row-inner', '.g1-row.g1-row-layout-page.g1-socials-section.g1-dark', '.g1-hb-shadow-off.g1-hb-sticky-off.g1-hb-boxed.g1-hb-row-2.g1-hb-row-b.g1-hb-row-normal.g1-hb-row.g1-row-layout-page.g1-row',
             '.g1-column-1of3.g1-column.g1-sidebar-padded.g1-sidebar', '.g1-row-layout-page.g1-row.g1-footer > .g1-row-background', '.g1-footer', 'h1.g1-mega', 'div.g1-row:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -384,7 +619,12 @@
         });
 
         var jmutechstyle = `
-
+		.g1-typography-xl {
+			line-height: 0;
+		}
+		.g1-row-padding-m {
+			padding: 0;
+		}
         .g1-content-narrow > .twitter-tweet, .g1-content-narrow > aside, .g1-content-narrow > audio, .g1-content-narrow > blockquote, .g1-content-narrow > canvas, .g1-content-narrow > code, .g1-content-narrow > div, .g1-content-narrow > dl, .g1-content-narrow > figure, .g1-content-narrow > form, .g1-content-narrow > h1, .g1-content-narrow > h2, .g1-content-narrow > h3, .g1-content-narrow > h4, .g1-content-narrow > h5, .g1-content-narrow > h6, .g1-content-narrow > hr, .g1-content-narrow > iframe, .g1-content-narrow > ol, .g1-content-narrow > p, .g1-content-narrow > pre, .g1-content-narrow > section, .g1-content-narrow > table, .g1-content-narrow > ul, .g1-content-narrow > video 
         { max-width : 100%; 
 		}
@@ -437,7 +677,10 @@
 
         console.dir("=== hockeyweb / sportson /cyclingentairtenement / motornews / sportson ===");
       
-        var hotgarbage = ['#qc-cmp2-persistent-link', 'footer', '#fixedban', '[href^="https://redi1.soccerstreams.net/"]', '.aft-sticky-sidebar.widget-area', '.masthead-banner', '.font-family-1.em-breadcrumbs', '.entry-title', '.primary-footer', '.site-info', 
+        var hotgarbage = [ 
+         
+          '#post-5855 > div > div > div > div > section > div > div > div > div > div > div > div > div > div > div:nth-child(3)',
+          '#post-5855 > div > div > div > div > section > div > div > div > div > div > div > div > div > div > div:nth-child(1)', '.aoa_overlay', '.elementor-col-33','.gen-bottom-header', '#qc-cmp2-persistent-link', 'footer', '#fixedban', '[href^="https://redi1.soccerstreams.net/"]', '.aft-sticky-sidebar.widget-area', '.masthead-banner', '.font-family-1.em-breadcrumbs', '.entry-title', '.primary-footer', '.site-info', 
                           '#id-custom_banner', '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', 
                           '.header-after1.widget-title', '.site-info', '.trail-items', '.aft-sticky-sidebar.widget-area', '.primary-footer'];
       
@@ -449,6 +692,24 @@
         });
 
         var styleHockeyweb = `
+        .elementor-container, .elementor-row {
+          display: block;
+        }
+        .elementor-col-66 {
+            width: 100%;
+        }
+        div#player {
+            height: 80vh;
+        }
+        .gen-blog-post {
+        background: none;
+        display: block;
+        margin: 0;
+        min-height: 0;
+        }
+        center {
+          display:none;
+        }
         .entry-content, body.dark .site-footer, html,
         body.dark input[type="search"], body.dark .comment-form input[type="text"], body.dark .comment-form input[type="email"], body.dark .comment-form input[type="url"], body.dark .comment-form textarea, body.dark.custom-background, body.dark,
         body.dark .af-search-form, body.dark .exclusive-posts, body.dark blockquote::before, body.dark .archive-layout-list, body.dark .slide-icon::before, body.dark .sp-next-arrow::before, body.dark .sp-previous-arrow::before, body.dark #secondary .posts-author-wrapper, body.dark .latest-posts-full .header-details-wrapper, body.dark #secondary .widget ul.article-tabbed-list, body.dark #secondary .widget ul:not(.cat-links), body.dark #secondary .widget ol, body.dark #primary ul.article-item.article-list-item.article-tabbed-list.article-item-left li.full-item.clearfix, body.dark .trending-posts-vertical-carousel .slick-slide .carousel-image, body.dark .trending-posts-carousel .slick-slide .carousel-image, body.dark .spotlight-post, body.dark .single-column-posts, body.dark article .entry-content-wrap, body.dark article .comments-area, body.dark article .em-posts-promotions .widget
@@ -459,6 +720,9 @@
         div#primary {
             width: 100%;
         }
+        .content-area .site-main {
+          padding: 0;
+        }
         `;
         pasteStyle(styleHockeyweb);
     }
@@ -468,14 +732,14 @@
     /*                          */
     /* Also work only in Chrome */
     /* ------------------------ */
-    if (match(current, "*://bdnewszh.com*")) {
+    if (match(current, "*://bdnewszh.com*") || match(current, "*://www.bdnewszh.com*")) {
       
         /*
         if (document.querySelector('html'))
           clearEventListener(document.querySelector('#__next'));
         */
       
-        var hotgarbage = [ 'next-route-announcer', '#__next > div > div:nth-child(5) > a', 'header', 'footer', '.footer', '.header', '.nav-teams', '.nav-teams__inner', '.player-view', '#div.container:nth-of-type(6)', '.abblock-msg', '.capitalize', '.billboard-banner', '.footer', '.footer-sticky-banner', '.right-sticky-banner', '.left-sticky-banner', '.container.powerdby'];
+        var hotgarbage = [ "div[style^=position]", "script[src^=\\/\\/onpsapul]", 'next-route-announcer', '#__next > div > div:nth-child(5) > a', 'header', 'footer', '.footer', '.header', '.nav-teams', '.nav-teams__inner', '.player-view', '#div.container:nth-of-type(6)', '.abblock-msg', '.capitalize', '.billboard-banner', '.footer', '.footer-sticky-banner', '.right-sticky-banner', '.left-sticky-banner', '.container.powerdby'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -483,6 +747,9 @@
             });
         });
         var styleBdnewszh = `
+        .event-item {
+          display: none;
+        }
         .player-view {
           margin-top: 5vh;
         }
@@ -492,6 +759,7 @@
         header, footer, .header, .footer { 
             display: none; 
         }
+        
         `;
         pasteStyle(styleBdnewszh);
     }
@@ -668,7 +936,7 @@
     /* ----------------------- */
     if (match(current, "*://weakstreams.com*")) {
 
-        var hotgarbage = ['.entry-header', '#masthead', '.header-main', 'div [class*=styles__MatchInfo]', '.content-sidebar', 'div.discord', '#gamecard', '#footer-sidebar', 'h3', '#colophon', '.ads-placment', '.ads-placment', '.ads-placment', '.site-info', 'div.adsbyvli', '.adsbyvli', 'a[style*=z-index\\:\\ 2147483647]',
+        var hotgarbage = ['body > div.wp-dark-mode-switcher.wp-dark-mode-ignore.style-3.floating.right_bottom.active', '.entry-header', '#masthead', '.header-main', 'div [class*=styles__MatchInfo]', '.content-sidebar', 'div.discord', '#gamecard', '#footer-sidebar', 'h3', '#colophon', '.ads-placment', '.ads-placment', '.ads-placment', '.site-info', 'div.adsbyvli', '.adsbyvli', 'a[style*=z-index\\:\\ 2147483647]',
             'a[style*=width\\:\\ 2287]', 'a[style*=width\\:\\ 2287]', 'div[class*=row\\ ml-1\\ mr-1\\ pt-2\\ mt-4]'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -701,16 +969,19 @@
             position: absolute;
           }
 
-        .hentry { position: relative; }
-        #main { margin: 0; }
-        #content { width: 100%; }
-        html, body, #page, #content, .entry-content, .entry-header {
-            background: #18191c;
-        }
-        #primary {
-            padding-top: 15px;
-        }
-        .entry-header, .entry-title, .content-area, span, .site-name, .smtitle { color: rgb(205, 200, 194); }
+          .hentry { position: relative; }
+          #main { margin: 0; }
+          #content { width: 100%; }
+          html, body, #page, #content, .entry-content, .entry-header {
+              background: #18191c;
+          }
+          #primary {
+              padding-top: 15px;
+          }
+          .entry-header, .entry-title, .content-area, span, .site-name, .smtitle { color: rgb(205, 200, 194); }
+          p {
+            display: none;
+          }
         `;
 
         pasteStyle(stylingWeakstreams);
@@ -829,7 +1100,7 @@
     /* ----------------------- */
     /* myoplay.club (Dvaix)    */
     /* ----------------------- */
-    if (match(current, "*://myoplay.club*") || match(current, "*://*tutele.sx*")) {
+    if (match(current, "*://myoplay.club*") || match(current, "*://*tutele.sx*")|| match(current, "*://*tutele.nl*")) {
 
         var hotgarbage = [
             '#overlayer',
@@ -1024,7 +1295,8 @@
         else if (typeof Clappr === 'object' && (!match(current, '*://uhdstreams.club*') && 
                                                 !match(current, '*://givemenbastreams.com*') &&
                                                 !match(current, '*sportinglive.co*') &&
-                                                !match(current, '*tutele.sx*'))) {
+                                                !match(current, '*tutele.sx*') &&
+											    !match(current, '*tutele.nl*'))) {
             console.dir('Clappr Autoplay on ' + current);
             document.querySelector('video').muted = false;
             /* simulate a click on player-poster */
