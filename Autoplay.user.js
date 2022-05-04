@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     9.8.1
+// @version     9.9.1
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -384,12 +384,18 @@
         });
 
         var jmutechstyle = `
+
         .g1-content-narrow > .twitter-tweet, .g1-content-narrow > aside, .g1-content-narrow > audio, .g1-content-narrow > blockquote, .g1-content-narrow > canvas, .g1-content-narrow > code, .g1-content-narrow > div, .g1-content-narrow > dl, .g1-content-narrow > figure, .g1-content-narrow > form, .g1-content-narrow > h1, .g1-content-narrow > h2, .g1-content-narrow > h3, .g1-content-narrow > h4, .g1-content-narrow > h5, .g1-content-narrow > h6, .g1-content-narrow > hr, .g1-content-narrow > iframe, .g1-content-narrow > ol, .g1-content-narrow > p, .g1-content-narrow > pre, .g1-content-narrow > section, .g1-content-narrow > table, .g1-content-narrow > ul, .g1-content-narrow > video 
-        { max-width : 100% }
+        { max-width : 100%; 
+		}
 
         .g1-column-2of3 {
-            width: 100%
+            width: 100%;
         }
+		.vidmain {
+		  width: 100%;
+		  min-width: 100%;
+		}
         `;
         pasteStyle(jmutechstyle);
     }
@@ -883,7 +889,7 @@
     /* ----------------------- */
     if (match(current, "*://1stream.top*")) {
 
-        var hotgarbage = ['.navbar', '#main-header-right', '.top-head-player', '#hide-chat-btn', '.col-md-3', '.col-md-12'];
+        var hotgarbage = [ 'in-page-message', '#note-0', '#note-1', '.navbar', '#main-header-right', '.top-head-player', '#hide-chat-btn', '.col-md-3', '.col-md-12'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -895,9 +901,15 @@
           img, a, #overlayer {
               display: none;
           }
+		  .row {
+		  	margin: 0;
+		  }
           html, body {
               background: #141414;
           }
+          .col-md-9.p-0.m-0.pr-0 {
+		  	width: 100%;
+		  }
         `;
         pasteStyle(style1stream);
     }
