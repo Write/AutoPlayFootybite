@@ -50,5 +50,5 @@ While this scripts contains a working solution to bypass TinyURL, [FastForward](
 
 
 And of course use uBlock Origin, the only good AdBlocker out there, which preserve your privacy the most.  
-[uBlock Origin for Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)
+[uBlock Origin for Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)  
 [uBlock Origin for Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
