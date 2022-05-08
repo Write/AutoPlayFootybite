@@ -760,18 +760,13 @@
         pasteStyle(styleHockeyweb);
     }
 
-    /* ------------------------ */
-    /* bdnewszh.com             */
-    /*                          */
-    /* Also work only in Chrome */
-    /* ------------------------ */
+    /* ------------------------- */
+    /* bdnewszh.com              */
+    /*                           */
+    /* Site only works in Chrome */
+    /* ------------------------- */
     if (match(current, "*://bdnewszh.com*") || match(current, "*://www.bdnewszh.com*")) {
-      
-        /*
-        if (document.querySelector('html'))
-          clearEventListener(document.querySelector('#__next'));
-        */
-      
+
         var hotgarbage = [ "div[style^=position]", "script[src^=\\/\\/onpsapul]", 'next-route-announcer', '#__next > div > div:nth-child(5) > a', 'header', 'footer', '.footer', '.header', '.nav-teams', '.nav-teams__inner', '.player-view', '#div.container:nth-of-type(6)', '.abblock-msg', '.capitalize', '.billboard-banner', '.footer', '.footer-sticky-banner', '.right-sticky-banner', '.left-sticky-banner', '.container.powerdby'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -1489,7 +1484,6 @@
         });
     }).observe(document.documentElement, { childList: true, subtree: true });
   
-  
     function loadAntiAntiRightClick() {
         window.addEventListener('contextmenu', function contextmenu(event) {
             event.stopPropagation();
@@ -1613,8 +1607,7 @@
             this.isCanceled = this.contextmenuEvent.defaultPrevented;
         };
     }
-  
-  
+
     /* ------------------------------------- *
      * Wigistream and most annoying websites *
      * blocking rightclicking                *
