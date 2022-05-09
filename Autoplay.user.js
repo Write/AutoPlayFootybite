@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     10.1.1
+// @version     10.1.4
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -447,8 +447,9 @@
     if (match(current, "*://*rsoccerstreams.com*") || match(current, "*://*soccerstreams.net*") || match(current, "*://*footybite.cc*")) {
 
         console.dir("=== Main soccerstreams page ===");
-        var hotgarbage = ['.mt-3.mb-3.text-center', '.alert-warning.alert', '.alert-dismissible', '#event-sticky-info', '.col-md-4'];
-        hotgarbage.forEach(e => {
+        var hotgarbage = ['#content > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4)', '.mt-3.mb-3.text-center', '.alert-warning.alert', '.alert-dismissible', '#event-sticky-info', '.col-md-4'];
+        
+		hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
                 selector.remove();
@@ -458,6 +459,130 @@
         checkElement('.col-md-8').then((selector) => {
             document.querySelectorAll('.col-md-8').forEach(el => { el.classList.remove('col-md-8'); el.classList.add('col-md-12'); });
         });
+		
+      var styleSoccerstreams = `
+          body.light, body, html, .main, .bg-gray-200, .aievfbmsyu.idc0_338 {
+            background: #141414;
+          }
+
+			#basic-navbar-nav {
+			  margin-top: -42px;
+			}
+			.ml-auto.navbar-nav {
+			  width: 720px;
+			  }
+		  .container {
+		  margin-top: 5px;
+		  }
+		  br {
+		  display: none;
+		  }
+		  body {
+		  color: #fff;
+		  }
+		  .calendar-matches li {
+		  transition: none;
+		  background-color: #484848;
+		  }
+		  div.sv-box:nth-child(1) {
+		  margin-top: 0;
+		  }
+		  .event-team h5, .sv-box .header .title {
+			  color: #00bcff;
+			}
+			.streams-table-new tbody tr td {
+			background-color: #242424;
+			border-bottom: 1px solid #111;
+			border-top: 1px solid #282828;
+			}
+			.username {
+  color: #fff;
+  }
+  .card-body {
+  padding: 0;
+  }
+			.sv-box.undefined {
+				border-radius: 0;
+			}
+			.card {
+			border: 0;
+			}
+			.streams-table-new th {
+  color: #cecece;
+  }
+
+.event-status {
+
+    margin: 0px 0;
+    font-size: 22px;
+    color: #78b3ee;
+}
+		  .sv-box, .card {
+		  	box-shadow: unset;
+			background: #2d2d2d;
+		  }
+		  .top-tournament a {
+		  	padding: 0;
+		  }
+		  .top-tournament {
+		  	padding: 0;
+		  }
+			.top-tournament .league-name {
+			  vertical-align: sub !important;
+			  color: #c3efff;
+			  padding-left: 3px;
+			  font-size: 18px;
+			}
+			.competitions .competition {
+			transition: none;
+			padding: 0;
+			}
+		  .navbar-brand {
+			  width: 320px;
+			  margin: 0;
+			  padding: 0;
+			  padding-left: 7px;
+			  margin-bottom: 5px;
+		  }
+		  .navbar-brand .img-fluid {
+			  z-index: 9999;
+			width: 320px;
+		  }
+		  small span {
+		  color: rgb(242, 242, 242);
+		  }
+		 .navbar {
+		 	padding-bottom: 2px;
+		 }
+		 
+		.competitions li:first-child:hover {
+		  border-top-left-radius: 10px;
+		  border-top-right-radius: 10px;
+		}
+
+		  .nav-link {
+		  	padding-top: 0;
+			padding-bottom: 0;
+		  }
+		  .navbar-description {
+		  	font-size: 10px;
+			display: none;
+		  }
+			.competitions li {
+			  background-color: #202020;
+			}
+			.competition-cell-table, .competition-cell-score {
+			  color: #2cc8ff;
+			  }
+		  .competition:hover {
+		  background-color: #171717;
+		}
+		.competition-cell-score {
+			color: white;
+		}
+      `;
+
+      pasteStyle(styleSoccerstreams);
 
     }
 
@@ -760,13 +885,18 @@
         pasteStyle(styleHockeyweb);
     }
 
-    /* ------------------------- */
-    /* bdnewszh.com              */
-    /*                           */
-    /* Site only works in Chrome */
-    /* ------------------------- */
+    /* ------------------------ */
+    /* bdnewszh.com             */
+    /*                          */
+    /* Also work only in Chrome */
+    /* ------------------------ */
     if (match(current, "*://bdnewszh.com*") || match(current, "*://www.bdnewszh.com*")) {
-
+      
+        /*
+        if (document.querySelector('html'))
+          clearEventListener(document.querySelector('#__next'));
+        */
+      
         var hotgarbage = [ "div[style^=position]", "script[src^=\\/\\/onpsapul]", 'next-route-announcer', '#__next > div > div:nth-child(5) > a', 'header', 'footer', '.footer', '.header', '.nav-teams', '.nav-teams__inner', '.player-view', '#div.container:nth-of-type(6)', '.abblock-msg', '.capitalize', '.billboard-banner', '.footer', '.footer-sticky-banner', '.right-sticky-banner', '.left-sticky-banner', '.container.powerdby'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -1120,13 +1250,14 @@
 			margin: 0;
 			padding: 0;
 		}
-        img, a, br, hr, table {
+        img, a, br, hr, table, h1, h2,h3,h4,h5,h6 {
 			display: none;
 		}
 		#primary {
 		width: unset;
 		float: unset;
 		}
+
         `;
 
         pasteStyle(styleSportsnet);
@@ -1199,7 +1330,6 @@
 						   "div[id^='note-']", "div[id^='note-']", "div[id^='note-']", "div[id^='note-']",
 						   '.navbar', '#main-header-right', '.top-head-player', '#hide-chat-btn',
 						   '.col-md-3', '.col-md-12'];
-
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -1484,6 +1614,7 @@
         });
     }).observe(document.documentElement, { childList: true, subtree: true });
   
+  
     function loadAntiAntiRightClick() {
         window.addEventListener('contextmenu', function contextmenu(event) {
             event.stopPropagation();
@@ -1607,7 +1738,8 @@
             this.isCanceled = this.contextmenuEvent.defaultPrevented;
         };
     }
-
+  
+  
     /* ------------------------------------- *
      * Wigistream and most annoying websites *
      * blocking rightclicking                *
