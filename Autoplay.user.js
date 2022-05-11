@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     10.1.4
+// @version     10.2.0
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -88,6 +88,9 @@
 // @match       *://p2pstreams.live/*
 // @match       *://xestreams.com/*
 // @match       *://nflsportz.com/*
+// @match       *://tvtoss.club/*
+// @match       *://bingsport.xyz/*
+// @match       *://soccer4u.club/*
 // ==/UserScript==
 
 (function () {
@@ -206,6 +209,47 @@
         console.log("Removing hot garbage");
         selector.remove();
     });
+
+    /* ------------------------- */
+    /* http://stakes100.xyz.  */
+    /* ------------------------- */
+    if (match(current, "*://stakes100.xyz*")) {
+		
+      console.dir("=== stakes100.xyz ===");
+      var hotgarbage = [ ".sport-body", ".entry-header", "#site-header", ".footer-nav-widgets-wrapper", "#site-footer" ];
+		
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Removing hot garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleStakes100 = 
+	  `
+          body, html, .bg-gray-200, .inside-article {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+		  }
+		  .entry-content > :not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
+		  	max-width: 100vh;
+			width: 100%;
+		  }
+		  .post-inner {
+		  	padding: 0;
+			margin: 0;
+		  }
+		  iframe {
+		  	width: 100%;
+		  }
+		  a, br, hr, svg, img {
+		  	display: none;
+		  }
+      `;
+      
+      pasteStyle(styleStakes100);
+    }
 
     /* ------------------------- */
     /* http://p2pstreams.live  */
@@ -753,6 +797,9 @@
         });
 
         var uhdstreamsStyle = `
+          html, body {
+              background: #141414;
+          }
           img {
             display: none; 
           }`;
@@ -814,12 +861,17 @@
         });
 
       
-        var sportingliveStyle = `#primary, .home.blog #primary { float: none; width: 100%; }
+        var sportingliveStyle = `
+		#primary, .home.blog #primary { float: none; width: 100%; }
         #content { margin-top: 0; }
         .boxed_layout #page { box-shadow: none; }
         body, html, .boxed_layout #page {
             background: #141414;
-        }`;
+        }
+		img, hr, br, p, svg { 
+			display: none;
+		}
+		`;
         pasteStyle(sportingliveStyle);
     }
 
@@ -905,6 +957,9 @@
             });
         });
         var styleBdnewszh = `
+          html, body {
+              background: #141414;
+          }
         .event-item {
           display: none;
         }
@@ -1002,7 +1057,7 @@
     if (match(current, "*://*poscitech.com*")) {
 
         console.dir("=== poscitech page ===");
-        var hotgarbage = [ '.brand', '.entry-header', '.site-info', '#secondary', '#colophon', 'nav'];
+        var hotgarbage = [ '.col-md-3','footer', '.footer', '.navbar', '.brand', '.entry-header', '.site-info', '#secondary', '#colophon', 'nav'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -1017,7 +1072,8 @@
         body, html,article, .content-area {
             background: #141414;
         }
-        .post-inner-content{
+        #primary, .post-inner-content, .entry-content {
+			margin: 0;
             padding: 0;
         }
         body.archive .post-inner-content, body.blog .post-inner-content, .post-inner-content:first-child {
@@ -1029,6 +1085,14 @@
         #main {
             height: 90vh;
         }
+		.col-md-9 {
+			width: 100%;
+		}
+		article.hentry {
+			box-shadow: none;
+			padding: 0;
+			margin: 0;
+		}
         `;
         pasteStyle(poscitechstyle);
     }
@@ -1038,7 +1102,7 @@
     /* ----------------------- */
     if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*")) {
         console.dir("=== papahd page ===");
-        var hotgarbage = ['button', 'button', '#header', '#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]'];
+        var hotgarbage = ['.skip-link', 'button', 'button', '#header', '#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -1061,7 +1125,13 @@
         body, html, .col-2cl .main-inner {
             background: #141414;
         }
-        
+        #wrapper {
+			padding: 0;
+			margin: 0;
+		}
+		svg {
+			display: none;
+		}
         iframe {
         width: 100%;
         }
@@ -1299,9 +1369,13 @@
         #overlayer {
           display: none;
         }
-        body {
-          background: rgba(0, 0, 0, 0);
+        html, body {
+			background: #141414;
         }
+		.page-inner, .row {
+			padding: 0;
+			margin: 0;
+		}
         a { 
           display: none;
         }
