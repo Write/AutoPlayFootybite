@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     11.1
+// @version     11.2
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -420,13 +420,22 @@
     /* ----------------------- */
     /* https://cr7soccer.club  */
     /* ----------------------- */
-    if (match(current, "*://cr7soccer.club/*")) {
-      checkElement('video').then((selector) => {
+    if (match(current, "*://cr7soccer.club/*") || match(current, "*://sportsonline.to/*")
+		|| match(current, "*://*.sportsonline.to/*")
+	    || match(current, "*streamservice443.net/*")) {
+      
+	  checkElement('video').then((selector) => {
           selector.click();
       });
 
       console.dir("=== cr7soccer ===");
-      var hotgarbage = [ '.navbar', '.page-content.p-4.bg-white.shadow-md.overflow-hidden.rounded.w-full', '#app > main > div > div.w-full.rounded.overflow-hidden'];
+      var hotgarbage = [ 
+		  'div[onclick*=this]',
+		  'div[onclick*=this\\)\\.remove\\(\\)]', '#html1', '#button1', 
+		  'span[onmouseup^=document\\.getElementById]',
+		  'span[onmouseup^=document\\.getElementById]',
+		  '.navbar', '.page-content.p-4.bg-white.shadow-md.overflow-hidden.rounded.w-full', 
+		  '#app > main > div > div.w-full.rounded.overflow-hidden'];
 
       hotgarbage.forEach(e => {
            checkElement(e).then((selector) => {
@@ -436,7 +445,8 @@
       });
 
       var styleCr7soccerclub = `
-          body, html, .bg-gray-200, .aievfbmsyu.idc0_338 {
+	  	  div[onclick*=this] { display: none; }
+          body, html, .bg-gray-200, iframe, .aievfbmsyu.idc0_338 {
               background: #141414;
               margin: 0;
               padding: 0;
@@ -552,9 +562,11 @@ margin-bottom: unset;
 		  background-color: #484848;
 		  }
 .table-responsive .streams-table-new td, .streams-table-new th {
-padding: .1rem;
+padding: 0;
 }
-
+.dash { 
+display: none;
+}
 .match-view-head-side1, .match-view-head-side2 {
 	padding-top: unset;
 }
@@ -665,12 +677,42 @@ left: -5px;
 			.competition-cell-table, .competition-cell-score {
 			  color: #e1f7ff;
 			  }
+			  
+			  .competition-cell-table { 
+			  padding: 0;
+			  }
+			  
+			  .competition .competition-cell-status-name {
+			  	top: 17%;
+			  }
+		.competition-cell-status {
+		  margin-top: 3px;
+		  font-size: 13px;
+		}
+		body .top-tournament a {
+		  padding: 1px 0;
+		}
+		.competition-cell-score {
+		  width: 120px;
+		  color: #00222e;
+		  font-size: unset;
+		  letter-spacing: -1px;
+		  margin: 0 10px;
+		}
 		  .competition:hover {
 		  background-color: #3a3a3a;
 		}
 		.competition-cell-score {
 			color: #d5a83e;
 		}
+		.calendar-matches li {
+			padding: 0;
+			margin: 0;
+			margin-left: 3px;
+			margin-top: 6px;
+
+		}
+
       `;
 
       pasteStyle(styleSoccerstreams);
@@ -798,7 +840,6 @@ left: -5px;
     /* ------------------------------ */
     /* techoreels . com               */
     /* ------------------------------ */
-	console.dir("?????" + current)
     if (match(current, "*://techoreels.com*"), match(current, "*://givemenbastreams.com*"),
 	    match(current, "https://techoreels.com/*")) {
 
@@ -1208,7 +1249,7 @@ left: -5px;
     /* ----------------------- */
     if (match(current, "*://sportsonline.to/*")) {
 
-        console.dir("=== papahd's iframe > sportsonline page ===")
+        console.dir("=== papahd's iframe / cr7soccer.club > sportsonline page ===")
         var hotgarbage = [];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -1390,7 +1431,8 @@ left: -5px;
 			width: unset;
 			float: unset;
 		}
-		.cv-container, .entry-content { margin: 0; padding: 0; border: 0; }
+		.cv-container, .entry-content, .hentry { margin: 0; padding: 0; border: 0; }
+		.cv-container { margin: auto; }
         `;
 
         pasteStyle(styleSportsnet);
