@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     11.2
+// @version     11.3
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -92,6 +92,9 @@
 // @match       *://bingsport.xyz/*
 // @match       *://soccer4u.club/*
 // @match	    *://player.bizzstreams2u.xyz/*
+// @match		*://worldsport.me/*
+// @match		*://*.worldsport.me/*
+// @match		*://nowlive.pro/*
 // ==/UserScript==
 
 (function () {
@@ -198,18 +201,118 @@
     /* ----------------------- *
      * Every site              *
      * ----------------------- */
-    checkElement('#\\30').then((selector) => {
-        console.log("Removing hot garbage");
-        selector.remove();
-    });
-    checkElement('#ni-overlay').then((selector) => {
-        console.log("Removing hot garbage");
-        selector.remove();
-    });
-    checkElement('polygon').then((selector) => {
-        console.log("Removing hot garbage");
-        selector.remove();
-    });
+    var garbage = [ '#\\30', '#ni-overlay', 'polygon' ];
+      garbage.forEach(e => {
+           checkElement(e).then((selector) => {
+              console.log('Removing hot garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+    /* ------------------------- */
+    /* Skeleton to re-use        */
+    /* ------------------------- */
+    if (match(current, "*://somewebsite.xyz*")) {
+		
+      console.dir("===  ===");
+      var hotgarbage = [ "", "" ];
+		
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Deleting garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleSomewebsite = 
+	  `
+          body, html, .bg-gray-200, .inside-article {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+		  }
+		  iframe {
+		  	width: 100%;
+		  }
+		  a, br, hr, svg, img {
+		  	display: none;
+		  }
+      `;
+      
+      pasteStyle(styleSomewebsite);
+    }
+	
+
+    /* ------------------------- */
+    /* Skeleton to re-use        */
+    /* ------------------------- */
+    if (match(current, "*://www.worldsport.me/*")) {
+		
+      console.dir("=== worldsport ===");
+      var hotgarbage = [ "" ];
+		
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Deleting garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleWorldsport = 
+	  `
+          body, html, .bg-gray-200, .inside-article {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+		  }
+		  table, tbody, td  { width: 100%; }
+		  a, br, hr, svg, img {
+		  	display: none;
+		  }
+      `;
+      
+      pasteStyle(styleWorldsport);
+    }
+
+	
+    /* ------------------------- */
+    /* http://stakes100.xyz.  */
+    /* ------------------------- */
+    if (match(current, "*://stakes100.xyz*")) {
+		
+      console.dir("=== stakes100.xyz ===");
+      var hotgarbage = [ ".sport-body", ".entry-header", "#site-header", 
+						".footer-nav-widgets-wrapper", "#site-footer",
+					   "footer", "header" ];
+		
+      hotgarbage.forEach(e => {
+           checkElement(e).then((selector) => {
+               console.log('Removing hot garbage -- ' + e);
+              selector.remove();
+          });
+      });
+
+      var styleStakes100 = 
+	  `
+          body, html, .bg-gray-200, .inside-article, iframe {
+              background: #141414;
+              margin: 0;
+              padding: 0;
+		  }
+		  .entry-content, .post-inner, p { 
+		  	margin: 0;
+			padding: 0;
+		  }
+		  iframe {
+		  	width: 100%;
+		  }
+		  a, br, hr, svg, img {
+		  	display: none;
+		  }
+      `;
+      
+      pasteStyle(styleStakes100);
+    }
 
     /* ------------------------- */
     /* http://stakes100.xyz.  */
@@ -388,11 +491,16 @@
       });
 
       var styleYoupit = `
-          body, html, .bg-gray-200, .inside-article {
+          body, html, .bg-gray-200, .inside-article,
+		  body, html, .bg-gray-200, iframe, .aievfbmsyu.idc0_338 {
               background: #141414;
               margin: 0;
               padding: 0;
           }
+		  .entry-content:not(:first-child), .entry-summary:not(:first-child), .page-content:not(:first-child),
+		  .separate-containers .site-main {
+		  	margin: 0;
+		  }
           .rounded { border-radius: 0; border: 0; }
           .shadow-md { box-shadow: none; }
           .shadow-lg, img, a, br { display: none; }
@@ -779,6 +887,7 @@ left: -5px;
         #iframe-wrapper {
           vertical-align: unset;
         }
+		body { margin: 0; }
         `;
         pasteStyle(styleElixx);
     }
