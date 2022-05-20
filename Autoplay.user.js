@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     11.4
+// @version     11.6
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -152,51 +152,25 @@
     /* ------------------------------ */
     if (match(current, "*://tinyurl.is/*")) {
 
-        /*
-        * Tinyurl.is use 'count' var for countdown
-        * Instead of reverse engineer everything,
-        * just set the counter to -1 every 10ms
-        * ---
-        * Was useful back then the link was populated
-        * only once the countdown were 0
-        * This doesn't seems to be the case anymore.
-        * ---
-        */
-
-        /*
-        window.count = -1;
-        function resetCountDown() {
-        setTimeout(function () {
-        window.count = -1;
-        console.log(window.count);
-        resetCountDown();
-        }, 10);
-        }
-        resetCountDown();
-        */
-
-        /*
-        * As soon as there is an element that match `a[class*="btn"]` selector
-        * and doesn't contain a tinyurl value in hre, follow it's link.
-        */
-        var styleTinyurl = `
-        body, html {
-        background: #141414;
-        }
-        `;
-
-        pasteStyle(styleTinyurl);
-
-        checkElement('section').then((selector) => {
-            selector.remove();
-        });
-
         checkElement('a[class*="btn"]:not([href^=http\\:\\/\\/tinyurl])').then((selector) => {
             var url = selector.href;
             console.log("LINK FOUND : " + url);
-            window.location = url;
+            location.assign(url);
         });
+        checkElement('section').then((selector) => {
+            selector.remove();
+        });
+  
+        var styleTinyurl = `
+            body, html {
+                  background: #141414;
+            }
+            a[style^=top] {
+                display: none;
+            }
+        `;
 
+        pasteStyle(styleTinyurl);
     }
 
     /* ----------------------- *
@@ -1521,20 +1495,20 @@
         });
 
         var styleSportsnet = `
-hentry, #content, #masthead, #primary {
-margin: 0;
-padding: 0;
-}
-img, a, br, hr, table, h1, h2,h3,h4,h5,h6 {
-display: none;
-}
-#primary {
-width: unset;
-float: unset;
-}
-.cv-container, .entry-content, .hentry { margin: 0; padding: 0; border: 0; }
-.cv-container { margin: auto; }
-`;
+        hentry, #content, #masthead, #primary {
+        margin: 0;
+        padding: 0;
+        }
+        img, a, br, hr, table, h1, h2,h3,h4,h5,h6 {
+        display: none;
+        }
+        #primary {
+        width: unset;
+        float: unset;
+        }
+        .cv-container, .entry-content, .hentry { margin: 0; padding: 0; border: 0; }
+        .cv-container { margin: auto; }
+        `;
 
         pasteStyle(styleSportsnet);
     }
@@ -1572,32 +1546,33 @@ float: unset;
         });
 
         var styleMyoplay = `
-#overlayer {
-display: none;
-}
-html, body {
-background: #141414;
-}
-.page-inner, .row {
-padding: 0;
-margin: 0;
-}
-a { 
-display: none;
-}
-.elementor-column.elementor-col-66 {
-width: 100%;
-}
-.elementor-widget-text-editor {
-display: none;
-}
-.eae-particle-wrapper {
-display: none;
-}
-.has_eae_slider.elementor-column.elementor-col-66.elementor-top-column.elementor-element.elementor-element-1bbce7a6 {
-width: 100%;
-}
-`;
+        #overlayer {
+        display: none;
+        }
+        html, body {
+        background: #141414;
+        }
+        .page-inner, .row {
+        padding: 0;
+        margin: 0;
+        }
+        a { 
+        display: none;
+        }
+        .elementor-column.elementor-col-66 {
+        width: 100%;
+        }
+        .elementor-widget-text-editor {
+        display: none;
+        }
+        .eae-particle-wrapper {
+        display: none;
+        }
+        .has_eae_slider.elementor-column.elementor-col-66.elementor-top-column.elementor-element.elementor-element-1bbce7a6 {
+        width: 100%;
+        }
+        `;
+
         pasteStyle(styleMyoplay);
     } /* End Myoplay */
 
@@ -1893,7 +1868,6 @@ width: 100%;
             }
         });
     }).observe(document.documentElement, { childList: true, subtree: true });
-
 
     function loadAntiAntiRightClick() {
         window.addEventListener('contextmenu', function contextmenu(event) {
