@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     11.6
+// @version     11.7
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -91,10 +91,12 @@
 // @match       *://tvtoss.club/*
 // @match       *://bingsport.xyz/*
 // @match       *://soccer4u.club/*
-// @match	    *://player.bizzstreams2u.xyz/*
-// @match		*://worldsport.me/*
-// @match		*://*.worldsport.me/*
-// @match		*://nowlive.pro/*
+// @match	      *://player.bizzstreams2u.xyz/*
+// @match		    *://worldsport.me/*
+// @match	    	*://*.worldsport.me/*
+// @match	     	*://nowlive.pro/*
+// @match	     	*://bhliga.com/*
+// @match	     	*://*.bhliga.com/*
 // ==/UserScript==
 
 (function () {
@@ -553,7 +555,12 @@
         });
 
         console.dir("=== tezgoal ===");
-        var hotgarbage = ['.navbar', '.page-content.p-4.bg-white.shadow-md.overflow-hidden.rounded.w-full', '#app > main > div > div.w-full.rounded.overflow-hidden'];
+        var hotgarbage = [
+          'script[src^=\\/\\/eehuzaih]', 'script[src^=\\/\\/eehuzaih]',
+          'iframe[src^=\\/\\/eehuzaih]',
+         'iframe[src^=about]', 'iframe[src^=about]', 'iframe[src^=about]',,
+          '.navbar', '.page-content.p-4.bg-white.shadow-md.overflow-hidden.rounded.w-full',
+          '#app > main > div > div.w-full.rounded.overflow-hidden'];
 
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -563,6 +570,9 @@
         });
 
         var styleTezgoal = `
+        iframe[src^=about] {
+          display: none;
+        }
         body, html, .bg-gray-200, .aievfbmsyu.idc0_338 {
         background: #141414;
         }
@@ -598,6 +608,9 @@
         });
 
         var styleSoccerstreams = `
+        iframe[src^=about] {
+          display: none;
+        }
         body.light, body.dark, body, html, .main, .bg-gray-200, .aievfbmsyu.idc0_338 {
         background: #141414;
         }
@@ -1057,7 +1070,7 @@
 
         var hotgarbage = [
 
-            '#post-5855 > div > div > div > div > section > div > div > div > div > div > div > div > div > div > div:nth-child(3)',
+            '.qc-cmp2-container', '#post-5855 > div > div > div > div > section > div > div > div > div > div > div > div > div > div > div:nth-child(3)',
             '#post-5855 > div > div > div > div > section > div > div > div > div > div > div > div > div > div > div:nth-child(1)', '.aoa_overlay', '.elementor-col-33', '.gen-bottom-header', '#qc-cmp2-persistent-link', 'footer', '#fixedban', '[href^="https://redi1.soccerstreams.net/"]', '.aft-sticky-sidebar.widget-area', '.masthead-banner', '.font-family-1.em-breadcrumbs', '.entry-title', '.primary-footer', '.site-info',
             '#id-custom_banner', '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', '.gen-header',
             '.header-after1.widget-title', '.site-info', '.trail-items', '.aft-sticky-sidebar.widget-area', '.primary-footer'];
@@ -1482,7 +1495,7 @@
     /* ----------------------- */
     if (match(current, "*://sportsnest.co*")) {
 
-        var hotgarbage = ['table', 'aside', 'img', 'header', '.entry-title', '.wp-dark-mode-wobble.wp-dark-mode-ignore', '#close', 'tr', 'td', 'td', 'h4', '#ad', '.nv-top-header-wrap', '.nv-header-menu-block-wrap', '.nv-logo-section-wrapper', '.site-footer'];
+        var hotgarbage = [ 'div[id^=chp_ads_block_modal]', 'table', 'aside', 'img', 'header', '.entry-title', '.wp-dark-mode-wobble.wp-dark-mode-ignore', '#close', 'tr', 'td', 'td', 'h4', '#ad', '.nv-top-header-wrap', '.nv-header-menu-block-wrap', '.nv-logo-section-wrapper', '.site-footer'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 console.log('Removing hot garbage -- ' + e);
@@ -1499,7 +1512,7 @@
         margin: 0;
         padding: 0;
         }
-        img, a, br, hr, table, h1, h2,h3,h4,h5,h6 {
+        img, a, br, hr, table, h1, h2,h3,h4,h5,h6, div[id^=chp_ads_block_modal] {
         display: none;
         }
         #primary {
@@ -2000,7 +2013,7 @@
     * ------------------------------------- */
 
     if (match(current, "*://uhdstreams.com/hd*") || match(current, '*://uhdstreams.club/hd/*') ||
-        match(current, "*://tezgoal.com/*") || match(current, "*://dzeko11.net/*") ||
+        match(current, "*://tezgoal.com/*") || match(current, "*://bhliga.com/*") || match(current, "*://dzeko11.net/*") ||
         match(current, '*://wigistream.to/embed/*') || match(current, '*://streamservice443.net/*') ||
         match(current, '*://player.licenses4.me/*') || match(current, "*://myoplay.club*")) {
         console.log("==== Antiantirightclick loaded ====");
