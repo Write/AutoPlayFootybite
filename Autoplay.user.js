@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     11.9
+// @version     12.1
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -1079,7 +1079,9 @@
         log("=== hockeyweb / sportson /cyclingentairtenement / motornews / sportson ===");
 
         var hotgarbage = [
-
+            '#site-header',
+            '#site-footer',
+            '.col-12.col-md-12.col-lg-4.col-xl-4.col-xxl-3',
             '.qc-cmp2-container', '#post-5855 > div > div > div > div > section > div > div > div > div > div > div > div > div > div > div:nth-child(3)',
             '#post-5855 > div > div > div > div > section > div > div > div > div > div > div > div > div > div > div:nth-child(1)', '.aoa_overlay', '.elementor-col-33', '.gen-bottom-header', '#qc-cmp2-persistent-link', 'footer', '#fixedban', '[href^="https://redi1.soccerstreams.net/"]', '.aft-sticky-sidebar.widget-area', '.masthead-banner', '.font-family-1.em-breadcrumbs', '.entry-title', '.primary-footer', '.site-info',
             '#id-custom_banner', '#div-gpt-ad-8176806-7', '#mt_hockeyweb.live_970x90_1', 'h6', '.masthead-banner', '.entry-title', '.gen-header',
@@ -1093,10 +1095,31 @@
         });
 
         var styleHockeyweb = `
+        .entry-content, p, .hentry, .entry-content-wrap {
+        padding: 0;
+        margin: 0;
+        }
+        body.single #content > .row {
+          margin-top: 0;
+        }
+        .container {
+          max-width: 100%;
+          min-width: 100%;
+        }
+        .container-wide {
+          max-width: 100%;
+        }
         header, a, .skip-link {
         display: none;
         }
-        .container {
+        .col-xxl-9 {
+        width: 100%;
+        }
+        #site-main .mt-4, #site-main .mb-4 {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        .container, .shadow-sm {
         padding: 0;
         }
         .elementor-5855 .elementor-element.elementor-element-b712e0e {
@@ -1160,21 +1183,26 @@
         html, body {
         background: #141414;
         }
+        .container, .player-size {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+          padding: 0;
+        }
+        .player-view {
+          width: 100%;
+        }
         .event-item {
         display: none;
         }
-        .player-view {
-        margin-top: 5vh;
-        }
+
         #__next > div > div:nth-child(2), .event-item, .nav-teams__inner, br, .left-sticky-banner, .right-sticky-banner, .footer-sticky-banner, a, h1 { 
         display: none; 
         }
         header, footer, .header, .footer { 
         display: none; 
         }
-        .player-view {
-        margin: 0;
-        }
+
         `;
         pasteStyle(styleBdnewszh);
     }
