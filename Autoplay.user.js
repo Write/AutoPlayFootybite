@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     12.1
+// @version     12.2
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -1422,23 +1422,42 @@
         });
 
         var stylingWeakstreams = `
-        #video-player {
-        top: 25px;
-        position: absolute;
-        }
-
-        .hentry { position: relative; }
-        #main { margin: 0; }
-        #content { width: 100%; }
-        html, body, #page, #content, .entry-content, .entry-header {
-        background: #18191c;
-        }
         #primary {
-        padding-top: 15px;
+        	padding-top: 7px;
         }
-        .entry-header, .entry-title, .content-area, span, .site-name, .smtitle { color: rgb(205, 200, 194); }
+        #video-player {
+			top: 45px;
+			position: absolute;
+        }
+        .hentry { 
+			position: relative; 
+		}
+		.site-content .entry-content, .site-content .entry-summary, .page-content {
+			padding: 0;
+		}
+		#main, .site-content, .site-main .widecolumn {
+			margin: 0;
+		}
+		.site {
+			max-width: 100%;
+			margin: unset;
+		}
+
+        #content { 
+			width: 100%; 
+		}
+
+        html, html[class], body, #page, #content, .entry-content, .entry-header {
+        	background: #18191c;
+        	background-color: #18191c;
+        }
+		
+        .entry-header, .entry-title, .content-area, span, .site-name, .smtitle {
+			color: rgb(205, 200, 194);
+		}
+		
         p {
-        display: none;
+        	display: none;
         }
         `;
 
