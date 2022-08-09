@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     12.2
+// @version     12.3
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -715,6 +715,17 @@
         letter-spacing: -.02em;
         margin-top: 6px;
         }
+	    .competition-cell-side1 {
+		  text-align: right;
+		  padding-left: 10px;
+		  padding-right: 1px;
+		  padding-bottom: 5px;
+		}
+		.competition-cell-side2 {
+		  text-align: left;
+		  padding-left: 1px;
+		  padding-bottom: 5px;
+		}
         .event-status {
 
         margin: 0px 0;
