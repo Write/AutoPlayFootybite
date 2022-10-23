@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     12.3
+// @version     12.4
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -26,8 +26,8 @@
 // @match       *://motornews.live/*
 // @match       *://scoresunday.com/*
 // @match       *://sportinglive.co/*
-// @match       *://cr7soccer.club/*
-// @match       *://rsoccerstreams.com/*
+// @match       *://cr7soccer.club*/
+// @match       *://rsoccerstreams.com*/
 // @match       *://*.rsoccerstreams.com/*
 // @match       *://footybite.cc/*
 // @match       *://*.footybite.cc/*
