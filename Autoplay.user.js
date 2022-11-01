@@ -1,8 +1,8 @@
 // ==UserScript==
-// @version     13.1
+// @version     13.2
 // @author      Write
 // @name        Autoplay
-// @namespace   Autoplay Block Ads Soccerstreams
+// @namespace   Autoplay Block Ads Soccerstreams /
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @updateURL   https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
