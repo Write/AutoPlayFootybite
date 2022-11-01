@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     13.0.1
+// @version     13.1
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
