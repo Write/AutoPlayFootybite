@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     13.0
+// @version     13.0.1
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -1937,7 +1937,7 @@
                 e.remove();
             }
             /* Whitelisting */
-            if (match(current, '*techoreels.com*') || (match(current, '*https://bestnhl.com/*'))) {
+            if (match(current, '*cutin.it*') || match(current, '*techoreels.com*') || (match(current, '*https://bestnhl.com/*'))) {
                 return;
             }
             if (e.textContent.search('window.location') >= 0 && e.textContent.search('darkreader') == -1 && e.textContent.search('universal-bypass') == -1) {
