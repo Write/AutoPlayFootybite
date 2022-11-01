@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     12.4
+// @version     13.0
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams
@@ -10,6 +10,7 @@
 // @icon        https://icons.duckduckgo.com/ip2/redi1.soccerstreams.net.ico
 // @run-at      document-start
 // @match       *://tinyurl.is/*
+// @match       *://cutin.it/*
 // @match       *://hockeyweb.site/*
 // @match       *://hockeyweb.live/*
 // @match       *://sportson.site/*
@@ -158,6 +159,23 @@
     }
 
     log("= Autplay Script Loaded on : " + current + " =");
+
+    /* ------------------------------ */
+    /* cutin.it's Bypass               */
+    /* ------------------------------ */
+    if (match(current, "*://cutin.it/*")) {
+
+        checkElement('a[class*="btn"][class*=sadsad]:not([href^=\\#])').then((selector) => {
+            var url = selector.href;
+            log("LINK FOUND : " + url);
+            location.assign(url);
+        });
+
+        setTimeout(function () {
+            log("resetting count")
+            window.count = -1;
+        }, 100)
+    }
 
     /* ------------------------------ */
     /* TinyURL's Bypass               */
