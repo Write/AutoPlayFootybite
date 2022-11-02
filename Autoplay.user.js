@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     13.3
+// @version     13.4
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams /
@@ -167,12 +167,6 @@ var rawHTML;
     /* ------------------------------ */
     if (match(current, "*://cutin.it/*")) {
 
-        checkElement('a[class*="btn"][class*=sadsad]:not([href^=\\#])').then((selector) => {
-            var url = selector.href;
-            log("LINK FOUND : " + url);
-            //location.assign(url);
-        });
-
         function decode(s) {
             var s1=unescape(s.substr(0,s.length-1));
             var t='';
@@ -208,6 +202,16 @@ var rawHTML;
             });
         }).observe(document.documentElement, { childList: true, subtree: true });
 
+        /* Second method, in case the fast one doesn't work*/
+        checkElement('a[class*="btn"][class*=sadsad]:not([href^=\\#])').then((selector) => {
+            var url = selector.href;
+            log("LINK FOUND : " + url);
+            location.assign(url);
+        });
+        setTimeout(function () {
+            log("resetting count")
+            window.count = -1;
+        }, 100);
 
     }
 
