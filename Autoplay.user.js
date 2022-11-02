@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     13.2
+// @version     13.3
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams /
@@ -100,6 +100,8 @@
 // @match           *://*.bhliga.com/*
 // ==/UserScript==
 
+var rawHTML;
+
 (function () {
     'use strict';
 
@@ -108,7 +110,7 @@
     /* ----------------------- */
     /* Functions / Utils       */
     /* ----------------------- */
-    
+
     function log(input, type = "info", title = "Autoplay", color = "#00314C") {
         console[type](
             `%c${title}%c`,
@@ -168,13 +170,45 @@
         checkElement('a[class*="btn"][class*=sadsad]:not([href^=\\#])').then((selector) => {
             var url = selector.href;
             log("LINK FOUND : " + url);
-            location.assign(url);
+            //location.assign(url);
         });
 
-        setTimeout(function () {
-            log("resetting count")
-            window.count = -1;
-        }, 100)
+        function decode(s) {
+            var s1=unescape(s.substr(0,s.length-1));
+            var t='';
+            for(i=0;i<s1.length;i++)t+=String.fromCharCode(s1.charCodeAt(i)-s.substr(s.length-1,1));
+                var unescappedHTML = unescape(t);
+            window.rawHTML = unescappedHTML;
+            return unescappedHTML;
+        }
+
+        new MutationObserver((_, observer) => {
+
+            var scripts = document.querySelectorAll('script');
+            var currentScript;
+            scripts.forEach(function (e) {
+
+                var regex = /dF\('(.*)'\)/
+                var decodedJS, encodedJS
+                if (e.innerText.match(regex)) {
+
+                    var encodedJS = e.innerText.match(regex)[1]
+                    decodedJS = decode(encodedJS)
+
+                    var url = decodedJS.match(/.attr\(.*href.*,\"(.*)\"\)\.html/);
+                    if (url) {
+                      log("URL FOUND : " + url[1]);
+                      location.assign(url[1]);
+                    }
+
+
+                    log("Mutation observer: match found, stored in rawHTML var");
+                    observer.disconnect();
+                }
+            });
+        }).observe(document.documentElement, { childList: true, subtree: true });
+
+
     }
 
     /* ------------------------------ */
@@ -190,7 +224,7 @@
         checkElement('section').then((selector) => {
             selector.remove();
         });
-  
+
         var styleTinyurl = `
             body, html {
                   background: #141414;
@@ -301,7 +335,7 @@
         margin: 0;
         padding: 0;
         }
-        .entry-content, .post-inner, p { 
+        .entry-content, .post-inner, p {
         margin: 0;
         padding: 0;
         }
@@ -682,7 +716,7 @@
         .table-responsive .streams-table-new td, .streams-table-new th {
         padding: 0;
         }
-        .dash { 
+        .dash {
         display: none;
         }
         .match-view-head-side1, .match-view-head-side2 {
@@ -807,7 +841,7 @@
         color: #e1f7ff;
         }
 
-        .competition-cell-table { 
+        .competition-cell-table {
         padding: 0;
         }
 
@@ -899,7 +933,7 @@
 
         var styleElixx = `
         h3, h4, p, img, br, hr { display: none; }
-        #iframe-wrapper > iframe { 
+        #iframe-wrapper > iframe {
         width: 100%;
         height: 75vh;
         }
@@ -1021,7 +1055,7 @@
         margin: 0;
         }
         img {
-        display: none; 
+        display: none;
         }`;
 
         pasteStyle(uhdstreamsStyle);
@@ -1050,8 +1084,8 @@
         .g1-row-padding-m {
         padding: 0;
         }
-        .g1-content-narrow > .twitter-tweet, .g1-content-narrow > aside, .g1-content-narrow > audio, .g1-content-narrow > blockquote, .g1-content-narrow > canvas, .g1-content-narrow > code, .g1-content-narrow > div, .g1-content-narrow > dl, .g1-content-narrow > figure, .g1-content-narrow > form, .g1-content-narrow > h1, .g1-content-narrow > h2, .g1-content-narrow > h3, .g1-content-narrow > h4, .g1-content-narrow > h5, .g1-content-narrow > h6, .g1-content-narrow > hr, .g1-content-narrow > iframe, .g1-content-narrow > ol, .g1-content-narrow > p, .g1-content-narrow > pre, .g1-content-narrow > section, .g1-content-narrow > table, .g1-content-narrow > ul, .g1-content-narrow > video 
-        { max-width : 100%; 
+        .g1-content-narrow > .twitter-tweet, .g1-content-narrow > aside, .g1-content-narrow > audio, .g1-content-narrow > blockquote, .g1-content-narrow > canvas, .g1-content-narrow > code, .g1-content-narrow > div, .g1-content-narrow > dl, .g1-content-narrow > figure, .g1-content-narrow > form, .g1-content-narrow > h1, .g1-content-narrow > h2, .g1-content-narrow > h3, .g1-content-narrow > h4, .g1-content-narrow > h5, .g1-content-narrow > h6, .g1-content-narrow > hr, .g1-content-narrow > iframe, .g1-content-narrow > ol, .g1-content-narrow > p, .g1-content-narrow > pre, .g1-content-narrow > section, .g1-content-narrow > table, .g1-content-narrow > ul, .g1-content-narrow > video
+        { max-width : 100%;
         }
 
         .g1-column-2of3 {
@@ -1088,7 +1122,7 @@
         body, html, .boxed_layout #page {
         background: #141414;
         }
-        img, hr, br, p, svg { 
+        img, hr, br, p, svg {
         display: none;
         }
         `;
@@ -1225,11 +1259,11 @@
         display: none;
         }
 
-        #__next > div > div:nth-child(2), .event-item, .nav-teams__inner, br, .left-sticky-banner, .right-sticky-banner, .footer-sticky-banner, a, h1 { 
-        display: none; 
+        #__next > div > div:nth-child(2), .event-item, .nav-teams__inner, br, .left-sticky-banner, .right-sticky-banner, .footer-sticky-banner, a, h1 {
+        display: none;
         }
-        header, footer, .header, .footer { 
-        display: none; 
+        header, footer, .header, .footer {
+        display: none;
         }
 
         `;
@@ -1263,7 +1297,7 @@
         width: unset;
         height: 30px;
         }
-        .col-md-12 { 
+        .col-md-12 {
         background-color: #000;
         background-image: none;
         margin: 2px 0px;
@@ -1273,7 +1307,7 @@
         .col-md-12 button.btn {
         color: white;
         }
-        .bbevent { 
+        .bbevent {
         box-shadow: none;
         border: none;
         height: 80px;
@@ -1458,8 +1492,8 @@
 			top: 45px;
 			position: absolute;
         }
-        .hentry { 
-			position: relative; 
+        .hentry {
+			position: relative;
 		}
 		.site-content .entry-content, .site-content .entry-summary, .page-content {
 			padding: 0;
@@ -1472,19 +1506,19 @@
 			margin: unset;
 		}
 
-        #content { 
-			width: 100%; 
+        #content {
+			width: 100%;
 		}
 
         html, html[class], body, #page, #content, .entry-content, .entry-header {
         	background: #18191c;
         	background-color: #18191c;
         }
-		
+
         .entry-header, .entry-title, .content-area, span, .site-name, .smtitle {
 			color: rgb(205, 200, 194);
 		}
-		
+
         p {
         	display: none;
         }
@@ -1655,7 +1689,7 @@
         padding: 0;
         margin: 0;
         }
-        a { 
+        a {
         display: none;
         }
         .elementor-column.elementor-col-66 {
@@ -1941,8 +1975,7 @@
                 return;
             }
             if (e.textContent.search('window.location') >= 0 && e.textContent.search('darkreader') == -1 && e.textContent.search('universal-bypass') == -1) {
-                log("Mutation observer: window.location detected");
-                observer.disconnect();
+
                 currentScript = e.innerHTML;
                 currentScript = currentScript.replace(/eval\(function \(p, a, c, k, e, d\) {.*}/gm, '');
 
@@ -1964,6 +1997,9 @@
                 e.remove();
                 /* log(currentScript) */
                 addScript(currentScript);
+
+                              log("Mutation observer: window.location detected");
+                observer.disconnect();
             }
         });
     }).observe(document.documentElement, { childList: true, subtree: true });
