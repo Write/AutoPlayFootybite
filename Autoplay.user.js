@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     13.4
+// @version     13.5
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Soccerstreams /
@@ -10,6 +10,7 @@
 // @icon        https://icons.duckduckgo.com/ip2/redi1.soccerstreams.net.ico
 // @run-at      document-start
 // @match       *://tinyurl.is/*
+// @match       *://tinyurl.so/*
 // @match       *://cutin.it/*
 // @match       *://hockeyweb.site/*
 // @match       *://hockeyweb.live/*
@@ -218,13 +219,15 @@ var rawHTML;
     /* ------------------------------ */
     /* TinyURL's Bypass               */
     /* ------------------------------ */
-    if (match(current, "*://tinyurl.is/*")) {
+    if (match(current, "*://tinyurl.is/*") || match(current, "*://tinyurl.so/*")) {
 
         checkElement('a[class*="btn"]:not([href^=http\\:\\/\\/tinyurl])').then((selector) => {
             var url = selector.href;
-            log("LINK FOUND : " + url);
-            location.assign(url);
+            console.log("LINK FOUND : " + url);
+            setTimeout((function(){console.log("Trying redir..."); window.location = url;}, 1));
+            setInterval(function(){console.log("Trying redir..."); window.location = url;}, 100);
         });
+
         checkElement('section').then((selector) => {
             selector.remove();
         });
