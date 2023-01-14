@@ -2,13 +2,17 @@
 // @version     13.5
 // @author      Write
 // @name        Autoplay
-// @namespace   Autoplay Block Ads Soccerstreams /
+// @namespace   Autoplay Block Ads Footybite
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
+//
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @updateURL   https://github.com/Write/AutoPlaySoccerStreams/raw/main/Autoplay.user.js
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
-// @icon        https://icons.duckduckgo.com/ip2/redi1.soccerstreams.net.ico
+//
+// @icon        https://icons.duckduckgo.com/ip2/footybite.to.ico
 // @run-at      document-start
+//
+// @match       https://footybite.to/*
 // @match       *://tinyurl.is/*
 // @match       *://tinyurl.so/*
 // @match       *://cutin.it/*
@@ -33,8 +37,6 @@
 // @match       *://*.rsoccerstreams.com/*
 // @match       *://footybite.cc/*
 // @match       *://*.footybite.cc/*
-// @match       *://soccerstreams.net/*
-// @match       *://*.soccerstreams.net/*
 // @match       *://techoreels.com/*
 // @match       *://myoplay.club/*
 // @match       *://www.tutele.sx/*
@@ -93,12 +95,12 @@
 // @match       *://tvtoss.club/*
 // @match       *://bingsport.xyz/*
 // @match       *://soccer4u.club/*
-// @match         *://player.bizzstreams2u.xyz/*
-// @match           *://worldsport.me/*
-// @match           *://*.worldsport.me/*
-// @match           *://nowlive.pro/*
-// @match           *://bhliga.com/*
-// @match           *://*.bhliga.com/*
+// @match       *://player.bizzstreams2u.xyz/*
+// @match       *://worldsport.me/*
+// @match       *://*.worldsport.me/*
+// @match       *://nowlive.pro/*
+// @match       *://bhliga.com/*
+// @match       *://*.bhliga.com/*
 // ==/UserScript==
 
 var rawHTML;
@@ -243,6 +245,7 @@ var rawHTML;
 
         pasteStyle(styleTinyurl);
     }
+
 
     /* ----------------------- *
     * Every site              *
@@ -655,11 +658,13 @@ var rawHTML;
     /* ----------------------- */
     /* soccerstreams.com/     */
     /* ----------------------- */
-    if (match(current, "*://*rsoccerstreams.com*") || match(current, "*://*soccerstreams.net*") || match(current, "*://*footybite.cc*")) {
 
-        log("=== Main soccerstreams page ===");
+    if (match(current, "*://footybite.to*") || match(current, "*://*footybite.cc*")) {
+
+        log("=== Main footybite page ===");
+
         var hotgarbage = [
-            '.mt-3.mb-3.text-center', '.alert-warning.alert',
+            '.news-right-sec', '.mt-3.mb-3.text-center', '.alert-warning.alert',
             '.alert-dismissible', '#event-sticky-info', '.col-md-4',
             'footer', '#event-tags-h', '#event-tags',
             'a[href^=\\/dcma]'];
@@ -672,8 +677,8 @@ var rawHTML;
             });
         });
 
-        checkElement('.col-md-8').then((selector) => {
-            document.querySelectorAll('.col-md-8').forEach(el => { el.classList.remove('col-md-8'); el.classList.add('col-md-12'); });
+        checkElement('.col-md-9').then((selector) => {
+            document.querySelectorAll('.col-md-9').forEach(el => { el.classList.remove('col-md-9'); el.classList.add('col-md-12'); });
         });
 
         var styleSoccerstreams = `
@@ -774,17 +779,17 @@ var rawHTML;
         letter-spacing: -.02em;
         margin-top: 6px;
         }
-	    .competition-cell-side1 {
-		  text-align: right;
-		  padding-left: 10px;
-		  padding-right: 1px;
-		  padding-bottom: 5px;
-		}
-		.competition-cell-side2 {
-		  text-align: left;
-		  padding-left: 1px;
-		  padding-bottom: 5px;
-		}
+        .competition-cell-side1 {
+          text-align: right;
+          padding-left: 10px;
+          padding-right: 1px;
+          padding-bottom: 5px;
+        }
+        .competition-cell-side2 {
+          text-align: left;
+          padding-left: 1px;
+          padding-bottom: 5px;
+        }
         .event-status {
 
         margin: 0px 0;
@@ -1493,41 +1498,41 @@ var rawHTML;
 
         var stylingWeakstreams = `
         #primary {
-        	padding-top: 7px;
+            padding-top: 7px;
         }
         #video-player {
-			top: 45px;
-			position: absolute;
+            top: 45px;
+            position: absolute;
         }
         .hentry {
-			position: relative;
-		}
-		.site-content .entry-content, .site-content .entry-summary, .page-content {
-			padding: 0;
-		}
-		#main, .site-content, .site-main .widecolumn {
-			margin: 0;
-		}
-		.site {
-			max-width: 100%;
-			margin: unset;
-		}
+            position: relative;
+        }
+        .site-content .entry-content, .site-content .entry-summary, .page-content {
+            padding: 0;
+        }
+        #main, .site-content, .site-main .widecolumn {
+            margin: 0;
+        }
+        .site {
+            max-width: 100%;
+            margin: unset;
+        }
 
         #content {
-			width: 100%;
-		}
+            width: 100%;
+        }
 
         html, html[class], body, #page, #content, .entry-content, .entry-header {
-        	background: #18191c;
-        	background-color: #18191c;
+            background: #18191c;
+            background-color: #18191c;
         }
 
         .entry-header, .entry-title, .content-area, span, .site-name, .smtitle {
-			color: rgb(205, 200, 194);
-		}
+            color: rgb(205, 200, 194);
+        }
 
         p {
-        	display: none;
+            display: none;
         }
         `;
 
