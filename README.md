@@ -1,4 +1,5 @@
-# AutoPlaySoccerStreams
+# ~~AutoPlaySoccerStreams~~ AutoPlayFootybite !
+
 AutoPlay, Remove Ads &amp; Annoying Stuff on the majority of Reddit SoccerStream's Streams.
 Now included : TinyURL bypass !   
   
