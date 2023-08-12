@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     13.5
+// @version     14.0
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -12,7 +12,9 @@
 // @icon        https://icons.duckduckgo.com/ip2/footybite.to.ico
 // @run-at      document-start
 //
-// @match       https://footybite.to/*
+//
+// @match       *://*.footybite.to/*
+// @match       *://footybite.to/*
 // @match       *://tinyurl.is/*
 // @match       *://tinyurl.so/*
 // @match       *://cutin.it/*
@@ -27,6 +29,7 @@
 // @match       *://redditsport.live/*
 // @match       *://uhdstreams.club/*
 // @match       *://bdnewszh.com/*
+// @match       *://*.bdnewszh.com/*
 // @match       *://www.bdnewszh.com/*
 // @match       *://thecyclingentertainment.com/*
 // @match       *://motornews.live/*
@@ -49,6 +52,7 @@
 // @match       *://sportsnest.co/*
 // @match       *://papahd.club/*
 // @match       *://3papahd3.icu/*
+// @match       *://papafoot.click/*
 // @match       *://hinhnenhd.info/*
 // @match       *://gamerarcades.com/*
 // @match       *://poscitech.com/*
@@ -88,6 +92,8 @@
 // @match       *://streamhd247.online/*
 // @match       *://stakes100.xyz/*
 // @match       *://youpit.xyz/*
+// @match       *://youpits.xyz/*
+// @match       *://60fps.xyz/*
 // @match       *://silverspoon.site/*
 // @match       *://p2pstreams.live/*
 // @match       *://xestreams.com/*
@@ -101,6 +107,40 @@
 // @match       *://nowlive.pro/*
 // @match       *://bhliga.com/*
 // @match       *://*.bhliga.com/*
+// @match       *://*.gameavenue.co/*
+// @match       *://gameavenue.co/*
+// @match       *://nflbite.to/*
+// @match       *://*.nflbite.to/*
+// @match       *://*.catchystream.com/*
+// @match       *://catchystream.com/*
+// @match       *://*.fordems.live/*
+// @match       *://fordems.live/*
+// @match       *://*.sportsgala.xyz/*
+// @match       *://sportsgala.xyz/*
+// @match       *://dynamicrevival.net/*
+// @match       *://*.dynamicrevival.net/*
+// @match       *://sportsonline.sx/*
+// @match       *://*.sportsonline.sx/*
+// @match       *://supercast2.com/*
+// @match       *://s1os.icu/*
+// @match       *://wikisport.click/*
+// @match       *://b4ucast.com/*
+// @match       *://www.nolive.me/*
+// @match       *://enjoy4hd.site/*
+// @match       *://enjoyhd.club/*
+// @match       *://em.bedsport.live/*
+// @match       *://*.bedsport.live/*
+// @match       *://*footballstreams.top/*
+// @match       *://*f1streams.pro/*
+// @match       *://*nfllivestream.top/*
+// @match       *://*yehfullhd.live/*
+// @match       *://*nbabite.to/*
+// @match       *://*olahdplay.xyz/*
+// @match       *://*totalsportek.soccer/*
+// @match       *://*sportschamp.fun/*
+// @match       *://*alexsportz.online/*
+// @match       *://*gamerarcades.com/*
+
 // ==/UserScript==
 
 var rawHTML;
@@ -165,6 +205,107 @@ var rawHTML;
 
     log("= Autplay Script Loaded on : " + current + " =");
 
+    /* ----------------------- *
+    * Every site              *
+    * ----------------------- */
+    var garbage = ['#\\30', '#ni-overlay', 'polygon'];
+    garbage.forEach(e => {
+        checkElement(e).then((selector) => {
+            log('Removing hot garbage -- ' + e);
+            selector.remove();
+        });
+    });
+
+    /* ------------------------- */
+    /* Skeleton to re-use        */
+    /* ------------------------- */
+    if (match(current, "*://somewebsite.xyz*")) {
+
+        log("=== "+ current + " ===");
+        // var hotgarbage = [""];
+
+        // hotgarbage.forEach(e => {
+        //     checkElement(e).then((selector) => {
+        //         log('Deleting garbage -- ' + e);
+        //         selector.remove();
+        //     });
+        // });
+
+        var style = `
+        body, html, .bg-gray-200, .inside-article {
+          background: #141414;
+          margin: 0;
+          padding: 0;
+        }
+        iframe {
+          width: 80vw;
+          height: 80vh;
+        }
+          textarea, a, br, hr, svg, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+          display: none;
+        }
+        `;
+
+        pasteStyle(style);
+    }
+
+    /* ------------------------------------- */
+    /* footballstreams.top, f1streams.pro    */
+    /* ------------------------------------- */
+    if (match(current, "*://*footballstreams.top*") || match(current, "*://*f1streams.pro*") ||
+        match(current, "*://*nfllivestream.top*") ||
+        match(current, '*://*nflbite.to*') ||
+        match(current, '*//*nbabite.to/*') ||
+        match(current, '*//*totalsportek.soccer/*')
+       ) {
+
+        log("=== "+ current + " ===");
+        var hotgarbage = ["header", "#footer", ".elementor-column-gap-custom",".elementor-column-gap-custom", ".second-iframe", "div.elementor-column:nth-child(2) > div:nth-child(1)", "div.elementor-column:nth-child(2)",
+                         '.site-below-footer-wrap[data-section="section-below-footer-builder"]', ".elementor-location-header", ".site-footer"];
+
+        hotgarbage.forEach(e => {
+             checkElement(e).then((selector) => {
+                 log('Deleting garbage -- ' + e);
+                 selector.remove();
+             });
+         });
+
+        var style = `
+        body, html, .bg-gray-200, .inside-article, .elementor-161 .elementor-element.elementor-element-1ecbf82:not(.elementor-motion-effects-element-type-background), .elementor-161 .elementor-element.elementor-element-1ecbf82 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+          background: #141414;
+          margin: 0;
+          padding: 0;
+        }
+        iframe {
+          width: 80vw;
+          height: 80vh;
+        }
+        textarea, a, br, hr, svg, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+          display: none;
+        }
+        .ast-container {
+          margin: auto;
+        }
+        .elementor-location-header, .site-footer, .teams {
+          display: none;
+        }
+        .elementor-col-50 {
+          width: 100%;
+        }
+        .elementor-161 .elementor-element.elementor-element-1ecbf82,
+        .elementor-161 .elementor-element.elementor-element-bac3d03 .elementor-column-gap-custom .elementor-column > .elementor-element-populated,
+        .elementor-161 .elementor-element.elementor-element-1ecbf82
+        {
+          padding: 0;
+          margin: 0;
+          box-shadow: none;
+        }
+        `;
+
+        pasteStyle(style);
+    }
+
+
     /* ------------------------------ */
     /* cutin.it's Bypass               */
     /* ------------------------------ */
@@ -219,6 +360,62 @@ var rawHTML;
     }
 
     /* ------------------------------ */
+    /* sportsonline.sx's Bypass               */
+    /* ------------------------------ */
+    if (match(current, "*://sportsonline.sx/*") || match(current, "*://*.sportsonline.sx/*") | match(current, "*://*.dynamicrevival.net/*") ) {
+        new MutationObserver((_, observer) => {
+
+            var scripts = document.querySelectorAll('script');
+            var currentScript;
+            scripts.forEach(function (e) {
+                if (e.src == "" && e.textContent.search('Histats') == 1) {
+                  e.remove();
+                }
+                else if (e.src.match('frustration.js') || e.src.match('deb.js') ) {
+                  e.remove();
+                }
+                else if (e.src == "" && e.textContent.search('crowdEnabled') == -1) {
+                 // alert(e.innerHTML)
+                }
+
+                if (e.textContent.search('window.location') >= 0 && e.textContent.search('darkreader') == -1 && e.textContent.search('universal-bypass') == -1) {
+
+                    console.log("Removed window.location redirection")
+                    currentScript = e.innerHTML;
+                    currentScript = currentScript.replace(/eval\(function \(p, a, c, k, e, d\) {.*}/gm, '');
+
+                    currentScript = currentScript.replace(/window.location.replace\(".*?"\)/g, 'log("snif snif")');
+                    currentScript = currentScript.replace(/if\(window==window.top\) {window.location.replace\(".*"\);}/g, "");
+                    currentScript = currentScript.replace(/if\ \(document\.referrer\.indexOf\(b\)\!=-1\){\n.*\n}/g, "");
+                    currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, "");
+                    currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, "");
+                    currentScript = currentScript.replace(/if\(window==window.top\) document.location="\/"/g, "");
+
+                     //           <script>if(window==window.top) document.location="/"</script>
+                    e.innerHTML = "";
+                    e.remove();
+
+                    addScript(currentScript);
+                }
+                if (e.textContent.search('document.location') >= 0 && e.textContent.search('darkreader') == -1 && e.textContent.search('universal-bypass') == -1) {
+
+                    console.log("Removed document.location redirection")
+                    currentScript = e.innerHTML;
+                    currentScript = currentScript.replace(/if\(window==window.top\) document.location="\/"/g, "");
+
+                     //           <script>if(window==window.top) document.location="/"</script>
+                    e.innerHTML = "";
+                    e.remove();
+
+                    addScript(currentScript);
+                }
+            });
+
+        }).observe(document.documentElement, { childList: true, subtree: true });
+
+    }
+
+    /* ------------------------------ */
     /* TinyURL's Bypass               */
     /* ------------------------------ */
     if (match(current, "*://tinyurl.is/*") || match(current, "*://tinyurl.so/*")) {
@@ -247,44 +444,119 @@ var rawHTML;
     }
 
 
-    /* ----------------------- *
-    * Every site              *
-    * ----------------------- */
-    var garbage = ['#\\30', '#ni-overlay', 'polygon'];
-    garbage.forEach(e => {
-        checkElement(e).then((selector) => {
-            log('Removing hot garbage -- ' + e);
-            selector.remove();
-        });
-    });
-
     /* ------------------------- */
-    /* Skeleton to re-use        */
+    /* enjoy4hd.site             */
     /* ------------------------- */
-    if (match(current, "*://somewebsite.xyz*")) {
+    if (match(current, "*://enjoy4hd.site/*")) {
 
-        log("===  ===");
-        var hotgarbage = ["", ""];
+        log("=== "+ current + " ===");
+
+        var hotgarbage = ["#bottom-bar", "#header", "#sidebar-right"];
 
         hotgarbage.forEach(e => {
-            checkElement(e).then((selector) => {
-                log('Deleting garbage -- ' + e);
-                selector.remove();
-            });
+             checkElement(e).then((selector) => {
+                 log('Deleting garbage -- ' + e);
+                 selector.remove();
+             });
         });
 
         var styleSomewebsite = `
-        body, html, .bg-gray-200, .inside-article {
-        background: #141414;
-        margin: 0;
+        body, html, #main, .content, .bg-gray-200, .inside-article, .single-view {
+          background: #141414;
+
+          --fbc-borders: unset;
+        }
+        .col-cs #content {
+          width: 100%;
+          height: 100%;
+        }
+        #container, .blog-view, .single-view, .author-info, .archive-info, .form-404 {
+        border: none;
+        margin: auto;
         padding: 0;
+        box-shadow: unset;
         }
-        iframe {
-        width: 100%;
+
+        .navbar, a, br, hr, svg, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+          display: none;
         }
-        a, br, hr, svg, img {
-        display: none;
+        .responsive {
+          max-width: 100%;
+          position: fixed;
+
+
         }
+        .box-responsive {
+          width: 65vw;
+          height: 90vh;
+          padding: 0;
+          margin: auto;
+          max-width: unset;
+        }
+        `;
+
+        pasteStyle(styleSomewebsite);
+    }
+
+    /* ------------------------- */
+    /* sportsgala.xyz            */
+    /* ------------------------- */
+    if (match(current, "*://sportsgala.xyz*")) {
+
+        log("=== "+ current + " ===");
+        // var hotgarbage = [""];
+
+        // hotgarbage.forEach(e => {
+        //     checkElement(e).then((selector) => {
+        //         log('Deleting garbage -- ' + e);
+        //         selector.remove();
+        //     });
+        // });
+
+        var styleSomewebsite = `
+          body, html, .bg-gray-200, .inside-article {
+            background: #141414;
+            margin: 0;
+            padding: 0;
+          }
+          iframe {
+            width: 100%;
+          }
+          a, br, hr, svg, img {
+            display: none;
+          }
+        `;
+
+        pasteStyle(styleSomewebsite);
+    }
+
+    /* ------------------------- */
+    /* s1os.icu                  */
+    /* ------------------------- */
+    if (match(current, "*://s1os.icu*")) {
+
+        log("=== "+ current + " ===");
+        // var hotgarbage = [""];
+
+        // hotgarbage.forEach(e => {
+        //     checkElement(e).then((selector) => {
+        //         log('Deleting garbage -- ' + e);
+        //         selector.remove();
+        //     });
+        // });
+
+        var styleSomewebsite = `
+          body, html, .bg-gray-200, .inside-article {
+          background: #141414;
+          margin: 0;
+          padding: 0;
+          }
+          iframe {
+          width: 100%;
+          }
+          a, br, hr, svg, img {
+          display: none;
+          }
         `;
 
         pasteStyle(styleSomewebsite);
@@ -292,30 +564,30 @@ var rawHTML;
 
 
     /* ------------------------- */
-    /* Skeleton to re-use        */
+    /* worldsport.me             */
     /* ------------------------- */
     if (match(current, "*://www.worldsport.me/*")) {
 
         log("=== worldsport ===");
-        var hotgarbage = [""];
+        // var hotgarbage = [""];
 
-        hotgarbage.forEach(e => {
-            checkElement(e).then((selector) => {
-                log('Deleting garbage -- ' + e);
-                selector.remove();
-            });
-        });
+        // hotgarbage.forEach(e => {
+        //     checkElement(e).then((selector) => {
+        //         log('Deleting garbage -- ' + e);
+        //         selector.remove();
+        //     });
+        // });
 
         var styleWorldsport = `
-        body, html, .bg-gray-200, .inside-article {
-        background: #141414;
-        margin: 0;
-        padding: 0;
-        }
-        table, tbody, td  { width: 100%; }
-        a, br, hr, svg, img {
-        display: none;
-        }
+          body, html, .bg-gray-200, .inside-article {
+          background: #141414;
+          margin: 0;
+          padding: 0;
+          }
+          table, tbody, td  { width: 100%; }
+          a, br, hr, svg, img {
+          display: none;
+          }
         `;
 
         pasteStyle(styleWorldsport);
@@ -519,7 +791,7 @@ var rawHTML;
     /* ----------------------- */
     /* https://youpit.xyz  */
     /* ----------------------- */
-    if (match(current, "*://youpit.xyz/*")) {
+    if (match(current, "*://youpit.xyz/*") || match(current, "*://youpits.xyz/*") || match(current, '*://60fps.xyz/*'))  {
         checkElement('video').then((selector) => {
             selector.click();
         });
@@ -659,12 +931,12 @@ var rawHTML;
     /* soccerstreams.com/     */
     /* ----------------------- */
 
-    if (match(current, "*://footybite.to*") || match(current, "*://*footybite.cc*")) {
+    if (match(current, "*://*.footybite.to*") || match(current, "*://footybite.to*") || match(current, "*://*footybite.cc*")) {
 
         log("=== Main footybite page ===");
 
         var hotgarbage = [
-            '.news-right-sec', '.mt-3.mb-3.text-center', '.alert-warning.alert',
+            '.second-iframe', '.teams', '.news-right-sec-div', '.news-right-sec', '.mt-3.mb-3.text-center', '.alert-warning.alert',
             '.alert-dismissible', '#event-sticky-info', '.col-md-4',
             'footer', '#event-tags-h', '#event-tags',
             'a[href^=\\/dcma]'];
@@ -684,6 +956,10 @@ var rawHTML;
         var styleSoccerstreams = `
         iframe[src^=about] {
           display: none;
+        }
+        .first-iframe {
+          width: 100%;
+          height: calc(100vh);
         }
         body.light, body.dark, body, html, .main, .bg-gray-200, .aievfbmsyu.idc0_338 {
         background: #141414;
@@ -895,6 +1171,26 @@ var rawHTML;
     /* ------------------------------ */
     /* nflscoop . com           */
     /* ------------------------------ */
+    if (match(current, "*://gameavenue.co*") || match(current, "*://*.gameavenue.co*")) {
+
+        log("=== gameavenue.co ===");
+        var hotgarbage = ['#ast-desktop-header', '.secondary.widget-area', 'table', '.site-footer', '.left_bottom.floating.style-1.wp-dark-mode-ignore.wp-dark-mode-switcher',
+                         '.cky-btn-revisit', '.cky-revisit-bottom-left.cky-btn-revisit-wrapper'];
+        hotgarbage.forEach(e => {
+            checkElement(e).then((selector) => {
+                log('Removing hot garbage -- ' + e);
+                selector.remove();
+            });
+        });
+
+        var styleNflscoop = ``;
+        pasteStyle(styleNflscoop);
+    }
+
+
+    /* ------------------------------ */
+    /* nflscoop . com           */
+    /* ------------------------------ */
     if (match(current, "*://nflscoop.net*")) {
 
         log("=== nflscoop.net ===");
@@ -925,8 +1221,22 @@ var rawHTML;
             });
         });
 
-        var styleNizarstream = ``;
-        pasteStyle(styleNizarstream);
+        var style = `
+        body, html, .bg-gray-200, .inside-article, .jumbotron {
+          background: #141414;
+          margin: 0;
+          padding: 0;
+        }
+
+        .jumbotron {
+          border: none;
+        }
+        textarea, a, br, hr, svg, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+          display: none;
+        }
+        `;
+
+        pasteStyle(style);
     }
 
     /* ------------------------------ */
@@ -1240,14 +1550,14 @@ var rawHTML;
     /*                          */
     /* Also work only in Chrome */
     /* ------------------------ */
-    if (match(current, "*://bdnewszh.com*") || match(current, "*://www.bdnewszh.com*")) {
+    if (match(current, "*://bdnewszh.com*") || match(current, "*://www.bdnewszh.com*")|| match(current, "*://*.bdnewszh.com*")) {
 
         /*
         if (document.querySelector('html'))
         clearEventListener(document.querySelector('#__next'));
         */
 
-        var hotgarbage = ["div[style^=position]", "script[src^=\\/\\/onpsapul]", 'next-route-announcer', '#__next > div > div:nth-child(5) > a', 'header', 'footer', '.footer', '.header', '.nav-teams', '.nav-teams__inner', '.player-view', '#div.container:nth-of-type(6)', '.abblock-msg', '.capitalize', '.billboard-banner', '.footer', '.footer-sticky-banner', '.right-sticky-banner', '.left-sticky-banner', '.container.powerdby'];
+        var hotgarbage = [".ds_content", ".ds_content", "div[style^=position]", "script[src^=\\/\\/onpsapul]", 'next-route-announcer', '#__next > div > div:nth-child(5) > a', 'header', 'footer', '.footer', '.header', '.nav-teams', '.nav-teams__inner', '.player-view', '#div.container:nth-of-type(6)', '.abblock-msg', '.capitalize', '.billboard-banner', '.footer', '.footer-sticky-banner', '.right-sticky-banner', '.left-sticky-banner', '.container.powerdby'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 log('Removing hot garbage -- ' + e);
@@ -1255,8 +1565,19 @@ var rawHTML;
             });
         });
         var styleBdnewszh = `
-        html, body {
-        background: #141414;
+        html, body, .content, .contentarea {
+          background: #141414;
+        }
+        .content {
+          border: none;
+        }
+        .contentarea {
+          margin: 0;
+          padding: 0;
+        }
+        .iframe {
+          width: 80vw;
+          height: 80vh;
         }
         .container, .player-size {
           width: 100%;
@@ -1268,14 +1589,14 @@ var rawHTML;
           width: 100%;
         }
         .event-item {
-        display: none;
+          display: none;
         }
 
         #__next > div > div:nth-child(2), .event-item, .nav-teams__inner, br, .left-sticky-banner, .right-sticky-banner, .footer-sticky-banner, a, h1 {
-        display: none;
+          display: none;
         }
-        header, footer, .header, .footer {
-        display: none;
+        header, footer, .header, .footer, li, ul, center {
+          display: none;
         }
 
         `;
@@ -1405,7 +1726,7 @@ var rawHTML;
     /* ----------------------- */
     /* *://papahd.club/*       */
     /* ----------------------- */
-    if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*")) {
+    if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*") || match(current, "*://papafoot.click/*") ) {
         log("=== papahd page ===");
         var hotgarbage = ['.skip-link', 'button', 'button', '#header', '#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]'];
         hotgarbage.forEach(e => {
@@ -1877,15 +2198,14 @@ var rawHTML;
             var promise = document.querySelector('video').play();
             if (promise !== undefined) {
                 promise.then(function () {
-                    log('Clappr Auto play allowed');
                     /* Autoplay started */
+                    log('Clappr Auto play allowed');
                     document.querySelector('video').muted = false;
 
                     player.unmute();
                 }).catch(error => {
-                    log('Clappr Autoplay with sound not allowed');
                     /* Autoplay not allowed! */
-                    document.querySelector('video').muted = true;
+                    log('Clappr Autoplay with sound not allowed');
                     document.querySelector('video').play();
                     player.setVolume(0);
                     player.mute();
@@ -1950,6 +2270,12 @@ var rawHTML;
         var currentScript;
         scripts.forEach(function (e) {
             var ua = navigator.userAgent;
+
+            if (e.src.search('deb.js') >= 0) {
+              // Script used by wgstream to clear console.
+                e.innerHTML = "";
+                e.remove();
+            }
             if (e.src.search('cdn4ads') >= 0) {
                 e.innerHTML = '';
                 e.remove();
@@ -2010,7 +2336,7 @@ var rawHTML;
                 /* log(currentScript) */
                 addScript(currentScript);
 
-                              log("Mutation observer: window.location detected");
+                log("Mutation observer: window.location detected");
                 observer.disconnect();
             }
         });
