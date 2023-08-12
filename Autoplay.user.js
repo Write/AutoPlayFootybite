@@ -1,5 +1,5 @@
-// ==UserScript==
-// @version     14.0
+2// ==UserScript==
+// @version     14.2
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -57,6 +57,8 @@
 // @match       *://gamerarcades.com/*
 // @match       *://poscitech.com/*
 // @match       *://*.poscitech.com/*
+// @match       *://*poscitech.org/*
+// @match       *://*specialgame.xyz/*
 // @match       *://nizarstream.com/*
 // @match       *://*.nizarstream.com/*
 // @match       *://www.techstips.live/*
@@ -140,7 +142,8 @@
 // @match       *://*sportschamp.fun/*
 // @match       *://*alexsportz.online/*
 // @match       *://*gamerarcades.com/*
-
+// @match       *://*bestreamsports.org/*
+// @match       *://*sportsonline.sx/*
 // ==/UserScript==
 
 var rawHTML;
@@ -1680,10 +1683,10 @@ var rawHTML;
     /* ----------------------- */
     /* *://poscitech.club/*       */
     /* ----------------------- */
-    if (match(current, "*://*poscitech.com*")) {
+    if (match(current, "*://*poscitech.com*") || match(current, "*://*poscitech.org*") || match(current, "*://*specialgame.xyz*")) {
 
         log("=== poscitech page ===");
-        var hotgarbage = ['.col-md-3', 'footer', '.footer', '.navbar', '.brand', '.entry-header', '.site-info', '#secondary', '#colophon', 'nav'];
+        var hotgarbage = ['.col-md-3', '#sidebar', '.site-header', '.postmeta', '.footer-wrapper', 'h3', 'h1', 'footer', '.footer', '.navbar', '.brand', '.entry_meta', '.entry-header', '.site-info', '#secondary', '#comments', '#colophon', 'nav'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 log('Removing hot garbage -- ' + e);
