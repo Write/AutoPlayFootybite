@@ -1,5 +1,5 @@
-2// ==UserScript==
-// @version     14.2
+// ==UserScript==
+// @version     14.3
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -957,6 +957,9 @@ var rawHTML;
         });
 
         var styleSoccerstreams = `
+        .row {
+          margin-right: 0px;
+        }
         iframe[src^=about] {
           display: none;
         }
