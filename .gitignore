@@ -1,4 +1,4 @@
 commit.sh
 .vscode/settings.json
 jsconfig.json
-.vscode
+.vscode/*
