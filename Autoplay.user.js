@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     14.3
+// @version     14.4
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
