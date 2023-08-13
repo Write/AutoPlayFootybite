@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     14.7
+// @version     14.8
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -150,7 +150,8 @@
 // @match       *://*f1livestream.top/*
 // @match       *://*bigeventz.xyz/*
 // @match       *://*hdfungames.site/*
-//
+// @match       *://*p2pstreams.tv/*
+// @match       *://*stsgmrs.com/*
 // ==/UserScript==
 
 var rawHTML;
@@ -232,7 +233,8 @@ var rawHTML;
     if (match(current, "*://somewebsite.xyz*")) {
 
         log("=== "+ current + " ===");
-        // var hotgarbage = [""];
+
+        var hotgarbage = [""];
 
         // hotgarbage.forEach(e => {
         //     checkElement(e).then((selector) => {
@@ -258,6 +260,89 @@ var rawHTML;
 
         pasteStyle(style);
     }
+
+
+    /* ------------------------- */
+    /* p2pstreams.tv  */
+    /* ------------------------- */
+    if (match(current, "*://*p2pstreams.tv/*")) {
+        log("=== "+ current + " ===");
+
+        var hotgarbage = [".lg\\:w-3\\/12"];
+
+        hotgarbage.forEach(e => {
+             checkElement(e).then((selector) => {
+                 log('Deleting garbage -- ' + e);
+                 selector.remove();
+             });
+        });
+
+        var style = `
+        body, html, .bg-gray-200, .inside-article {
+          background: #141414;
+
+        }
+        center {
+          display: none;
+        }
+        .chatbox, textarea, a, br, hr, svg, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+          display: none;
+        }
+        #str {
+          padding-top: unset;
+          position: static;
+        }
+
+        `;
+
+        pasteStyle(style);
+    }
+
+    /* ------------------------- */
+    /* alexsportz  */
+    /* ------------------------- */
+    if (match(current, "*://alexsportz.online/*")) {
+
+        log("=== "+ current + " ===");
+
+        var hotgarbage = ["#app nav", "#app nav", "center", ".lg\\:w-3\\/12"];
+
+        hotgarbage.forEach(e => {
+             checkElement(e).then((selector) => {
+                 log('Deleting garbage -- ' + e);
+                 selector.remove();
+             });
+        });
+
+        var style = `
+        body, html, .bg-white, .bg-gray-200, .inside-article {
+          background: #141414;
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          min-height: unset;
+          max-width: unset;
+          width: unset;
+        }
+        #str {
+          position: static;
+          overflow: visible;
+        }
+        #app nav {
+          display: none;
+        }
+        textarea, a, br, hr, svg, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+          display: none;
+        }
+        .video.responsive {
+          height: 80vh;
+        }
+        `;
+
+        pasteStyle(style);
+    }
+
 
     /* ------------------------------------- */
     /* footballstreams.top, f1streams.pro    */
@@ -2325,6 +2410,10 @@ var rawHTML;
         scripts.forEach(function (e) {
             var ua = navigator.userAgent;
 
+            if (e.src.search('disable-devtool') >= 0) {
+                e.innerHTML = "";
+                e.remove();
+            }
             if (e.src.search('deb.js') >= 0) {
               // Script used by wgstream to clear console.
                 e.innerHTML = "";
@@ -2526,7 +2615,7 @@ var rawHTML;
     * blocking rightclicking                *
     * ------------------------------------- */
 
-    if (match(current, "*://olahdplay.xyz*") || match(current, "*://uhdstreams.com/hd*") || match(current, '*://uhdstreams.club/hd/*') ||
+    if (match(current, "*://stsgmrs.com/*") || match(current, "*://p2pstreams.tv/*") || match(current, "*://olahdplay.xyz*") || match(current, "*://uhdstreams.com/hd*") || match(current, '*://uhdstreams.club/hd/*') ||
         match(current, "*://tezgoal.com/*") || match(current, "*://bhliga.com/*") || match(current, "*://dzeko11.net/*") ||
         match(current, '*://wigistream.to/embed/*') || match(current, '*://streamservice443.net/*') ||
         match(current, '*://player.licenses4.me/*') || match(current, "*://myoplay.club*")) {
