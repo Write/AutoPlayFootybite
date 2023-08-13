@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     14.6
+// @version     14.7
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -956,7 +956,7 @@ var rawHTML;
         log("=== "+ current + " ===");
 
         var hotgarbage = [
-            'a[onclick^=closeSmartLink]'
+            'a[onclick^=closeSmartLink]', 'a div[onclick^=closeSmartLink]'
         ];
 
         hotgarbage.forEach(e => {
@@ -967,7 +967,8 @@ var rawHTML;
         });
 
         var style = `
-        a[onclick^=closeSmartLink] {
+        a[onclick^=closeSmartLink],
+        a div[onclick^=closeSmartLink] {
           display: none;
         }
         `;
