@@ -274,8 +274,9 @@ var rawHTML;
          });
 
         var style = `
-        body, html, .bg-gray-200, .inside-article, .elementor-161 .elementor-element.elementor-element-1ecbf82:not(.elementor-motion-effects-element-type-background), .elementor-161 .elementor-element.elementor-element-1ecbf82 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+        body.bg-white, body, html, .bg-gray-200, .inside-article, .elementor-161 .elementor-element.elementor-element-1ecbf82:not(.elementor-motion-effects-element-type-background), .elementor-161 .elementor-element.elementor-element-1ecbf82 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
           background: #141414;
+          background-color: #141414;
           margin: 0;
           padding: 0;
         }
@@ -307,7 +308,6 @@ var rawHTML;
 
         pasteStyle(style);
     }
-
 
     /* ------------------------------ */
     /* cutin.it's Bypass               */
@@ -934,16 +934,16 @@ var rawHTML;
     /* soccerstreams.com/     */
     /* ----------------------- */
 
-    if (match(current, "*://*.footybite.to*") || match(current, "*://footybite.to*") || match(current, "*://*footybite.cc*")) {
+    if (match(current, "*://*footybite.to*") || match(current, "*://footybite.to*") || match(current, "*://*footybite.cc*")) {
 
         log("=== Main footybite page ===");
 
         var hotgarbage = [
-            '.second-iframe', '.teams', '.news-right-sec-div', '.news-right-sec', '.mt-3.mb-3.text-center', '.alert-warning.alert',
+            '.ad-banner', '.second-iframe', '.teams', '.news-right-sec-div', '.news-right-sec', '.mt-3.mb-3.text-center', '.alert-warning.alert',
             '.alert-dismissible', '#event-sticky-info', '.col-md-4',
             'footer', '#event-tags-h', '#event-tags',
-            'a[href^=\\/dcma]'];
-
+            'a[href^=\\/dcma]'
+        ];
 
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -967,17 +967,11 @@ var rawHTML;
           width: 100%;
           height: calc(100vh);
         }
-        body.light, body.dark, body, html, .main, .bg-gray-200, .aievfbmsyu.idc0_338 {
-        background: #141414;
-        }
-        h1,p,h3,h4 {
-        display:none;
-        }
-        .btn-sm {
-        display:none;
+        h2, h3, h3, h4, h5, h6, p {
+          display:none;
         }
         .header {
-        display: none;
+          display: none;
         }
         .rsbc-switch-button {
         margin-top: 0;
@@ -1014,19 +1008,18 @@ var rawHTML;
         display: none;
         }
         .match-view-head-side1, .match-view-head-side2 {
-        padding-top: unset;
+          padding-top: unset;
         }
-
         .avatar {
-        left: -5px;
+          left: -5px;
         }
         .event-team h5, .sv-box .header .title {
-        color: #00bcff;
+          color: #00bcff;
         }
         .streams-table-new tbody tr td {
-        background-color: #404040;
-        border-bottom: 1px solid #000;
-        border-top: 1px solid #4f4f4f;
+          background-color: #404040;
+          border-bottom: 1px solid #000;
+          border-top: 1px solid #4f4f4f;
         }
         .votes-count {
         color: #f7f7f7;
@@ -1052,14 +1045,14 @@ var rawHTML;
         }
 
         .competition-cell-status {
-        display: block;
-        font-weight: 400;
-        font-size: 14px;
-        text-align: unset;
-        color: #f2f2f2;
-        text-transform: uppercase;
-        letter-spacing: -.02em;
-        margin-top: 6px;
+          display: block;
+          font-weight: 400;
+          font-size: 14px;
+          text-align: unset;
+          color: #f2f2f2;
+          text-transform: uppercase;
+          letter-spacing: -.02em;
+          margin-top: 6px;
         }
         .competition-cell-side1 {
           text-align: right;
@@ -1089,29 +1082,29 @@ var rawHTML;
         padding: 0;
         }
         .top-tournament .league-name {
-        vertical-align: sub !important;
-        color: white;
-        padding-left: 3px;
-        font-size: 18px;
+          vertical-align: sub !important;
+          color: white;
+          padding-left: 3px;
+          font-size: 18px;
         }
         .competitions li:first-child .competition {
         border-top: 0 dashed #eee;
         }
         .competitions .competition {
-        transition: none;
-        padding: 0;
-        border-top: 1px dashed #8f8f8f;
+          transition: none;
+          padding: 0;
+          border-top: 1px dashed #8f8f8f;
         }
         .navbar-brand {
-        width: 320px;
-        margin: 0;
-        padding: 0;
-        padding-left: 7px;
-        margin-bottom: 5px;
+          width: 320px;
+          margin: 0;
+          padding: 0;
+          padding-left: 7px;
+          margin-bottom: 5px;
         }
         .navbar-brand .img-fluid {
-        z-index: 9999;
-        width: 320px;
+          z-index: 9999;
+          width: 320px;
         }
         small span {
         color: rgb(242, 242, 242);
@@ -1147,26 +1140,26 @@ var rawHTML;
         font-size: 13px;
         }
         body .top-tournament a {
-        padding: 1px 0;
+          padding: 1px 0;
         }
         .competition-cell-score {
-        width: 120px;
-        color: #00222e;
-        font-size: unset;
-        letter-spacing: -1px;
-        margin: 0 10px;
+          width: 120px;
+          color: #00222e;
+          font-size: unset;
+          letter-spacing: -1px;
+          margin: 0 10px;
         }
         .competition:hover {
-        background-color: #3a3a3a;
+          background-color: #3a3a3a;
         }
         .competition-cell-score {
-        color: #d5a83e;
+          color: #d5a83e;
         }
         .calendar-matches li {
-        padding: 0;
-        margin: 0;
-        margin-left: 3px;
-        margin-top: 6px;
+          padding: 0;
+          margin: 0;
+          margin-left: 3px;
+          margin-top: 6px;
         }
         `;
 
@@ -1936,7 +1929,7 @@ var rawHTML;
     /* ----------------------- */
     if (match(current, "*://techstribes.com*")) {
 
-        var hotgarbage = ['#live-chat-iframe', '#dismiss-btn', 'section.elementor-section:nth-child(4)', 'div.elementor-inner-column:nth-child(3) > div:nth-child(1)'];
+        var hotgarbage = ['#live-chat-iframe', '#dismiss-btn'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
                 log('Removing hot garbage -- ' + e);
@@ -1944,9 +1937,11 @@ var rawHTML;
             });
         });
 
+        /*
         checkElement('div[data-player]').then((selector) => {
             selector.style = "width: 100%";
         });
+        */
     }
 
     /* ----------------------- */
