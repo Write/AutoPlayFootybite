@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     14.4
+// @version     14.5
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -144,6 +144,8 @@
 // @match       *://*gamerarcades.com/*
 // @match       *://*bestreamsports.org/*
 // @match       *://*sportsonline.sx/*
+// @match       *://*nbalivestream.top/*
+// @match       *://*embed4u.xyz/*
 // ==/UserScript==
 
 var rawHTML;
@@ -259,7 +261,8 @@ var rawHTML;
         match(current, "*://*nfllivestream.top*") ||
         match(current, '*://*nflbite.to*') ||
         match(current, '*//*nbabite.to/*') ||
-        match(current, '*//*totalsportek.soccer/*')
+        match(current, '*//*totalsportek.soccer/*') ||
+        match(current, '*//*nbalivestream.top/*')
        ) {
 
         log("=== "+ current + " ===");
@@ -274,11 +277,16 @@ var rawHTML;
          });
 
         var style = `
-        body.bg-white, body, html, .bg-gray-200, .inside-article, .elementor-161 .elementor-element.elementor-element-1ecbf82:not(.elementor-motion-effects-element-type-background), .elementor-161 .elementor-element.elementor-element-1ecbf82 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+        div.bg-light-gray, body.bg-white, body, html, .bg-gray-200, .inside-article, .elementor-161 .elementor-element.elementor-element-1ecbf82:not(.elementor-motion-effects-element-type-background), .elementor-161 .elementor-element.elementor-element-1ecbf82 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
           background: #141414;
           background-color: #141414;
           margin: 0;
           padding: 0;
+        }
+        .first-iframe {
+          width: unset;
+          height: unset;
+          float: unset;
         }
         iframe {
           width: 80vw;
@@ -298,7 +306,8 @@ var rawHTML;
         }
         .elementor-161 .elementor-element.elementor-element-1ecbf82,
         .elementor-161 .elementor-element.elementor-element-bac3d03 .elementor-column-gap-custom .elementor-column > .elementor-element-populated,
-        .elementor-161 .elementor-element.elementor-element-1ecbf82
+        .elementor-161 .elementor-element.elementor-element-1ecbf82,
+        div.p-4
         {
           padding: 0;
           margin: 0;
@@ -571,7 +580,7 @@ var rawHTML;
     /* ------------------------- */
     if (match(current, "*://www.worldsport.me/*")) {
 
-        log("=== worldsport ===");
+        log("=== "+ current + " ===");
         // var hotgarbage = [""];
 
         // hotgarbage.forEach(e => {
@@ -602,7 +611,7 @@ var rawHTML;
     /* ------------------------- */
     if (match(current, "*://stakes100.xyz*")) {
 
-        log("=== stakes100.xyz ===");
+        log("=== "+ current + " ===");
         var hotgarbage = [".sport-body", ".entry-header", "#site-header",
             ".footer-nav-widgets-wrapper", "#site-footer",
             "footer", "header"];
@@ -640,7 +649,7 @@ var rawHTML;
     /* ------------------------- */
     if (match(current, "*://stakes100.xyz*")) {
 
-        log("=== stakes100.xyz ===");
+        log("=== "+ current + " ===");
         var hotgarbage = [".sport-body", ".entry-header", "#site-header", ".footer-nav-widgets-wrapper", "#site-footer"];
 
         hotgarbage.forEach(e => {
@@ -683,7 +692,7 @@ var rawHTML;
             selector.click();
         });
 
-        log("=== silverspoon.xyz ===");
+        log("=== "+ current + " ===");
         var hotgarbage = ["script[spintro]", '.sharethis-inline-share-buttons', ".clearfix", "#app > main > div > div.w-full.rounded.lg\\:w-3\\/12", ".mobileHide", ".chat-box", "#txtarea", '#ga-overlay', 'ins', '#dismiss-btn', '.entry-header', '.adsbymahimeta', '.top-header', 'nav', '.adsbyvli', '.masthead', 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar'];
 
         hotgarbage.forEach(e => {
@@ -746,7 +755,7 @@ var rawHTML;
             selector.click();
         });
 
-        log("=== silverspoon.xyz ===");
+        log("=== "+ current + " ===");
         var hotgarbage = ['#ga-overlay', 'ins', '#dismiss-btn', '.entry-header', '.adsbymahimeta', '.top-header', 'nav', '.adsbyvli', '.masthead', 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar'];
 
         hotgarbage.forEach(e => {
@@ -799,7 +808,7 @@ var rawHTML;
             selector.click();
         });
 
-        log("=== youpit.xyz ===");
+        log("=== "+ current + " ===");
         var hotgarbage = ['h1', '.inside-header', '.sidebar', '.inside-right-sidebar', '.site-footer'];
 
         hotgarbage.forEach(e => {
@@ -855,7 +864,7 @@ var rawHTML;
             selector.click();
         });
 
-        log("=== cr7soccer ===");
+        log("=== "+ current + " ===");
         var hotgarbage = [
             'div[onclick*=this]',
             'div[onclick*=this\\)\\.remove\\(\\)]', '#html1', '#button1',
@@ -901,7 +910,7 @@ var rawHTML;
             selector.click();
         });
 
-        log("=== tezgoal ===");
+        log("=== "+ current + " ===");
         var hotgarbage = [
           'script[src^=\\/\\/eehuzaih]', 'script[src^=\\/\\/eehuzaih]',
           'iframe[src^=\\/\\/eehuzaih]',
@@ -930,6 +939,36 @@ var rawHTML;
 
         pasteStyle(styleTezgoal);
     }
+
+    /* ----------------------- */
+    /* embed4u.xyz/     */
+    /* ----------------------- */
+
+    if (match(current, "*://*embed4u.xyz*")) {
+
+        log("=== "+ current + " ===");
+
+        var hotgarbage = [
+            'a[onclick^=closeSmartLink]'
+        ];
+
+        hotgarbage.forEach(e => {
+            checkElement(e).then((selector) => {
+                log('Removing hot garbage -- ' + e);
+                selector.remove();
+            });
+        });
+
+        var style = `
+        a[onclick^=closeSmartLink] {
+          display: none;
+        }
+        `;
+
+        pasteStyle(style);
+
+    }
+
     /* ----------------------- */
     /* soccerstreams.com/     */
     /* ----------------------- */
@@ -957,6 +996,9 @@ var rawHTML;
         });
 
         var styleSoccerstreams = `
+        a[onclick^=closeSmartLink] {
+          display: none;
+        }
         .row {
           margin-right: 0px;
         }
