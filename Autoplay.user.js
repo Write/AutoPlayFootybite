@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     14.5
+// @version     14.6
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -58,6 +58,7 @@
 // @match       *://poscitech.com/*
 // @match       *://*.poscitech.com/*
 // @match       *://*poscitech.org/*
+// @match       *://*poscitech.click/*
 // @match       *://*specialgame.xyz/*
 // @match       *://nizarstream.com/*
 // @match       *://*.nizarstream.com/*
@@ -146,6 +147,10 @@
 // @match       *://*sportsonline.sx/*
 // @match       *://*nbalivestream.top/*
 // @match       *://*embed4u.xyz/*
+// @match       *://*f1livestream.top/*
+// @match       *://*bigeventz.xyz/*
+// @match       *://*hdfungames.site/*
+//
 // ==/UserScript==
 
 var rawHTML;
@@ -262,7 +267,8 @@ var rawHTML;
         match(current, '*://*nflbite.to*') ||
         match(current, '*//*nbabite.to/*') ||
         match(current, '*//*totalsportek.soccer/*') ||
-        match(current, '*//*nbalivestream.top/*')
+        match(current, '*//*nbalivestream.top/*') ||
+        match(current, '*//*f1livestream.top/*')
        ) {
 
         log("=== "+ current + " ===");
@@ -375,6 +381,7 @@ var rawHTML;
     /* sportsonline.sx's Bypass               */
     /* ------------------------------ */
     if (match(current, "*://sportsonline.sx/*") || match(current, "*://*.sportsonline.sx/*") | match(current, "*://*.dynamicrevival.net/*") ) {
+
         new MutationObserver((_, observer) => {
 
             var scripts = document.querySelectorAll('script');
@@ -1721,7 +1728,7 @@ var rawHTML;
     /* ----------------------- */
     /* *://poscitech.club/*       */
     /* ----------------------- */
-    if (match(current, "*://*poscitech.com*") || match(current, "*://*poscitech.org*") || match(current, "*://*specialgame.xyz*")) {
+    if (match(current, "*://*poscitech.click*") || match(current, "*://*poscitech.com*") || match(current, "*://*poscitech.org*") || match(current, "*://*specialgame.xyz*")) {
 
         log("=== poscitech page ===");
         var hotgarbage = ['.col-md-3', '#sidebar', '.site-header', '.postmeta', '.footer-wrapper', 'h3', 'h1', 'footer', '.footer', '.navbar', '.brand', '.entry_meta', '.entry-header', '.site-info', '#secondary', '#comments', '#colophon', 'nav'];
@@ -1734,17 +1741,20 @@ var rawHTML;
 
         var poscitechstyle = `
         a {
-        display: none;
+          display: none;
+        }
+        .entry-title {
+          color: white;
         }
         body, html,article, .content-area {
-        background: #141414;
+          background: #141414;
         }
         #primary, .post-inner-content, .entry-content {
-        margin: 0;
-        padding: 0;
+          margin: 0;
+          padding: 0;
         }
         body.archive .post-inner-content, body.blog .post-inner-content, .post-inner-content:first-child {
-        border: none;
+          border: none;
         }
         #primary {
         width: 100%;
@@ -2515,7 +2525,7 @@ var rawHTML;
     * blocking rightclicking                *
     * ------------------------------------- */
 
-    if (match(current, "*://uhdstreams.com/hd*") || match(current, '*://uhdstreams.club/hd/*') ||
+    if (match(current, "*://olahdplay.xyz*") || match(current, "*://uhdstreams.com/hd*") || match(current, '*://uhdstreams.club/hd/*') ||
         match(current, "*://tezgoal.com/*") || match(current, "*://bhliga.com/*") || match(current, "*://dzeko11.net/*") ||
         match(current, '*://wigistream.to/embed/*') || match(current, '*://streamservice443.net/*') ||
         match(current, '*://player.licenses4.me/*') || match(current, "*://myoplay.club*")) {
