@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     14.8
+// @version     14.9
 // @author      Write
 // @name        Autoplay
 // @namespace   Autoplay Block Ads Footybite
@@ -357,7 +357,7 @@ var rawHTML;
        ) {
 
         log("=== "+ current + " ===");
-        var hotgarbage = ["header", "#footer", ".elementor-column-gap-custom",".elementor-column-gap-custom", ".second-iframe", "div.elementor-column:nth-child(2) > div:nth-child(1)", "div.elementor-column:nth-child(2)",
+        var hotgarbage = ["div.bg-light-gray.my-2.py-4", "header", "#footer", ".elementor-column-gap-custom",".elementor-column-gap-custom", ".second-iframe", "div.elementor-column:nth-child(2) > div:nth-child(1)", "div.elementor-column:nth-child(2)",
                          '.site-below-footer-wrap[data-section="section-below-footer-builder"]', ".elementor-location-header", ".site-footer"];
 
         hotgarbage.forEach(e => {
@@ -704,7 +704,7 @@ var rawHTML;
     if (match(current, "*://stakes100.xyz*")) {
 
         log("=== "+ current + " ===");
-        var hotgarbage = [".sport-body", ".entry-header", "#site-header",
+        var hotgarbage = [".link", ".sport-body", ".entry-header", "#site-header",
             ".footer-nav-widgets-wrapper", "#site-footer",
             "footer", "header"];
 
@@ -716,12 +716,32 @@ var rawHTML;
         });
 
         var styleStakes100 = `
+        .container-inner {
+        max-width: unset;
+        margin: auto;
+        }
+        div.entry-content {
+          margin: auto;
+        }
+
+        div.entry-content > :not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
+        max-width: unset;
+        }
+        .entry-header, .entry-media, .entry-content, .entry-footer {
+          max-width: 80vw;
+          padding-right: 40px;
+          padding-left: 40px;
+          margin-right: auto;
+          margin-left: auto;
+          max-height: 70vh;
+        }
         body, html, .bg-gray-200, .inside-article, iframe {
         background: #141414;
+        background-color: #141414;
         margin: 0;
         padding: 0;
         }
-        .entry-content, .post-inner, p {
+        #page, .entry-content, .post-inner, p {
         margin: 0;
         padding: 0;
         }
@@ -891,10 +911,10 @@ var rawHTML;
         pasteStyle(styleSilverspoon);
     }
 
-
-    /* ----------------------- */
-    /* https://youpit.xyz  */
-    /* ----------------------- */
+    /* ---------------------------------- */
+    /* https://youpit.xyz & 60fps.xy      */
+    /* Sub-iframe domain: wikisport.click */
+    /* ---------------------------------- */
     if (match(current, "*://youpit.xyz/*") || match(current, "*://youpits.xyz/*") || match(current, '*://60fps.xyz/*'))  {
         checkElement('video').then((selector) => {
             selector.click();
@@ -1811,12 +1831,13 @@ var rawHTML;
         pasteStyle(bestnhlStyle);
     }
 
-    /* ----------------------- */
-    /* *://poscitech.club/*       */
-    /* ----------------------- */
+    /* ------------------------------- */
+    /* *://poscitech.club              */
+    /* Inner Iframe Domain: olahdplay  */
+    /* ------------------------------- */
     if (match(current, "*://*poscitech.click*") || match(current, "*://*poscitech.com*") || match(current, "*://*poscitech.org*") || match(current, "*://*specialgame.xyz*")) {
 
-        log("=== poscitech page ===");
+        log("=== poscitech ===");
         var hotgarbage = ['.col-md-3', '#sidebar', '.site-header', '.postmeta', '.footer-wrapper', 'h3', 'h1', 'footer', '.footer', '.navbar', '.brand', '.entry_meta', '.entry-header', '.site-info', '#secondary', '#comments', '#colophon', 'nav'];
         hotgarbage.forEach(e => {
             checkElement(e).then((selector) => {
@@ -1826,6 +1847,9 @@ var rawHTML;
         });
 
         var poscitechstyle = `
+        .entry-title {
+          display: none;
+        }
         a {
           display: none;
         }
@@ -1892,7 +1916,7 @@ var rawHTML;
         padding: 0;
         margin: 0;
         }
-        svg {
+        h1,h2,h3,h4,h5,h6,br,svg {
         display: none;
         }
         iframe {
@@ -2331,31 +2355,34 @@ var rawHTML;
             !match(current, '*tutele.sx*') &&
             !match(current, '*tutele.nl*'))) {
             log('Clappr Autoplay on ' + current);
-            document.querySelector('video').muted = false;
-            /* simulate a click on player-poster */
-            document.querySelector('.player-poster').click();
-            var promise = document.querySelector('video').play();
-            if (promise !== undefined) {
-                promise.then(function () {
-                    /* Autoplay started */
-                    log('Clappr Auto play allowed');
-                    document.querySelector('video').muted = false;
 
-                    player.unmute();
-                }).catch(error => {
-                    /* Autoplay not allowed! */
-                    log('Clappr Autoplay with sound not allowed');
-                    document.querySelector('video').play();
-                    player.setVolume(0);
-                    player.mute();
-                    document.querySelector('.player-poster').click();
-                });
-            }
-            else {
-                log('Clappr Autoplay not set');
-                player.mute();
-                document.querySelector('video').play();
-            }
+            setTimeout(function () {
+              /* add a delay for safety reasons */
+              document.querySelector('video').muted = false;
+              /* simulate a click on player-poster */
+              document.querySelector('.player-poster').click();
+              var promise = document.querySelector('video').play();
+              if (promise !== undefined) {
+                  promise.then(function () {
+                      /* Autoplay started */
+                      log('Clappr Auto play allowed');
+                      document.querySelector('video').muted = false;
+                      player.unmute();
+                  }).catch(error => {
+                      /* Autoplay not allowed! */
+                      log('Clappr Autoplay with sound not allowed');
+                      document.querySelector('video').play();
+                      player.setVolume(0);
+                      player.mute();
+                      document.querySelector('.player-poster').click();
+                  });
+              }
+              else {
+                  log('Clappr Autoplay not set');
+                  player.mute();
+                  document.querySelector('video').play();
+              }
+            }, 1500);
         } /* end Clappr */
         else if (typeof videojs === 'function') {
             log('Videojs Autoplay on ' + current);
@@ -2410,6 +2437,14 @@ var rawHTML;
         scripts.forEach(function (e) {
             var ua = navigator.userAgent;
 
+           if (e.type.search('javascript')) {
+                if (e.innerHTML.match('debu') && e.innerHTML.match('trace') && e.innerHTML.match('navig')) {
+                  console.log(e.innerHTML)
+                  // Not instant, need to wait a little for the js to be removed and then open the console
+                  console.log("Remove obfuscated js that preven from openning console olahdplay. Those guys really went far.");
+                  e.remove();
+                }
+            }
             if (e.src.search('disable-devtool') >= 0) {
                 e.innerHTML = "";
                 e.remove();
@@ -2455,7 +2490,7 @@ var rawHTML;
             if (match(current, '*cutin.it*') || match(current, '*techoreels.com*') || (match(current, '*https://bestnhl.com/*'))) {
                 return;
             }
-            if (e.textContent.search('window.location') >= 0 && e.textContent.search('darkreader') == -1 && e.textContent.search('universal-bypass') == -1) {
+            if ((e.textContent.search('window.location') >= 0 || e.textContent.search('document.location') >= 0) && e.textContent.search('darkreader') == -1 && e.textContent.search('universal-bypass') == -1) {
 
                 currentScript = e.innerHTML;
                 currentScript = currentScript.replace(/eval\(function \(p, a, c, k, e, d\) {.*}/gm, '');
@@ -2465,6 +2500,7 @@ var rawHTML;
                 currentScript = currentScript.replace(/if\ \(document\.referrer\.indexOf\(b\)\!=-1\){\n.*\n}/g, "");
                 currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, "");
                 currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, "");
+                currentScript = currentScript.replace(/if\(window==window.top\) document.location="\/"/g, "");
 
                 /* for tutele.sx (myoplay's subframe) */
                 currentScript = currentScript.replace(/function RedirectTo\(\){\n.*}/m, "");
