@@ -34,8 +34,8 @@ AutoPlayFootybite.user.js is an Userscript (read below to know how to install, I
 
 
 # ⚙️ Usage and Installation
-Install one Userscript Manager such as ViolentMonkey, TamperMonkey or Userscripts for Safari (iOS and Safari macOS) (*Links below*)
-And simply click this link : [AutoplayFootybite.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/main/AutoplayFootybite.user.js)
+Install one Userscript Manager such as ViolentMonkey, TamperMonkey or Userscripts for Safari (iOS and Safari macOS) (*Links below*)  
+Then, simply click this link : [AutoplayFootybite.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/main/AutoplayFootybite.user.js)  
 Your Userscript Manager will simply open a new windows, and you'll simply have to click on Install.
 
 ## Userscripts Manager Links
@@ -56,11 +56,11 @@ Your Userscript Manager will simply open a new windows, and you'll simply have t
 # 👍 Recommended aditionnal Addons & Userscripts
 
 ## Adblocker ([uBlock Origin](https://ublockorigin.com/))
-The best adblock of them all, I named uBlock Origin.
-The only good AdBlocker out there, which preserve your privacy the most and doesn't even accept donations to avoid "corruption with money".
-Thanks you very much Raymond Hill !
+The best adblock of them all, I named uBlock Origin.  
+The only good AdBlocker out there, which preserve your privacy the most and doesn't even accept donations to avoid "corruption with money".  
+Thanks you very much Raymond Hill !  
 [uBlock Origin for Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)  
-[uBlock Origin for Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
+[uBlock Origin for Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)  
 
 ## Avoiding Popup (AdGuard's PopupBlocker)
 
