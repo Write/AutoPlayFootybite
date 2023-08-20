@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.0.2
+// @version     15.0.3
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -326,7 +326,9 @@
   var trash = [ 'iframe[src*=chatango]', 'iframe[src*=live_chat]',
                   '#micast_ads', 'iframe[src*=ads\\.php]',
                   '#\\30', '#ni-overlay', 'polygon',
-                  'iframe[src*=ads\\.livetv695\\.me]'
+                  'iframe[src*=ads\\.livetv695\\.me]',
+                  'iframe[src*=ads\\.livetv696\\.me]'
+                  //'iframe[src^=about\\:blank]'
               ];
 
   removeGarbage(trash);
@@ -1752,7 +1754,7 @@
        * */
       checkElement('tr input[id^=linkk]').then((selector) => {
           document.querySelectorAll('tr input[id^=linkk]').forEach((e) => {
-               console.log("URL Handler : id | " + e.id + " | value | " + e.value);
+               //console.log("URL Handler : id | " + e.id + " | value | " + e.value);
                var uri = e.value;
                if (uri !== undefined) {
                    [...e.parentElement.children].map(child => {
@@ -2878,9 +2880,10 @@
       }
 
       /* name of js files (href) to remove */
-      var jsBlacklist = [ 'pop.js', 'player-bundle.min.js', 'aoa-functions', 'greeter.me', 'footylight\-dubzstream-one.js', 'chatango', 'ads.min.js',
+      var jsBlacklist = [ 'doruffleton',
+                         'pop.js', 'player-bundle.min.js', 'aoa-functions', 'greeter.me', 'footylight\-dubzstream-one.js', 'chatango', 'ads.min.js',
                          'deblocker.min.js', 'themoneytizer.com', 'console-ban', 'relationsquiver.com', 'amung.us',
-                         'grandclemencydirt.com', 'showads.js', 'ltv_popup.php',
+                         'grandclemencydirt.com', 'showads.js', 'ltv_popup.php', 'cpxinteractive',
                          'showads.php', 'adblock.php', 'frustration.js', 'initiallydoze', 'invoke.js', 'disable-devtool',
                          'histats', 'blast.js', 'deb.js', 'cdn4ads.js', 'suv4.js', 'quant', 'tag.js', 'mahimeta'];
 
@@ -2932,8 +2935,11 @@
                          }
                     });
 
+                    if (node.innerHTML.search('ignoreCrowdBypass') >= 1) {
+                      return;
+                    }
                     /* inline js that requires multiple match to be removed */
-                    if (node.innerHTML.match('debu') && node.innerHTML.match('trace') && node.innerHTML.match('navig')) {
+                    else if (node.innerHTML.match('debu') && node.innerHTML.match('trace') && node.innerHTML.match('navig')) {
                         // Not instant, need to wait a little for the js to be removed and then open the console
                         log("Sketchy js found and removed | js that burns the CPU when console is open.");
                         node.remove();
@@ -2942,22 +2948,37 @@
                         log("Sketchy js found and removed | maxTouchPoints & more...");
                         node.remove();
                     }
-                    else if (node.innerHTML.match('popads.php') && node.innerHTML.match('userAgent') && node.innerHTML.match('setTimeout') && node.innerHTML.match('parseInt')) {
+                    else if (node.innerHTML.match('popads.php') && node.innerHTML.match('userAgent') &&
+                             node.innerHTML.match('setTimeout') && node.innerHTML.match('parseInt')) {
                         // Not instant, need to wait a little for the js to be removed and then open the console
                         log("Sketchy js found and removed | popads.php, userAgent, setTimeout, parseInt");
                         node.remove();
                     }
-                    else if (node.innerHTML.match('console.log') && node.innerHTML.match('setTimeout') && node.innerHTML.match('LOG_LEVEL_ERROR') && node.innerHTML.match('parseInt')) {
+                    else if (node.innerHTML.match('console.log')     && node.innerHTML.match('setTimeout') &&
+                             node.innerHTML.match('LOG_LEVEL_ERROR') && node.innerHTML.match('parseInt')) {
                         // Not instant, need to wait a little for the js to be removed and then open the console
                         log("Sketchy js found and removed | console.log, setTimeout, LOG_LEVEL_ERROR, parseInt");
                         node.remove();
                     }
-                    else if (node.innerHTML.match('toString') && node.innerHTML.match('setTimeout') && node.innerHTML.match('replace') && node.innerHTML.match('split')
-                             && node.innerHTML.match('eval') && node.innerHTML.match('constructor') && node.innerHTML.search('ignoreCrowdBypass') <= 0) {
+                    else if (node.innerHTML.match('toString') && node.innerHTML.match('setTimeout')  && node.innerHTML.match('replace') &&
+                             node.innerHTML.match('split')    && node.innerHTML.match('eval')        && node.innerHTML.match('constructor')) {
                         // Not instant, need to wait a little for the js to be removed and then open the console
                         log("Sketchy js found and removed | toString, setTimeout, replace, split, eval, constructor");
                         node.remove();
                     }
+                    else if (node.innerHTML.match('ABCDEFGHI') && node.innerHTML.match('split') && node.innerHTML.match('void') &&
+                             node.innerHTML.match('eval')      && node.innerHTML.match('new Error')) {
+                        // Not instant, need to wait a little for the js to be removed and then open the console
+                        log("Sketchy js found and removed | ABCDEFGHI, split, void, eval, new Error");
+                        node.remove();
+                    }
+                    else if (node.innerHTML.match('createElement')    && node.innerHTML.match('XMLHttpRequest') &&
+                             node.innerHTML.match('documentElement')  && node.innerHTML.match('parse')) {
+                        // Not instant, need to wait a little for the js to be removed and then open the console
+                        log("Sketchy js found and removed | createElement, XMLHttpRequest, documentElement, parse");
+                        node.remove();
+                    }
+
 
                 }
 
