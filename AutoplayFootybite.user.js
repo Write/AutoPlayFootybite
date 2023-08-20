@@ -327,8 +327,8 @@
                   '#micast_ads', 'iframe[src*=ads\\.php]',
                   '#\\30', '#ni-overlay', 'polygon',
                   'iframe[src*=ads\\.livetv695\\.me]',
-                  'iframe[src*=ads\\.livetv696\\.me]'
-                  //'iframe[src^=about\\:blank]'
+                  'iframe[src*=ads\\.livetv696\\.me]',
+                  'iframe[src^=about\\:blank]'
               ];
 
   removeGarbage(trash);
