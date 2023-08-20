@@ -30,7 +30,7 @@ AutoPlayFootybite.user.js is an Userscript (read below to know how to install, I
     - Some example are blast.js, and some other obfuscated tools.
 - (✨ new !) Block Tracking Websites
     - Block Histats and gtag by default, and many more. Those are usually already blocked if you use uBlock Origin though.
-- Declutter every streaming websites added. This basically removes every uselss section around the video, including sidebar, comment section, etc.
+- Declutter every streaming websites added. This basically removes every useless sections around the video, including sidebar, comment section, etc.
 
 
 # ⚙️ Usage and Installation
