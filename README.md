@@ -19,7 +19,7 @@ AutoPlayFootybite.user.js is an Userscript (read below to know how to install, I
     - Remove the (3x !) popups.
     - Popup takes full page width.
     - Majority of Streaming Links got their websites decluttered to remove popups and ads.
-- (✨ new !) Now support Buffstreams
+- (✨ new !) Now support Buffstreams that is sportshub(.)stream
     - no design change on the main website
     - All streaming links got their websites decluttered to remove popups and ads.
 - AntiAntiRightClick
