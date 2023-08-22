@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.0.6
+// @version     15.0.7
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -17,7 +17,7 @@
 // @include     *://footybite.cc/*
 // @include     *://*.footybite.cc/*
 // @include     *://*livetv.unblckd.pw/*
-// @include     *://*livetv.sx/* 
+// @include     *://*livetv.sx/*
 // @include     *://tinyurl.is/*
 // @include     *://tinyurl.so/*
 // @include     *://cutin.it/*
@@ -172,6 +172,7 @@
 // @include     *://*techydeals.us/*
 // @include     *://*wevgames.com/*
 // @include     *://*daddylivehd.sx/*
+// @include     *://*daddylivehd.click/*
 // @include     *://*qwebplay.xyz/*
 // @include     *://*tonnestreamz.xyz/*
 // @include     *://*bein-sports.online/*
@@ -202,6 +203,10 @@
 // @include     *://*abolishstand.net/*
 // @include     *://*sportea.online/*
 // @include     *://*sportcast.fun/*
+// @include     *://*embedstream.me/*
+// @include     *://*wecast4k.xyz/*
+// @include     *://*rivofutboltv.club/*
+// @include     *://*dviraly.uk/*
 // ==/UserScript==
 
 (function () {
@@ -332,6 +337,15 @@
 
   removeGarbage(trash);
 
+  var allSiteStyle = `
+    embed[type="application/pdf"] {
+      filter: unset;
+      contrast: unset;
+      display: none;
+    }
+  `
+  pasteStyle(allSiteStyle);
+
   /* Detect if a popup() is attached to an element,
    * and then rename the function called to an non existing one,
    * which prevent sites from breaking. */
@@ -339,7 +353,6 @@
       log("This element contained a onclick=popup() function, it was removed. : ")
       selector.setAttribute('onclick','')
       console.log(selector);
-
   });
 
   /* Detect if a javascript:window.open is attached to an element,
@@ -351,6 +364,7 @@
       selector.remove();
       console.log(selector);
   });
+
   checkElement('#localpp[onclick^="javascript\\:window\\.open"]').then((selector) => {
       log("This element contained a onclick=javascript:window.open() function, it was removed. : ")
       selector.remove();
@@ -405,7 +419,55 @@
   }
 
   /* ------------------------- */
-  /* Skeleton to re-use        */
+  /* streamhd247.online        */
+  /* ------------------------- */
+  if (match(current, "*://*streamhd247.online*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [""];
+      // removeGarbage(trash);
+
+      var style = `
+      html.body, body, html, .bg-gray-200, .inside-article, well, div.well, table, td,
+      .text-center.col-md-12, tr, tbody, div.row, .container {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      div[style^=padding-bottom\\:15px\\;] {
+        display: none;
+      }
+      div.row.text-center {
+        display: none;
+      }
+      iframe {
+        border: none;
+      }
+      td[width="300"] {
+        display: none;
+      }
+      textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+        display: none;
+      }
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: darl) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* sportcast.fun             */
   /* ------------------------- */
   if (match(current, "*://*sportcast.fun*")) {
 
@@ -1058,7 +1120,34 @@
   }
 
   /* ------------------------- */
-  /* daddylivehd.sx            */
+  /* daddylivehd.click         */
+  /* ------------------------- */
+  if (match(current, "*://*daddylivehd.click*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [""];
+      // removeGarbage(trash);
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article {
+        background: ${backg};
+        margin: 0;
+        padding: 0;
+      }
+      iframe {
+        border: none;
+      }
+      textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+        display: none;
+      }
+      `;
+
+      pasteStyle(style);
+  }
+
+
+  /* ------------------------- */
+  /* bein-sports.online        */
   /* ------------------------- */
   if (match(current, "*://*bein-sports.online*")) {
 
@@ -1077,7 +1166,7 @@
         width: 80vw;
         height: 80vh;
       }
-        textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+      textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
         display: none;
       }
       `;
@@ -2799,6 +2888,7 @@
           !match(current, '*stsgmrs.com*') &&
           !match(current, '*qwebplay.xyz*') &&
           !match(current, '*1stream.soccer*') &&
+          !match(current, '*cucxt.live*') &&
           !match(current, '*tutele.nl*'))) {
           log('Clappr Autoplay on ' + current);
             document.querySelector('video').muted = false;
@@ -2896,15 +2986,16 @@
       var jsBlacklist = [ 'doruffleton', 'mo.min.js',
                          'pop.js', 'player-bundle.min.js', 'aoa-functions', 'greeter.me', 'footylight\-dubzstream-one.js', 'chatango', 'ads.min.js',
                          'deblocker.min.js', 'themoneytizer.com', 'console-ban', 'relationsquiver.com', 'amung.us',
-                         'grandclemencydirt.com', 'showads.js', 'ltv_popup.php', 'cpxinteractive',
+                         'grandclemencydirt.com', 'showads.js', 'ltv_popup.php', 'cpxinteractive', 'tag.min.js',
                          'showads.php', 'adblock.php', 'frustration.js', 'initiallydoze', 'invoke.js', 'disable-devtool',
                          'histats', 'blast.js', 'deb.js', 'cdn4ads.js', 'suv4.js', 'quant', 'tag.js', 'mahimeta'];
 
       /* Remove whole <script> tag if one of these strings are in its code */
       var jsScriptBlacklist = [ 's3ii[129303]', 'sandblaster.detect\(\)', 'return\\x20\(function\(\)\\x20', 'var _0xb64c=', 'disableselect','ConsoleBan', 'mdp_deblocker', 'currentReferer', 'runPageBugger',
-                               '@3C@69@66@72@61@6D@65@20@73@61@6', 'killPageConsoleOpen', 'devtools\-detector',
+                               '@3C@69@66@72@61@6D@65@20@73@61@6', 'killPageConsoleOpen', 'devtools\-detector', 'tag.min.js', '\/\?oo=1&aab=1',
                                'WAU_classic', 'debuggerChecker', 'killPageConsoleOpen', 'isConsoleOpen',
                                'gtag', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
                                'allowedDomains\.indexOf' ]
 
       mutations.forEach(function(mutation) {
@@ -2921,6 +3012,10 @@
                 node.remove();
             }
             else if (nodeType == 'script') {
+
+                if (node.innerHTML.search('ignoreCrowdBypass') >= 1 || node.innerHTML.search('function injectProxy') >= 1) {
+                        return;
+                }
 
                 /*
                  * After this commment
@@ -2948,49 +3043,84 @@
                          }
                     });
 
-                    if (node.innerHTML.search('ignoreCrowdBypass') >= 1) {
-                      return;
-                    }
                     /* inline js that requires multiple match to be removed */
-                    else if (node.innerHTML.match('debu') && node.innerHTML.match('trace') && node.innerHTML.match('navig')) {
-                        // Not instant, need to wait a little for the js to be removed and then open the console
-                        log("Sketchy js found and removed | js that burns the CPU when console is open.");
-                        node.remove();
+                    if (node.innerHTML.match('debu') && node.innerHTML.match('trace') && node.innerHTML.match('navig')) {
+                          log("Sketchy js found and removed | js that burns the CPU when console is open.");
+                          node.remove();
+                        return;
                     }
-                    else if (node.innerHTML.match('maxTouchPoints') && node.innerHTML.match('parseInt') && node.innerHTML.match('userAgent') && node.innerHTML.match('click')) {
-                        log("Sketchy js found and removed | maxTouchPoints & more...");
-                        node.remove();
+                    if (node.innerHTML.match('maxTouchPoints') && node.innerHTML.match('parseInt') &&
+                        node.innerHTML.match('userAgent')      && node.innerHTML.match('click')) {
+                            log("Sketchy js found and removed | maxTouchPoints & more...");
+                            node.remove();
+                        return;
                     }
-                    else if (node.innerHTML.match('popads.php') && node.innerHTML.match('userAgent') &&
-                             node.innerHTML.match('setTimeout') && node.innerHTML.match('parseInt')) {
-                        // Not instant, need to wait a little for the js to be removed and then open the console
-                        log("Sketchy js found and removed | popads.php, userAgent, setTimeout, parseInt");
-                        node.remove();
+                    if (node.innerHTML.match('popads.php') && node.innerHTML.match('userAgent') &&
+                        node.innerHTML.match('setTimeout') && node.innerHTML.match('parseInt')) {
+                            log("Sketchy js found and removed | popads.php, userAgent, setTimeout, parseInt");
+                            node.remove();
+                        return;
                     }
-                    else if (node.innerHTML.match('console.log')     && node.innerHTML.match('setTimeout') &&
-                             node.innerHTML.match('LOG_LEVEL_ERROR') && node.innerHTML.match('parseInt')) {
-                        // Not instant, need to wait a little for the js to be removed and then open the console
-                        log("Sketchy js found and removed | console.log, setTimeout, LOG_LEVEL_ERROR, parseInt");
-                        node.remove();
+                    if (node.innerHTML.match('console.log')     && node.innerHTML.match('setTimeout') &&
+                        node.innerHTML.match('LOG_LEVEL_ERROR') && node.innerHTML.match('parseInt')) {
+                            log("Sketchy js found and removed | console.log, setTimeout, LOG_LEVEL_ERROR, parseInt");
+                            node.remove();
+                        return;
                     }
-                    else if (node.innerHTML.match('toString') && node.innerHTML.match('setTimeout')  && node.innerHTML.match('replace') &&
-                             node.innerHTML.match('split')    && node.innerHTML.match('eval')        && node.innerHTML.match('constructor')) {
-                        // Not instant, need to wait a little for the js to be removed and then open the console
-                        log("Sketchy js found and removed | toString, setTimeout, replace, split, eval, constructor");
-                        node.remove();
+                    if (node.innerHTML.match('toString') && node.innerHTML.match('setTimeout')  && node.innerHTML.match('replace') &&
+                        node.innerHTML.match('split')    && node.innerHTML.match('eval')        && node.innerHTML.match('constructor')) {
+                            log("Sketchy js found and removed | toString, setTimeout, replace, split, eval, constructor");
+                            node.remove();
+                        return;
                     }
-                    else if (node.innerHTML.match('ABCDEFGHI') && node.innerHTML.match('split') && node.innerHTML.match('void') &&
-                             node.innerHTML.match('eval')      && node.innerHTML.match('new Error')) {
-                        // Not instant, need to wait a little for the js to be removed and then open the console
-                        log("Sketchy js found and removed | ABCDEFGHI, split, void, eval, new Error");
-                        node.remove();
+                    if (node.innerHTML.match('ABCDEFGHI') && node.innerHTML.match('split') && node.innerHTML.match('void') &&
+                        node.innerHTML.match('eval')      && node.innerHTML.match('new Error')) {
+                            log("Sketchy js found and removed | ABCDEFGHI, split, void, eval, new Error");
+                            node.remove();
+                        return;
                     }
-                    else if (node.innerHTML.match('createElement')    && node.innerHTML.match('XMLHttpRequest') &&
-                             node.innerHTML.match('documentElement')  && node.innerHTML.match('parse')) {
-                        // Not instant, need to wait a little for the js to be removed and then open the console
-                        log("Sketchy js found and removed | createElement, XMLHttpRequest, documentElement, parse");
-                        node.remove();
+                    if (node.innerHTML.match('createElement')    && node.innerHTML.match('XMLHttpRequest') &&
+                        node.innerHTML.match('documentElement')  && node.innerHTML.match('parse')) {
+                            log("Sketchy js found and removed | createElement, XMLHttpRequest, documentElement, parse");
+                            node.remove();
+                        return;
                     }
+                    if (node.innerHTML.match('bodyMsg')  && node.innerHTML.match('siteConfig') &&
+                        node.innerHTML.match('parseInt') && node.innerHTML.match('defineProperty')) {
+                            log("Sketchy js found and removed | bodyMsg, siteConfig, parseInt, defineProperty");
+                            node.remove();
+                        return;
+                    }
+                    if (node.innerHTML.includes('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') &&
+                        node.innerHTML.includes('fromCharCode') && node.innerHTML.includes('Math') && node.innerHTML.includes('pow')) {
+                            log("Sketchy js found and removed | 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, fromCharCode, Math, pow");
+                            node.remove();
+                        return;
+                    }
+                    if (node.innerHTML.includes('pOpened') && node.innerHTML.includes('perSite') && node.innerHTML.includes('posred') && node.innerHTML.includes('removeEventListener')) {
+                            log("Sketchy js found and removed | pOpened, perSite, posred, removeEventListener");
+                            node.remove();
+                        return;
+                    }
+
+                    if (node.innerHTML.match('\{\}\.constructor') && node.innerHTML.includes('decodeURIComponent') &&
+                        node.innerHTML.includes('charCodeAt')     && node.innerHTML.includes('fromCharCode')) {
+                            log("Sketchy js found and removed | {}.constructor, decodeURIComponent, charCodeAt, fromCharCode");
+                            node.remove();
+                        return;
+                    }
+
+                    /*
+                     * Debugging purpose
+                     * */
+
+                    /*
+                    if (node.innerHTML.includes('')) {
+                        console.log("Debug == " + node.innerHTML);
+                        node.remove();
+                        return;
+                    }
+                    */
 
 
                 }
@@ -3029,8 +3159,7 @@
 
                     node.remove()
 
-                    /* log(currentScript) */
-                    //addScript(currentScript);
+                    addScript(currentScript);
                     log("Mutation observer: window.location removed");
                 }
                 // prevent scripts from clearing console.
@@ -3058,7 +3187,7 @@
           }
       });
 
-  }).observe(document.documentElement, { childList: true, subtree: true });
+  }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, characterData: true });
 
   /*
    *
