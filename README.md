@@ -4,6 +4,11 @@
 
 AutoPlayFootybite.user.js is an Userscript (read below to know how to install, I promise, it's not hard !) which makes soccers streaming sites usable again.
 
+- [🌟 Features](https://github.com/Write/AutoPlayFootybite#-features)  
+- [⚙️ Usage and Installation](https://github.com/Write/AutoPlayFootybite#%EF%B8%8F-usage-and-installation)  
+- [👍 Recommended aditionnal Addons & Userscripts](https://github.com/Write/AutoPlayFootybite#-recommended-aditionnal-addons--userscripts)  
+- [👁️‍🗨️ How to Inspect Websites Myself ?](https://github.com/Write/AutoPlayFootybite#%EF%B8%8F%EF%B8%8F-how-to-inspect-websites-myself-)  
+
 # 🌟 Features
 - AutoPlay Feature
     - Autoplay - Without sound (Browser limitation), just have to set the volume up on load.
@@ -34,24 +39,24 @@ AutoPlayFootybite.user.js is an Userscript (read below to know how to install, I
 
 
 # ⚙️ Usage and Installation
-Install one Userscript Manager such as ViolentMonkey, TamperMonkey or Userscripts for Safari (iOS and Safari macOS) (*Links below*)  
+Install **one** Userscript Manager such as ViolentMonkey, TamperMonkey or [Userscripts for Safari](https://apps.apple.com/us/app/userscripts/id1463298887) (macOS and iOS support) (*Links below*)  
 Then, simply click this link : [AutoplayFootybite.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/main/AutoplayFootybite.user.js)  
-Your Userscript Manager will simply open a new windows, and you'll simply have to click on Install.
+Your Userscript Manager will simply open a new windows, and you'll simply have to click on Install.  
 
-## Userscripts Manager Links
+## Userscripts Manager
 
 ### Platforms
-#### Desktop
-##### ViolentMonkey Download  
-[Download ViolentMonkey for Chrome](https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)  
-[Download ViolentMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/)  
-##### TamperMonkey Download
-[Download TamperMonkey for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)  
-[Download TamperMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)  
+
+##### Chrome
+- [Download ViolentMonkey for Chrome](https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)  
+- [Download TamperMonkey for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+
+##### Firefox
+- [Download ViolentMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/)  
+- [Download TamperMonkey for Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) 
 
 #### Safari
-[Download Userscripts for Safari (iOS and macOS) (Free)](https://apps.apple.com/us/app/userscripts/id1463298887) ([Github link](https://github.com/quoid/userscripts))  
-[Download TamperMonkey for Safari (macOS only) (Paid)](https://apps.apple.com/app/apple-store/id1482490089)  
+- [Download Userscripts for Safari (iOS and macOS)](https://apps.apple.com/us/app/userscripts/id1463298887) (Free) ([Github link](https://github.com/quoid/userscripts))  
 
 # 👍 Recommended aditionnal Addons & Userscripts
 
@@ -59,8 +64,9 @@ Your Userscript Manager will simply open a new windows, and you'll simply have t
 The best adblock of them all, I named uBlock Origin.  
 The only good AdBlocker out there, which preserve your privacy the most and doesn't even accept donations to avoid "corruption with money".  
 Thanks you very much Raymond Hill !  
-[uBlock Origin for Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)  
-[uBlock Origin for Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)  
+
+- [uBlock Origin for Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)  
+- [uBlock Origin for Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)  
 
 ## Avoiding Popup (AdGuard's PopupBlocker)
 
@@ -77,6 +83,6 @@ Unfortunately, FastForward was both removed from Chrome Store and Firefox Store,
 # 👁️‍🗨️ How to Inspect Websites Myself ? 
 
 ## Iframe
- - Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on a player.
- - If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab or inspect it to get it's real link.
-   I'd recommend clicking firce 'Inspect source code of this frame', because if you open it directly, **almost every time** it contains some js code to put you on an other URL, or makes your Browser freeze.
+- Firefox can easily bypass website's right-click limitations by pressing Shift while right-clicking on a player.  
+- If the player is indeed in an iframe you can right-click, press This frame > Open in a new tab or inspect it to get it's real link.  
+  - I'd recommend clicking first 'Inspect source code of this frame', because if you open it directly, **almost every time** it contains some js code to put you on an other URL, or makes your Browser freeze.   
