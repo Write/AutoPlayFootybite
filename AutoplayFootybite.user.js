@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.0.7
+// @version     15.0.8
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -208,7 +208,13 @@
 // @include     *://*rivofutboltv.club/*
 // @include     *://*dviraly.uk/*
 // @include     *://*livesportstream.club/*
-// @include      *://*backfirstwo.site/*
+// @include     *://*backfirstwo.site/*
+// @include     *://*freehdgames.xyz/*
+// @include     *://*buffstreamz.fun/*
+// @include     *://*ddolahdplay.xyz/*
+// @include     *://*bestsolaris.com/*
+// @include     *://*1stream.eu/*
+//
 // ==/UserScript==
 
 (function () {
@@ -410,7 +416,7 @@
           background-color: ${backgLight}
         }
       }
-      @media (prefers-color-scheme: darl) {
+      @media (prefers-color-scheme: dark) {
         body, html, .bg-gray-200, .inside-article {
           background: ${backgDark};
           background-color: ${backgDark}
@@ -418,6 +424,66 @@
       }
       `;
       pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* buffstreamz's embed       */
+  /* ------------------------- */
+  if (match(current, "*://*buffstreamz.fun/embed*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [""];
+      // removeGarbage(trash);
+
+      checkElement('div[style^=margin-bottom\\:\\ 20px\\;]').then((selector) => {
+            selector.setAttribute('style', '');
+      });
+
+      checkElement('div[style^=margin\\:\\ 20px\\ auto]').then((selector) => {
+            selector.setAttribute('style', '');
+      });
+
+      checkElement('body').then((selector) => {
+            selector.setAttribute('style', '');
+      });
+
+      var style = `
+      body, html {
+        margin: 0;
+        margin-bottom: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      .box-responsive {
+        position: unset;
+        padding-bottom: 0;
+      }
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, iframe, .responsive {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, iframe, .responsive  {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* freehdgames.xyz           */
+  /* ------------------------- */
+  if (match(current, "*://*freehdgames.xyz*")) {
+      log("=== "+ current + " ===");
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
   }
 
   /* ------------------------- */
@@ -467,7 +533,7 @@
           background-color: ${backgLight}
         }
       }
-      @media (prefers-color-scheme: darl) {
+      @media (prefers-color-scheme: dark) {
         body, html, .bg-gray-200, .inside-article {
           background: ${backgDark};
           background-color: ${backgDark}
@@ -503,7 +569,7 @@
           background-color: ${backgLight}
         }
       }
-      @media (prefers-color-scheme: darl) {
+      @media (prefers-color-scheme: dark) {
         body, html, .bg-gray-200, .inside-article {
           background: ${backgDark};
           background-color: ${backgDark}
@@ -593,7 +659,7 @@
           background-color: ${backgLight}
         }
       }
-      @media (prefers-color-scheme: darl) {
+      @media (prefers-color-scheme: dark) {
         body, html, .bg-gray-200, .inside-article {
           background: ${backgDark};
           background-color: ${backgDark}
@@ -691,7 +757,7 @@
           background-color: ${backgLight}
         }
       }
-      @media (prefers-color-scheme: darl) {
+      @media (prefers-color-scheme: dark) {
         iframe, body, html, .bg-gray-200, .inside-article {
           background: ${backgDark};
           background-color: ${backgDark}
@@ -826,7 +892,7 @@
           background-color: ${backgLight}
         }
       }
-      @media (prefers-color-scheme: darl) {
+      @media (prefers-color-scheme: dark) {
         body, html, .bg-gray-200, .inside-article,
         .site-container-wrap {
           background: ${backgDark};
@@ -2087,7 +2153,7 @@
           background-color: ${backgLight}
         }
       }
-      @media (prefers-color-scheme: darl) {
+      @media (prefers-color-scheme: dark) {
         body, html, .bg-gray-200, .inside-article {
           background: ${backgDark};
           background-color: ${backgDark}
@@ -2961,13 +3027,9 @@
           !match(current, '*tutele.nl*'))) {
           log('Clappr Autoplay on ' + current);
 
-            if (typeof (document.querySelector('.player-poster')) == 'object')
-              document.querySelector('.player-poster').click();
-
             var promise = document.querySelector('video').play();
             if (promise !== undefined) {
                 promise.then(function () {
-
                     log('Clappr Auto play allowed');
                     //document.querySelector('video').muted = false;
                     //player.unmute();
@@ -2976,13 +3038,17 @@
 
                     document.querySelector('video').play();
 
-                    // Check if player.setVolume function exist
-                    if (typeof player.setVolume === 'function') {
-                        player.setVolume(0);
-                        player.mute();
+                    if (typeof (player) !== "undefined") {
+                      // Check if player.setVolume function exist
+                      if (typeof player.setVolume === 'function') {
+                          log("[player Object] Set volume to 0 and play")
+                          player.setVolume(0);
+                          player.mute();
+                      }
                     }
                     else {
-                        document.querySelector('video').volume = 0;
+                          log("[querySelector] Set volume to 0 and play")
+                          document.querySelector('video').volume = 0;
                     }
 
                     document.querySelector('.player-poster').click();
@@ -3100,10 +3166,8 @@
 
                 if (node.innerHTML.search('ignoreCrowdBypass') >= 1   || node.innerHTML.search('function injectProxy') >= 1 ||
                     node.innerHTML.search('universal-bypass') >= 1    || node.innerHTML.search('darkreader') >= 1           ||
-                    node.textContent.search('//injectedWithAutoplay') >= 0)
-                {
-                    console.log("already injected")
-                        return;
+                    node.textContent.search('//injectedWithAutoplay') >= 0) {
+                    return;
                 }
 
                 /*
