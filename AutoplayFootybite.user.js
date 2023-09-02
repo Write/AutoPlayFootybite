@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.0.6
+// @version     15.0.7
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -207,6 +207,8 @@
 // @include     *://*wecast4k.xyz/*
 // @include     *://*rivofutboltv.club/*
 // @include     *://*dviraly.uk/*
+// @include     *://*livesportstream.club/*
+// @include      *://*backfirstwo.site/*
 // ==/UserScript==
 
 (function () {
@@ -332,7 +334,7 @@
                   '#\\30', '#ni-overlay', 'polygon',
                   'iframe[src*=ads\\.livetv695\\.me]',
                   'iframe[src*=ads\\.livetv696\\.me]',
-                  'iframe[src^=about\\:blank]'
+                 // 'iframe[src^=about\\:blank]' <- can't be used globally, breaks gameavenue.co
               ];
 
   removeGarbage(trash);
@@ -416,6 +418,15 @@
       }
       `;
       pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* livesportstream           */
+  /* ------------------------- */
+  if (match(current, "*://*livesportstream.club*")) {
+      log("=== "+ current + " ===");
+      var trash = ["#ad"];
+      removeGarbage(trash);
   }
 
   /* ------------------------- */
@@ -1334,9 +1345,18 @@
      ) {
 
       log("=== "+ current + " ===");
-      var trash = ["div.bg-light-gray.my-2.py-4", "header", "#footer", ".elementor-column-gap-custom",".elementor-column-gap-custom", ".second-iframe", "div.elementor-column:nth-child(2) > div:nth-child(1)", "div.elementor-column:nth-child(2)",
-                       '.site-below-footer-wrap[data-section="section-below-footer-builder"]', ".elementor-location-header", ".site-footer"];
+      var trash = [
+                    "#ad",
+                    "div.bg-light-gray.my-2.py-4", "header", "#footer", ".elementor-column-gap-custom",".elementor-column-gap-custom",
+                    ".second-iframe", "div.elementor-column:nth-child(2) > div:nth-child(1)", "div.elementor-column:nth-child(2)",
+                    '.site-below-footer-wrap[data-section="section-below-footer-builder"]', ".elementor-location-header", ".site-footer"
+                  ];
+
       removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
 
       var style = `
       div.bg-light-gray, body.bg-white, body, html, .bg-gray-200, .inside-article, .elementor-161 .elementor-element.elementor-element-1ecbf82:not(.elementor-motion-effects-element-type-background), .elementor-161 .elementor-element.elementor-element-1ecbf82 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
@@ -1883,6 +1903,10 @@
           });
       });
 
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
       var style = `
         a[onclick^=closeSmartLink] {
           display: none;
@@ -2020,14 +2044,57 @@
   }
 
   /* ------------------------------ */
-  /* nflscoop . com           */
+  /* gameavenue.co                  */
   /* ------------------------------ */
   if (match(current, "*://gameavenue.co*") || match(current, "*://*.gameavenue.co*")) {
 
       log("=== gameavenue.co ===");
-      var trash = ['#ast-desktop-header', '.secondary.widget-area', 'table', '.site-footer', '.left_bottom.floating.style-1.wp-dark-mode-ignore.wp-dark-mode-switcher',
-                       '.cky-btn-revisit', '.cky-revisit-bottom-left.cky-btn-revisit-wrapper'];
+
+      var trash = [ '.entry-header', '#masthead', '.cky-modal',
+                    '#ast-desktop-header', '.secondary.widget-area', 'table', '.site-footer',
+                    '.left_bottom.floating.style-1.wp-dark-mode-ignore.wp-dark-mode-switcher',
+                    '.cky-btn-revisit', '.cky-revisit-bottom-left.cky-btn-revisit-wrapper'
+                  ];
+
       removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+          selector.parentElement.remove()
+      });
+
+      checkElement('p strong').then((selector) => {
+          if (selector.innerText.search('FOR ALL SPORTING') == 0)
+              selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, #main, main#main,
+      #primary, #content, #masthead {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      textarea, a, br, hr, img, li, ul, h1, h2, h3, h4, h5, h6 {
+        display: none;
+      }
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: darl) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
   }
 
 
@@ -2889,10 +2956,14 @@
           !match(current, '*qwebplay.xyz*') &&
           !match(current, '*1stream.soccer*') &&
           !match(current, '*cucxt.live*') &&
+          !match(current, '*abolishstand.net*') &
+          !match(current, '*gameavenue.co*') &&
           !match(current, '*tutele.nl*'))) {
           log('Clappr Autoplay on ' + current);
-            document.querySelector('video').muted = false;
-            document.querySelector('.player-poster').click();
+
+            if (typeof (document.querySelector('.player-poster')) == 'object')
+              document.querySelector('.player-poster').click();
+
             var promise = document.querySelector('video').play();
             if (promise !== undefined) {
                 promise.then(function () {
@@ -2902,9 +2973,18 @@
                     //player.unmute();
                 }).catch(error => {
                     log('Clappr Autoplay with sound not allowed');
+
                     document.querySelector('video').play();
-                    player.setVolume(0);
-                    player.mute();
+
+                    // Check if player.setVolume function exist
+                    if (typeof player.setVolume === 'function') {
+                        player.setVolume(0);
+                        player.mute();
+                    }
+                    else {
+                        document.querySelector('video').volume = 0;
+                    }
+
                     document.querySelector('.player-poster').click();
                 });
             }
@@ -2936,28 +3016,32 @@
               document.querySelector('video').play();
           }
       } // end videojs */
-      else if (Hls.isSupported()) {
-          log('HLS.js Autoplay on ' + current);
-          document.querySelector('video').muted = false;
-          var promise = document.querySelector('video').play();
-          if (promise !== undefined) {
-              promise.then(function () {
-                  log('HLS.js Auto play allowed');
-                  /* Autoplay started */
-                  document.querySelector('video').muted = false;
-              }).catch(error => {
-                  log('HLS.js Autoplay with sound not allowed');
-                  /* Autoplay not allowed! */
-                  document.querySelector('video').muted = true;
-                  document.querySelector('video').play();
-              });
-          }
-          else {
-              log('HLS.js Autoplay not set');
-              document.querySelector('video').play();
-          }
-      } // end HLS.js
-      else { log("No player found to autoplay"); }
+
+
+      else if (typeof Hls !== "undefined") {
+          if (Hls.isSupported()) {
+            log('HLS.js Autoplay on ' + current);
+            document.querySelector('video').muted = false;
+            var promise = document.querySelector('video').play();
+            if (promise !== undefined) {
+                promise.then(function () {
+                    log('HLS.js Auto play allowed');
+                    /* Autoplay started */
+                    document.querySelector('video').muted = false;
+                }).catch(error => {
+                    log('HLS.js Autoplay with sound not allowed');
+                    /* Autoplay not allowed! */
+                    document.querySelector('video').muted = true;
+                    document.querySelector('video').play();
+                });
+            }
+            else {
+                log('HLS.js Autoplay not set');
+                document.querySelector('video').play();
+            }
+        } // end HLS.js
+      }
+      else { log("No player found to run autoplay on, or autoplay script disabled for this website"); }
   }, 500);
 
   /* ------------------------------------ */
@@ -2991,21 +3075,22 @@
                          'histats', 'blast.js', 'deb.js', 'cdn4ads.js', 'suv4.js', 'quant', 'tag.js', 'mahimeta'];
 
       /* Remove whole <script> tag if one of these strings are in its code */
-      var jsScriptBlacklist = [ 's3ii[129303]', 'sandblaster.detect\(\)', 'return\\x20\(function\(\)\\x20', 'var _0xb64c=', 'disableselect','ConsoleBan', 'mdp_deblocker', 'currentReferer', 'runPageBugger',
+      var jsScriptBlacklist = [ 's3ii[129303]', 'return\\x20\(function\(\)\\x20', 'var _0xb64c=', 'disableselect','ConsoleBan', 'mdp_deblocker', 'currentReferer', 'runPageBugger',
                                '@3C@69@66@72@61@6D@65@20@73@61@6', 'killPageConsoleOpen', 'devtools\-detector', 'tag.min.js', '\/\?oo=1&aab=1',
                                'WAU_classic', 'debuggerChecker', 'killPageConsoleOpen', 'isConsoleOpen',
-                               'gtag', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                               'gtag', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
                                'allowedDomains\.indexOf' ]
 
       mutations.forEach(function(mutation) {
 
-          var node, nodeType, src, href;
+          var node, nodeType, src, href, injectedwithTag, wasRemoved;
+          wasRemoved = false;
 
           if (mutation.addedNodes.length > 0) {
 
             node = mutation.addedNodes[0];
             nodeType = node.nodeName.toLowerCase();
+            injectedwithTag = "\n//injectedWithAutoplay\n";
 
             if (nodeType == 'noscript') {
                 log("\<noscript> tag removed.")
@@ -3013,7 +3098,11 @@
             }
             else if (nodeType == 'script') {
 
-                if (node.innerHTML.search('ignoreCrowdBypass') >= 1 || node.innerHTML.search('function injectProxy') >= 1) {
+                if (node.innerHTML.search('ignoreCrowdBypass') >= 1   || node.innerHTML.search('function injectProxy') >= 1 ||
+                    node.innerHTML.search('universal-bypass') >= 1    || node.innerHTML.search('darkreader') >= 1           ||
+                    node.textContent.search('//injectedWithAutoplay') >= 0)
+                {
+                    console.log("already injected")
                         return;
                 }
 
@@ -3033,10 +3122,12 @@
                     });
                 }
                 else {
+
                     /* Removing inline js */
                     var innerHTML = node.innerHTML;
                     jsScriptBlacklist.forEach(e => {
                          if (innerHTML.includes(e)) {
+                            wasRemoved = true;
                             log("jsScriptBlacklist | Keyword Found > " + e + " | Removed whole <script>.")
                             node.remove();
                             return;
@@ -3045,66 +3136,84 @@
 
                     /* inline js that requires multiple match to be removed */
                     if (node.innerHTML.match('debu') && node.innerHTML.match('trace') && node.innerHTML.match('navig')) {
-                          log("Sketchy js found and removed | js that burns the CPU when console is open.");
-                          node.remove();
+                        wasRemoved = true;
+                        log("Sketchy js found and removed | js that burns the CPU when console is open.");
+                        node.remove();
                         return;
                     }
                     if (node.innerHTML.match('maxTouchPoints') && node.innerHTML.match('parseInt') &&
                         node.innerHTML.match('userAgent')      && node.innerHTML.match('click')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | maxTouchPoints & more...");
                             node.remove();
-                        return;
+                            return;
                     }
                     if (node.innerHTML.match('popads.php') && node.innerHTML.match('userAgent') &&
                         node.innerHTML.match('setTimeout') && node.innerHTML.match('parseInt')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | popads.php, userAgent, setTimeout, parseInt");
                             node.remove();
-                        return;
+                            return;
                     }
                     if (node.innerHTML.match('console.log')     && node.innerHTML.match('setTimeout') &&
                         node.innerHTML.match('LOG_LEVEL_ERROR') && node.innerHTML.match('parseInt')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | console.log, setTimeout, LOG_LEVEL_ERROR, parseInt");
                             node.remove();
                         return;
                     }
                     if (node.innerHTML.match('toString') && node.innerHTML.match('setTimeout')  && node.innerHTML.match('replace') &&
                         node.innerHTML.match('split')    && node.innerHTML.match('eval')        && node.innerHTML.match('constructor')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | toString, setTimeout, replace, split, eval, constructor");
                             node.remove();
                         return;
                     }
                     if (node.innerHTML.match('ABCDEFGHI') && node.innerHTML.match('split') && node.innerHTML.match('void') &&
                         node.innerHTML.match('eval')      && node.innerHTML.match('new Error')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | ABCDEFGHI, split, void, eval, new Error");
                             node.remove();
                         return;
                     }
                     if (node.innerHTML.match('createElement')    && node.innerHTML.match('XMLHttpRequest') &&
                         node.innerHTML.match('documentElement')  && node.innerHTML.match('parse')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | createElement, XMLHttpRequest, documentElement, parse");
                             node.remove();
                         return;
                     }
                     if (node.innerHTML.match('bodyMsg')  && node.innerHTML.match('siteConfig') &&
                         node.innerHTML.match('parseInt') && node.innerHTML.match('defineProperty')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | bodyMsg, siteConfig, parseInt, defineProperty");
                             node.remove();
                         return;
                     }
                     if (node.innerHTML.includes('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') &&
                         node.innerHTML.includes('fromCharCode') && node.innerHTML.includes('Math') && node.innerHTML.includes('pow')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, fromCharCode, Math, pow");
                             node.remove();
                         return;
                     }
                     if (node.innerHTML.includes('pOpened') && node.innerHTML.includes('perSite') && node.innerHTML.includes('posred') && node.innerHTML.includes('removeEventListener')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | pOpened, perSite, posred, removeEventListener");
+                            node.remove();
+                        return;
+                    }
+
+                    if (node.innerHTML.includes('eval') && node.innerHTML.includes('function') && node.innerHTML.includes('debugger') && node.innerHTML.includes('constructor')) {
+                            wasRemoved = true;
+                            log("Sketchy js found and removed | eval,  function,  debugger, constructor");
                             node.remove();
                         return;
                     }
 
                     if (node.innerHTML.match('\{\}\.constructor') && node.innerHTML.includes('decodeURIComponent') &&
                         node.innerHTML.includes('charCodeAt')     && node.innerHTML.includes('fromCharCode')) {
+                            wasRemoved = true;
                             log("Sketchy js found and removed | {}.constructor, decodeURIComponent, charCodeAt, fromCharCode");
                             node.remove();
                         return;
@@ -3114,6 +3223,7 @@
                      * Debugging purpose
                      * */
 
+
                     /*
                     if (node.innerHTML.includes('')) {
                         console.log("Debug == " + node.innerHTML);
@@ -3122,7 +3232,6 @@
                     }
                     */
 
-
                 }
 
                 /*
@@ -3130,59 +3239,72 @@
                  * Every <script> tag that match get partially replaced
                  * because these usually can only be removed partially
                  * */
-                if (node.innerHTML.match('data:application/pdf;base64')) {
-                    /* Removing yet another sketchy obfuscated js */
-                    var currentScript = node.innerHTML;
-                    currentScript = currentScript.replace(/var _0x.*function\(.*application\/pdf.*?;}\)\);/gm, "");
-                    node.remove()
-                    log('Sketchy js found and removed | data:application/pdf;base64')
-                    addScript(currentScript);
-                }
-                else if ((node.textContent.search('window.location') >= 0 || node.textContent.search('document.location') >= 0) &&
-                          node.textContent.search('window.location.reload') <= 0 &&
-                          node.textContent.search('window.location.href') <= 0 &&
-                          node.textContent.search('darkreader') == -1 && node.textContent.search('universal-bypass') == -1) {
-
-                    var currentScript = node.innerHTML;
-                    currentScript = currentScript.replace(/eval\(function \(p, a, c, k, e, d\) {.*}/gm, '');
-                    currentScript = currentScript.replace(/window.location.replace\(".*?"\)/g, 'log("snif snif")');
-                    currentScript = currentScript.replace(/if\(window==window.top\) {window.location.replace\(".*"\);}/g, "");
-                    currentScript = currentScript.replace(/if\ \(document\.referrer\.indexOf\(b\)\!=-1\){\n.*\n}/g, "");
-                    currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, "");
-                    currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, "");
-                    currentScript = currentScript.replace(/if\(window==window.top\) document.location="\/"/g, "");
-                    currentScript = currentScript.replace(/function RedirectTo\(\){\n.*}/m, "");
-                    currentScript = currentScript.replace(/if\(!isDomain\){\n.*}/gm, "");
-                    currentScript = currentScript.replace(/if \(window == window.top\) document.location = "\/"/gm, "");
-                    currentScript = currentScript.replace(/if\(self==top\) { .* }/g, "");
-                    currentScript = currentScript.replace(/location.href = ".*"+.*;/g, "");
-
-                    node.remove()
-
-                    addScript(currentScript);
-                    log("Mutation observer: window.location removed");
-                }
-                // prevent scripts from clearing console.
-                else if ((node.textContent.search('console.clear()') >= 0) &&
-                     node.textContent.search('darkreader') == -1 && node.textContent.search('universal-bypass') == -1) {
-
-                    /* because I actually don't know how to code */
-                    countClear++;
-                    if (countClear >= 10) {
-                      return;
+                if (!wasRemoved) {
+                    if (node.innerHTML.match('data:application/pdf;base64')) {
+                        var currentScript = node.innerHTML;
+                        currentScript = currentScript.replace(/var _0x.*function\(.*application\/pdf.*?;}\)\);/gm, `${injectedwithTag}`);
+                        node.remove()
+                        addScript(currentScript);
+                        log('Sketchy js found and removed | data:application/pdf;base64')
                     }
+                    else if ((node.textContent.search('window.location') >= 0 || node.textContent.search('document.location') >= 0) &&
+                              node.textContent.search('window.location.reload') <= 0 &&
+                              node.textContent.search('window.location.href') <= 0) {
 
-                    var currentScript = node.innerHTML;
-                    currentScript = currentScript.replace(/console.clear();/g, '');
-                    currentScript = currentScript.replace(/setInterval\(function\(\){console.clear\(\)},\( |\)[0-9]*\);/g, '');
+                        var currentScript = node.innerHTML;
+                        currentScript = currentScript.replace(/eval\(function \(p, a, c, k, e, d\) {.*}/gm, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/window.location.replace\(".*?"\)/g, `console.log('no');${injectedwithTag}`);
+                        currentScript = currentScript.replace(/if\(window==window.top\) {window.location.replace\(".*"\);}/g, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/if\ \(document\.referrer\.indexOf\(b\)\!=-1\){\n.*\n}/g, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/if\(window==window.top\){\n.*\n}/g, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/setInterval\(function\(\){\n.*\n}, .*\)/g, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/if\(window==window.top\) document.location="\/"/g, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/function RedirectTo\(\){\n.*}/m, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/if\(!isDomain\){\n.*}/gm, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/if \(window == window.top\) document.location = "\/"/gm, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/if\(self==top\) { .* }/g, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/location.href = ".*"+.*;/g, `${injectedwithTag}`);
 
-                    node.remove();
+                        node.remove()
 
-                    /* log(currentScript) */
-                    addScript(currentScript);
-                    log("MutationObserver: console.clear() removed");
+                        addScript(currentScript);
+                        log("Mutation observer: window.location removed");
+                    }
+                    // prevent scripts from clearing console.
+                    else if (node.textContent.search('console.clear()') >= 0) {
+
+                        /* because I actually don't know how to code */
+                        countClear++;
+                        if (countClear >= 10) {
+                          return;
+                        }
+
+                        var currentScript = node.innerHTML;
+                        currentScript = currentScript.replace(/console.clear();/g, `${injectedwithTag}`);
+                        currentScript = currentScript.replace(/setInterval\(function\(\){console.clear\(\)},\( |\)[0-9]*\);/g, `${injectedwithTag}`);
+
+                        node.remove();
+
+                        /* log(currentScript) */
+                        addScript(currentScript);
+                        log("MutationObserver: console.clear() removed");
+                    }
+                    else if (node.textContent.search('sandblaster.detect()') >= 0) {
+
+                        const fakeJsObject = ` {
+                          sandboxed: false,
+                          sandboxed_test: function() { return false }
+                        };`
+
+                        var currentScript = node.innerHTML;
+                        currentScript = currentScript.replace(/sandblaster.detect\(\);/g, `${fakeJsObject}${injectedwithTag}`);
+                        node.remove();
+
+                        setTimeout( function() { addScript(currentScript) } , 500)
+
+                        log("MutationObserver: sandblaster.detect() replaced with fake const");
+                    }
                 }
-
             } // end | if (nodeType == 'script')
           }
       });
