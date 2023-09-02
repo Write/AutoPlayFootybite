@@ -14,3 +14,5 @@ jsconfig.json
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+doc.md
