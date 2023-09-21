@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.0.8
+// @version     15.1.0
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -214,7 +214,9 @@
 // @include     *://*ddolahdplay.xyz/*
 // @include     *://*bestsolaris.com/*
 // @include     *://*1stream.eu/*
-//
+// @include     *://*apl272.me/*
+// @include     *://*chelsealivestream.com/*
+// @include     *://*reddit-soccerstreams.com/*
 // ==/UserScript==
 
 (function () {
@@ -426,10 +428,90 @@
       pasteStyle(style);
   }
 
+
+  /* ------------------------- */
+  /* chelsealivestream.com     */
+  /* ------------------------- */
+  if (match(current, "*://*chelsealivestream.com*")) {
+
+      log("=== "+ current + " ===");
+      var trash = ["header#header", "#footer", "#id-custom_banner"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, div.wraper, {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
+        display: none;
+      }
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, html body.bg-white  {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, html body.bg-white  {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+
+  /* ------------------------- */
+  /* apl272.me                 */
+  /* ------------------------- */
+  if (match(current, "*://*apl272.me*")) {
+
+      log("=== "+ current + " ===");
+      var trash = ["#ads"];
+      removeGarbage(trash);
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
   /* ------------------------- */
   /* buffstreamz's embed       */
   /* ------------------------- */
-  if (match(current, "*://*buffstreamz.fun/embed*")) {
+  if (match(current, "*://*buffstreamz.fun/embed*") || match(current, "*://*buffstreamz.fun/webplayer*")) {
 
       log("=== "+ current + " ===");
       var trash = [""];
@@ -1716,11 +1798,35 @@
       });
 
       log("=== "+ current + " ===");
-      var trash = ['#ga-overlay', 'ins', '#dismiss-btn', '.entry-header', '.adsbymahimeta', '.top-header', 'nav', '.adsbyvli', '.masthead', 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar'];
+    // "div[id^=darkmysite_switch_]",
+      var trash = [ "aside#secondary", ".jp-relatedposts", "footer#colophon", '#ga-overlay', 'ins', '#dismiss-btn', '.entry-header', '.adsbymahimeta', '.top-header', 'nav', '.adsbyvli', '.masthead', 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar'];
       removeGarbage(trash);
 
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
       var style = `
-      body, html, .bg-gray-200, .inside-article {
+
+      .media-control.live[data-media-control] .media-control-layer[data-controls] .bar-container[data-seekbar] .bar-background[data-seekbar] .bar-fill-2[data-seekbar] {
+        background-color: red;
+      }
+      .media-control[data-media-control] .media-control-layer[data-controls] .drawer-container[data-volume] .bar-container[data-volume] .segmented-bar-element[data-volume].fill {
+        box-shadow: inset 2px 0 0 #fff;
+        opacity: 1;
+      }
+      .media-control[data-media-control] .media-control-background[data-background] {
+        background-color: rgba(0, 0, 0, 0);
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+        height: 10%;
+      }
+      .media-control[data-media-control] .media-control-layer[data-controls] button.media-control-button svg path,
+      .darkmysite_inverted_inline_svg.darkmysite_style_txt_border.darkmysite_processed {
+        filter: unset;
+      }
+
+      body, html, .bg-gray-200, .inside-article, html body.darkmysite_style_all.darkmysite_processed {
+        background-color: ${backg};
         background: ${backg};
         margin: 0;
         padding: 0;
@@ -1728,12 +1834,7 @@
       .rounded { border-radius: 0; border: 0; }
       .shadow-md { box-shadow: none; }
       .shadow-lg, img, a, br, td, .top-bar, .side-menu-wrap, .top-header { display: none; }
-      iframe {
-        display: block;
-        height: 75vh;
-        width: 100%;
-        margin: auto;
-      }
+
       .site-content .content-area {
         width: 100%;
       }
@@ -1920,7 +2021,8 @@
   /* soccerstreams.com/     */
   /* ----------------------- */
 
-  if (match(current, "*://*footybite.to*") || match(current, "*://footybite.to*") || match(current, "*://*footybite.cc*")) {
+  if (match(current, "*://*footybite.to*") || match(current, "*://footybite.to*") || match(current, "*://*footybite.cc*") ||
+      match(current, "*://*reddit-soccerstreams.com*")) {
 
       log("=== Main footybite page ===");
 
@@ -2024,11 +2126,14 @@
             .table td, .table th {
               border-top: 1px solid #dadada;
             }
+            div.bg-white-light {
+              background-color: rgb(249, 249, 249);
+            }
             .text-dark-l {
               color: #282828;
               font-weight: 800;
             }
-            #timer.text-white {
+            #timer.text-white, .txt-team, .time-txt .text-dark-l span {
               color: #4e4d4d;
             }
             div a.text-light {
@@ -3179,7 +3284,8 @@
                     /* Removing js files based on href uri */
                     jsBlacklist.forEach(e => {
                          if (src.match(e)) {
-                            log("jsBlacklist (" + e + ") | Removed: " + src)
+                            wasRemoved = true;
+                            log("jsBlacklist (" + e + ") | Removed: " + src + " | Page: " +  current)
                             node.remove();
                             return;
                          }
@@ -3192,7 +3298,7 @@
                     jsScriptBlacklist.forEach(e => {
                          if (innerHTML.includes(e)) {
                             wasRemoved = true;
-                            log("jsScriptBlacklist | Keyword Found > " + e + " | Removed whole <script>.")
+                            log("jsScriptBlacklist | Keyword Found > " + e + " | Removed whole <script>. | Page: " +  current)
                             node.remove();
                             return;
                          }
@@ -3328,6 +3434,7 @@
                         currentScript = currentScript.replace(/if \(window == window.top\) document.location = "\/"/gm, `${injectedwithTag}`);
                         currentScript = currentScript.replace(/if\(self==top\) { .* }/g, `${injectedwithTag}`);
                         currentScript = currentScript.replace(/location.href = ".*"+.*;/g, `${injectedwithTag}`);
+                        currentScript += injectedwithTag
 
                         node.remove()
 
@@ -3346,7 +3453,7 @@
                         var currentScript = node.innerHTML;
                         currentScript = currentScript.replace(/console.clear();/g, `${injectedwithTag}`);
                         currentScript = currentScript.replace(/setInterval\(function\(\){console.clear\(\)},\( |\)[0-9]*\);/g, `${injectedwithTag}`);
-
+                        currentScript += injectedwithTag
                         node.remove();
 
                         /* log(currentScript) */
