@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.0
+// @version     15.1.1
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -540,6 +540,9 @@
       .box-responsive {
         position: unset;
         padding-bottom: 0;
+      }
+      .responsive {
+        max-width: 50vw;
       }
       @media (prefers-color-scheme: light) {
         body, html, .bg-gray-200, .inside-article, iframe, .responsive {
@@ -2027,11 +2030,11 @@
       log("=== Main footybite page ===");
 
       var trash = [
-          '.ad-banner', '.second-iframe', '.teams', '.news-right-sec-div', '.news-right-sec', '.mt-3.mb-3.text-center', '.alert-warning.alert',
-          '.alert-dismissible', '#event-sticky-info', '.col-md-4',
-          'footer', '#event-tags-h', '#event-tags',
-          'a[href^=\\/dcma]'
+          '#cboxmain', '.ad-banner', '.second-iframe', '.teams', '.news-right-sec-div', '.news-right-sec',
+          '.mt-3.mb-3.text-center', '.alert-warning.alert', '.alert-dismissible', '#event-sticky-info',
+          '.col-md-4', 'footer', '#event-tags-h', '#event-tags', 'a[href^=\\/dcma]'
       ];
+
       removeGarbage(trash);
 
       checkElement('.col-md-9').then((selector) => {
@@ -2094,7 +2097,6 @@
         .display-bg a.rounded-pill[target*=blank]:hover {
           color: #fff;
         }
-
         .row {
           margin-right: 0px;
         }
