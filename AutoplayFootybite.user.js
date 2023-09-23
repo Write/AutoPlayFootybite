@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.1
+// @version     15.1.2
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -2030,7 +2030,7 @@
       log("=== Main footybite page ===");
 
       var trash = [
-          '#cboxmain', '.ad-banner', '.second-iframe', '.teams', '.news-right-sec-div', '.news-right-sec',
+          '.ad-banner', '.second-iframe', '.teams', '.news-right-sec-div', '.news-right-sec',
           '.mt-3.mb-3.text-center', '.alert-warning.alert', '.alert-dismissible', '#event-sticky-info',
           '.col-md-4', 'footer', '#event-tags-h', '#event-tags', 'a[href^=\\/dcma]'
       ];
@@ -2039,6 +2039,17 @@
 
       checkElement('.col-md-9').then((selector) => {
           document.querySelectorAll('.col-md-9').forEach(el => { el.classList.remove('col-md-9'); el.classList.add('col-md-12'); });
+      });
+
+      checkElement('table.table.text-center').then((selector) => {
+          checkElement('#cboxmain[src*=youtube\\.com]').then((selector) => {
+              log("Removing youtube embed");
+              document.querySelector('#cboxmain[src*=youtube\\.com]').remove();
+          });
+      });
+
+      checkElement('.bg-light-gray .d-flex .w-25').then((selector) => {
+          selector.parentElement.parentElement.remove()
       });
 
       /*
@@ -2117,6 +2128,7 @@
           color: #dedede;
           font-weight: 800;
         }
+        #cboxmain { width: 100%; }
 
         @media (prefers-color-scheme: light) {
             body, html, .bg-gray-200, .aievfbmsyu.idc0_338 {
@@ -3152,6 +3164,9 @@
                           player.setVolume(0);
                           player.mute();
                       }
+                      else {
+                          document.querySelector('video').volume = 0
+                      }
                     }
                     else {
                           log("[querySelector] Set volume to 0 and play")
@@ -3159,6 +3174,7 @@
                     }
 
                     document.querySelector('.player-poster').click();
+
                 });
             }
             else {
