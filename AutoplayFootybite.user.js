@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.2
+// @version     15.1.3
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -53,7 +53,9 @@
 // @include     *://sportsnest.co/*
 // @include     *://papahd.club/*
 // @include     *://3papahd3.icu/*
+// @include     *://papa4k.online/*
 // @include     *://papafoot.click/*
+// @include     *://f1gplive.xyz/*
 // @include     *://hinhnenhd.info/*
 // @include     *://gamerarcades.com/*
 // @include     *://poscitech.com/*
@@ -181,6 +183,7 @@
 // @include     *://*sjumbotvs.me/*
 // @include     *://*hesgoals.top/*
 // @include     *://*dubznetwork.com/*
+// @include     *://*sportsleading.online/*
 // @include     *://*sportsbearer.top/*
 // @include     *://*freesport.info/*
 // @include     *://*games47.xyz/*
@@ -217,6 +220,11 @@
 // @include     *://*apl272.me/*
 // @include     *://*chelsealivestream.com/*
 // @include     *://*reddit-soccerstreams.com/*
+// @include     *://*groundedtechs.com/*
+// @include     *://*thegentleclass.com/*
+// @include     *://*onloop.pro/*
+// @include     *://*givemevibes.top/*
+// @include     *://*buddylive.xyz/*
 // ==/UserScript==
 
 (function () {
@@ -409,6 +417,89 @@
       iframe {
         border: none;
       }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* buddylive.xyz             */
+  /* ------------------------- */
+  if (match(current, "*://*buddylive.xyz*")) {
+
+      log("=== "+ current + " ===");
+      var trash = ["#lightify-pro-header-wrapper", "#footer-about-section",
+                  ".entry-header.blog-entry-header", "h4", ".footer-widgets-wrap"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, .post-body,
+      #content-wrapper {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* backfirstwo.site      */
+  /* ------------------------- */
+  if (match(current, "*://*backfirstwo.site*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [""];
+      // removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
       textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
         display: none;
       }
@@ -427,7 +518,6 @@
       `;
       pasteStyle(style);
   }
-
 
   /* ------------------------- */
   /* chelsealivestream.com     */
@@ -1059,17 +1149,24 @@
   if (match(current, "*://*dubznetwork.com*")) {
 
       log("=== "+ current + " ===");
-      var trash = [ "#footylight_dubzstream_one", "iframe[src^=\\/sticky\\.html]", ".aoa_overlay", ".single-related-posts", ".dp-social-media-share-wrap"];
+      var trash = [ "#footylight_dubzstream_one", "iframe[src^=\\/sticky\\.html]", ".aoa_overlay",
+                    ".single-related-posts", ".dp-social-media-share-wrap",
+                    "div.tdc-header-wrap", ".adsbyvli", ".td-ss-main-sidebar" ];
+
       removeGarbage(trash);
 
       var style = `
       body, html, .bg-gray-200, .inside-article,
-      .site-inner, .wrap, .body-background-2, .site-container {
+      .site-inner, .wrap, .body-background-2, .site-container,
+      .td-main-content-wrap {
         border: none;
         box-shadow: none;
         background: ${backg};
         margin: 0;
         padding: 0;
+      }
+      .tdc-header-wrap, .entry-thumb, .entry-title, .td_module_wrap, .tdc-row.stretch_row {
+        display: none;
       }
       video {
         top: 145px;
@@ -1077,9 +1174,7 @@
       iframe {
         border: none;
       }
-      textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
-        display: none;
-      }
+
       `;
 
       pasteStyle(style);
@@ -1155,21 +1250,26 @@
       var trash = ["header, footer", "aside", "div.media.mg-info-author-block",
                    "div.mg-featured-slider", "div.overlay", "div.missed-inner",
                    ".mg-info-author-block", "#comments", ".mg-header",
-                   "nav.navigation.post-navigation", ".navigation.post-navigation"];
+                   "nav.navigation.post-navigation", ".navigation.post-navigation",
+                  "div.post-share"];
+
+      checkElement('a.text-dark').then((selector) => {
+            selector.parentElement.remove()
+      });
+
       removeGarbage(trash);
 
       var style = `
       body, html, .bg-gray-200, .inside-article,
-      center, .mg-blog-post-box .small.single, article {
+      center, .mg-blog-post-box .small.single, article,
+      main#content, p, .mg-blog-post-box {
         background: ${backg};
         margin: 0;
         padding: 0;
+        box-shadow: unset;
       }
       iframe {
         border: none;
-      }
-        textarea, a, br, hr, img, p, li, ul, h1, h2, h3, h4, h5, h6, span {
-        display: none;
       }
       `;
 
@@ -1186,6 +1286,10 @@
                    ".entry-footer", "nav", ".navigation.post-navigation",
                    "#comments", "#colophon"];
       removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
 
       var style = `
       .img-content, .post-navigation, .comments-area,
@@ -2790,7 +2894,8 @@
   /* ----------------------- */
   /* *://papahd.club/*       */
   /* ----------------------- */
-  if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*") || match(current, "*://papafoot.click/*") ) {
+  if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*") || match(current, "*://papafoot.click/*") || match(current, "*://papa4k.online/*")
+     || match(current, "*://f1gplive.xyz/*") ) {
       log("=== papahd page ===");
       var trash = ['.skip-link', '#header', '#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]'];
       removeGarbage(trash);
