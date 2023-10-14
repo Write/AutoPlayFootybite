@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.3
+// @version     15.1.4
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -53,6 +53,7 @@
 // @include     *://sportsnest.co/*
 // @include     *://papahd.club/*
 // @include     *://3papahd3.icu/*
+// @include     *://papahd.co/*
 // @include     *://papa4k.online/*
 // @include     *://papafoot.click/*
 // @include     *://f1gplive.xyz/*
@@ -62,6 +63,7 @@
 // @include     *://*.poscitech.com/*
 // @include     *://*poscitech.org/*
 // @include     *://*poscitech.click/*
+// @include     *://*poscitechs.org/*
 // @include     *://*specialgame.xyz/*
 // @include     *://nizarstream.com/*
 // @include     *://*.nizarstream.com/*
@@ -100,6 +102,7 @@
 // @include     *://youpit.xyz/*
 // @include     *://youpits.xyz/*
 // @include     *://60fps.xyz/*
+// @include     *://*buzter.xyz/*
 // @include     *://silverspoon.site/*
 // @include     *://p2pstreams.live/*
 // @include     *://xestreams.com/*
@@ -179,7 +182,6 @@
 // @include     *://*tonnestreamz.xyz/*
 // @include     *://*bein-sports.online/*
 // @include     *://cr7soccer.club/*
-// @include     *://adisports.xyz/*
 // @include     *://*sjumbotvs.me/*
 // @include     *://*hesgoals.top/*
 // @include     *://*dubznetwork.com/*
@@ -225,6 +227,21 @@
 // @include     *://*onloop.pro/*
 // @include     *://*givemevibes.top/*
 // @include     *://*buddylive.xyz/*
+// @include     *://*backfirstwo.com/*
+// @include     *://*buzter.xyz/*
+// @include     *://*hufoot.com/*
+// @include     *://*weblivehdplay.ru/*
+// @include     *://*freesportstime.com/*
+// @include     *://*streamocean.online/*
+// @include     *://*ronaldo7.pro/*
+// @include     *://*hdfungamezz.xyz/*
+// @include     *://*hitsports.pro/*
+// @include     *://*fastreams.com/*
+// @include     *://*vladrustov.sx/*
+// @include     *://*epllive.net/*
+// @include     *://*adisports.xyz/*
+// @include     *://dlhd.sx/*
+// @include     *://masterpro.club/*
 // ==/UserScript==
 
 (function () {
@@ -350,17 +367,36 @@
                   '#\\30', '#ni-overlay', 'polygon',
                   'iframe[src*=ads\\.livetv695\\.me]',
                   'iframe[src*=ads\\.livetv696\\.me]',
+                  'div[style*=z-index\\:\\ 300000\\;]',
+                  'script[src*=\\/a\\.js"',
+                  'script[src*=\\/a\\.js"'
                  // 'iframe[src^=about\\:blank]' <- can't be used globally, breaks gameavenue.co
               ];
 
   removeGarbage(trash);
 
   var allSiteStyle = `
-    embed[type="application/pdf"] {
-      filter: unset;
-      contrast: unset;
-      display: none;
-    }
+      embed[type="application/pdf"] {
+        filter: unset;
+        contrast: unset;
+        display: none;
+      }
+      .media-control.live[data-media-control] .media-control-layer[data-controls] .bar-container[data-seekbar] .bar-background[data-seekbar] .bar-fill-2[data-seekbar] {
+        background-color: red;
+      }
+      .media-control[data-media-control] .media-control-layer[data-controls] .drawer-container[data-volume] .bar-container[data-volume] .segmented-bar-element[data-volume].fill {
+        box-shadow: inset 2px 0 0 #fff;
+        opacity: 1;
+      }
+      .media-control[data-media-control] .media-control-background[data-background] {
+        background-color: rgba(0, 0, 0, 0);
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+        height: 10%;
+      }
+      .media-control[data-media-control] .media-control-layer[data-controls] button.media-control-button svg path,
+      .darkmysite_inverted_inline_svg.darkmysite_style_txt_border.darkmysite_processed {
+        filter: unset;
+      }
   `
   pasteStyle(allSiteStyle);
 
@@ -404,8 +440,188 @@
   if (match(current, "*://*somewebsite.xyz*")) {
 
       log("=== "+ current + " ===");
-      var trash = [""];
-      // removeGarbage(trash);
+      var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* masterpro.clu             */
+  /* ------------------------- */
+  if (match(current, "*://*masterpro.club/*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer",
+                    ".tag-list", "h1.capitalize", ".nav-teams__inner"];
+      removeGarbage(trash);
+
+      checkElement('.adblock_title').then((selector) => {
+          document.querySelector('.adblock_title').parentElement.parentElement.parentElement.parentElement.parentElement.remove()
+      });
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, .container, .entry-content {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      .vpn-wrapper, h1.capitalize, .nav-teams__inner, header, div.tag-list, footer.footer, aside {
+        display: none;
+      }
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* epllive.net               */
+  /* by RainoStream            */
+  /* ------------------------- */
+  if (match(current, "*://*epllive.net/*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer",
+                    ".tag-list", "h1.capitalize", ".nav-teams__inner"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, .container {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      .vpn-wrapper, h1.capitalize, .nav-teams__inner, header, div.tag-list, footer.footer, aside {
+        display: none;
+      }
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* fastreams.com             */
+  /* ------------------------- */
+  if (match(current, "*://*fastreams.com*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, .content-area.primary {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article, .content-area.primary {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article, .content-area.primary {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* hitsports.pro             */
+  /* ------------------------- */
+  if (match(current, "*://*hitsports.pro*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "header#masthead", ".comments-area", ".entry-title",
+                    ".entry-meta", ".site-info", "header", "div.footer", ".clearfix h4", "footer",
+                    "div#navbar-collapse-1", "nav.navbar.navbar-default", "hr", "h2", "#display1327"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
 
       var style = `
       body, html, .bg-gray-200, .inside-article {
@@ -435,6 +651,86 @@
   }
 
   /* ------------------------- */
+  /* ronaldo7.pro              */
+  /* ------------------------- */
+  if (match(current, "*://*ronaldo7.pro/*")) {
+
+      log("=== "+ current + " ===");
+      var trash = ["footer", "div.inside-navigation.grid-container", ".entry-title", ".site-info", ".entry-meta", "div.inside-right-sidebar", "header#masthead", ".comments-area"];
+      removeGarbage(trash);
+
+      checkElement('.text-dark').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, div.body, .sv-box {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, div.body, .sv-box, body.dark {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, div.body, .sv-box, body.dark {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* hufoot.com                */
+  /* ------------------------- */
+  if (match(current, "*://*hufoot.com*")) {
+
+      log("=== "+ current + " ===");
+      var trash = ["footer", "div.sv-box.undefined.no-radius", "header", "ul.nav-pills"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, div.body, .sv-box {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, div.body, .sv-box, body.dark {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, div.body, .sv-box, body.dark {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
   /* buddylive.xyz             */
   /* ------------------------- */
   if (match(current, "*://*buddylive.xyz*")) {
@@ -447,7 +743,6 @@
       checkElement('.text-light').then((selector) => {
             selector.parentElement.remove()
       });
-
 
       var style = `
       body, html, .bg-gray-200, .inside-article, .post-body,
@@ -480,7 +775,7 @@
   /* ------------------------- */
   /* backfirstwo.site      */
   /* ------------------------- */
-  if (match(current, "*://*backfirstwo.site*")) {
+  if (match(current, "*://*backfirstwo.site*") || match(current, "*://*backfirstwo.com*")) {
 
       log("=== "+ current + " ===");
       var trash = [""];
@@ -1968,11 +2263,11 @@
   /* https://youpit.xyz & 60fps.xyz     */
   /* Sub-iframe domain: wikisport.click */
   /* ---------------------------------- */
-  if (match(current, "*://youpit.xyz/*") || match(current, "*://youpits.xyz/*") || match(current, '*://60fps.xyz/*'))  {
+  if (match(current, "*://youpit.xyz/*") || match(current, "*://youpits.xyz/*") || match(current, '*://60fps.xyz/*')|| match(current, '*://buzter.xyz/*'))  {
 
 
       log("=== "+ current + " ===");
-      var trash = ['h1', '.inside-header', '.sidebar', '.inside-right-sidebar', '.site-footer'];
+      var trash = [ 'hr', 'h1', '.inside-header', '.sidebar', '.inside-right-sidebar', '.site-footer', '.adblock_title', '.adblock_subtitle'];
       removeGarbage(trash);
 
       checkElement('video').then((selector) => {
@@ -2110,7 +2405,8 @@
       log("=== "+ current + " ===");
 
       var trash = [
-          'a[onclick^=closeSmartLink]', 'a div[onclick^=closeSmartLink]'
+          'a[onclick^=closeSmartLink]', 'a div[onclick^=closeSmartLink]',
+          'a[href]'
       ];
       removeGarbage(trash);
       var style = `
@@ -2118,6 +2414,7 @@
       a div[onclick^=closeSmartLink] {
         display: none;
       }
+      body { margin: 0; }
       `;
 
       pasteStyle(style);
@@ -2145,6 +2442,12 @@
           document.querySelectorAll('.col-md-9').forEach(el => { el.classList.remove('col-md-9'); el.classList.add('col-md-12'); });
       });
 
+      /*
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+      */
+
       checkElement('table.table.text-center').then((selector) => {
           checkElement('#cboxmain[src*=youtube\\.com]').then((selector) => {
               log("Removing youtube embed");
@@ -2152,9 +2455,11 @@
           });
       });
 
+      /*
       checkElement('.bg-light-gray .d-flex .w-25').then((selector) => {
           selector.parentElement.parentElement.remove()
       });
+      */
 
       /*
        * Inject and replace with real <a href> tags
@@ -2189,9 +2494,7 @@
           });
       });
 
-      checkElement('.text-light').then((selector) => {
-            selector.parentElement.remove()
-      });
+
 
       var style = `
         a[onclick^=closeSmartLink] {
@@ -2844,28 +3147,44 @@
   /* *://poscitech.club              */
   /* Inner Iframe Domain: olahdplay  */
   /* ------------------------------- */
-  if (match(current, "*://*poscitech.click*") || match(current, "*://*poscitech.com*") || match(current, "*://*poscitech.org*") || match(current, "*://*specialgame.xyz*")) {
+  if (match(current, "*://*poscitech.click*") || match(current, "*://*poscitechs.org*") || match(current, "*://*poscitech.com*") ||
+      match(current, "*://*poscitech.org*") || match(current, "*://*specialgame.xyz*")) {
 
       log("=== poscitech ===");
-      var unwantedElements = ['.col-md-3', '#sidebar', '.site-header', '.postmeta', '.footer-wrapper', 'h3', 'h1', 'footer', '.footer', '.navbar', '.brand', '.entry_meta', '.entry-header', '.site-info', '#secondary', '#comments', '#colophon', 'nav'];
+      var unwantedElements = ['.col-md-3', '#sidebar', '.site-header', '.postmeta', '.footer-wrapper',
+                              'footer', '.footer', '.navbar', '.brand', '.entry_meta',
+                              '.entry-header', '.site-info', '#secondary', '#comments', '#colophon',
+                              'nav', 'section', "header#masthead", "footer.footer-area"];
+
       removeGarbage(unwantedElements);
 
+      checkElement('.text-red').then((selector) => {
+            selector.parentElement.remove()
+      });
+
       var style = `
-      .entry-title {
-        display: none;
-      }
-      a {
-        display: none;
-      }
-      .entry-title {
-        color: white;
-      }
-      body, html,article, .content-area {
-        background: ${backg};
-      }
-      #primary, .post-inner-content, .entry-content {
+
+      body, html, .bg-gray-200, .inside-article, .post-content, article {
         margin: 0;
         padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, .post-content, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, .post-content, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
       }
       body.archive .post-inner-content, body.blog .post-inner-content, .post-inner-content:first-child {
         border: none;
@@ -2894,11 +3213,15 @@
   /* ----------------------- */
   /* *://papahd.club/*       */
   /* ----------------------- */
-  if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*") || match(current, "*://papafoot.click/*") || match(current, "*://papa4k.online/*")
+  if (match(current, "*://papahd.club*") || match(current, "*://3papahd3.icu/*") || match(current, "*://papahd.co*") || match(current, "*://papafoot.click/*") || match(current, "*://papa4k.online/*")
      || match(current, "*://f1gplive.xyz/*") ) {
       log("=== papahd page ===");
       var trash = ['.skip-link', '#header', '#credit', '#footer', '.sidebar.s1', '.sidebar.s2', 'a[href*=total]', 'a[href*=discord]'];
       removeGarbage(trash);
+
+      checkElement('.adblock_title').then((selector) => {
+          document.querySelector('.adblock_title').parentElement.parentElement.parentElement.parentElement.parentElement.remove()
+      });
 
       checkElement('center button[style^=background-color\\:]').then((selector) => {
             selector.parentElement.remove()
@@ -3361,7 +3684,7 @@
       }
 
       /* name of js files (href) to remove */
-      var jsBlacklist = [ 'doruffleton', 'mo.min.js',
+      var jsBlacklist = [ 'doruffleton', 'mo.min.js', 'migimsas.net', 'pvtypsgueyqey.com', '2734478852',
                          'pop.js', 'player-bundle.min.js', 'aoa-functions', 'greeter.me', 'footylight\-dubzstream-one.js', 'chatango', 'ads.min.js',
                          'deblocker.min.js', 'themoneytizer.com', 'console-ban', 'relationsquiver.com', 'amung.us',
                          'grandclemencydirt.com', 'showads.js', 'ltv_popup.php', 'cpxinteractive', 'tag.min.js',
@@ -3369,7 +3692,7 @@
                          'histats', 'blast.js', 'deb.js', 'cdn4ads.js', 'suv4.js', 'quant', 'tag.js', 'mahimeta'];
 
       /* Remove whole <script> tag if one of these strings are in its code */
-      var jsScriptBlacklist = [ 's3ii[129303]', 'return\\x20\(function\(\)\\x20', 'var _0xb64c=', 'disableselect','ConsoleBan', 'mdp_deblocker', 'currentReferer', 'runPageBugger',
+      var jsScriptBlacklist = [ 'popundersPerIP', 's3ii[129303]', 'return\\x20\(function\(\)\\x20', 'var _0xb64c=', 'disableselect','ConsoleBan', 'mdp_deblocker', 'currentReferer', 'runPageBugger',
                                '@3C@69@66@72@61@6D@65@20@73@61@6', 'killPageConsoleOpen', 'devtools\-detector', 'tag.min.js', '\/\?oo=1&aab=1',
                                'WAU_classic', 'debuggerChecker', 'killPageConsoleOpen', 'isConsoleOpen',
                                'gtag', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -3480,6 +3803,13 @@
                         node.innerHTML.match('parseInt') && node.innerHTML.match('defineProperty')) {
                             wasRemoved = true;
                             log("Sketchy js found and removed | bodyMsg, siteConfig, parseInt, defineProperty");
+                            node.remove();
+                        return;
+                    }
+                    if (node.innerHTML.includes('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') &&
+                        node.innerHTML.includes('slice') && node.innerHTML.includes('indexOf') && node.innerHTML.includes('pow') && node.innerHTML.includes('reduce')) {
+                            wasRemoved = true;
+                            log("Sketchy js found and removed | 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, fromCharCode, Math, pow");
                             node.remove();
                         return;
                     }
