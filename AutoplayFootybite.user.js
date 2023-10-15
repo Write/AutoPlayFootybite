@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.4
+// @version     15.1.5
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -368,8 +368,8 @@
                   'iframe[src*=ads\\.livetv695\\.me]',
                   'iframe[src*=ads\\.livetv696\\.me]',
                   'div[style*=z-index\\:\\ 300000\\;]',
-                  'script[src*=\\/a\\.js"',
-                  'script[src*=\\/a\\.js"'
+                  'script[src*=\\/a\\.js]',
+                  'script[src*=\\/a\\.js]'
                  // 'iframe[src^=about\\:blank]' <- can't be used globally, breaks gameavenue.co
               ];
 
@@ -529,15 +529,14 @@
 
       log("=== "+ current + " ===");
       var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer",
-                    ".tag-list", "h1.capitalize", ".nav-teams__inner"];
+                    ".tag-list", "h1.capitalize", ".nav-teams__inner", ".abblock-msg"];
       removeGarbage(trash);
 
-      checkElement('.text-light').then((selector) => {
-            selector.parentElement.remove()
-      });
-      checkElement('.text-light').then((selector) => {
-            selector.parentElement.remove()
-      });
+      setTimeout(function() {
+        checkElement('.text-light').then((selector) => {
+              selector.parentElement.remove()
+        })
+      , 500});
 
       var style = `
       body, html, .bg-gray-200, .inside-article, article, .container {
