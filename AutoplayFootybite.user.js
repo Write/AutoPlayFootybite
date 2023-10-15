@@ -532,11 +532,15 @@
                     ".tag-list", "h1.capitalize", ".nav-teams__inner", ".abblock-msg"];
       removeGarbage(trash);
 
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      })
+
       setTimeout(function() {
         checkElement('.text-light').then((selector) => {
               selector.parentElement.remove()
         })
-      , 500});
+      , 1000});
 
       var style = `
       body, html, .bg-gray-200, .inside-article, article, .container {
