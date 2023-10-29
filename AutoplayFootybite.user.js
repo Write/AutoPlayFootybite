@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.5
+// @version     15.1.6
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -203,7 +203,6 @@
 // @include     *://*maxiplay.xyz/*
 // @include     *://*lato.sx/*
 // @include     *://*futbolandres.xyz/*
-// @include     *://*apl265.me/*
 // @include     *://*livetvstream.pro/*
 // @include     *://*abolishstand.net/*
 // @include     *://*sportea.online/*
@@ -215,11 +214,9 @@
 // @include     *://*livesportstream.club/*
 // @include     *://*backfirstwo.site/*
 // @include     *://*freehdgames.xyz/*
-// @include     *://*buffstreamz.fun/*
 // @include     *://*ddolahdplay.xyz/*
 // @include     *://*bestsolaris.com/*
 // @include     *://*1stream.eu/*
-// @include     *://*apl272.me/*
 // @include     *://*chelsealivestream.com/*
 // @include     *://*reddit-soccerstreams.com/*
 // @include     *://*groundedtechs.com/*
@@ -242,6 +239,14 @@
 // @include     *://*adisports.xyz/*
 // @include     *://dlhd.sx/*
 // @include     *://masterpro.club/*
+// @include     *://*buffstreamz.fun/*
+// @include     *://*xsportbox.com/*
+// @include     *://*apl284.me/*
+// @include     *://*apl272.me/*
+// @include     *://*apl*.me/*
+// @include     *://*wwwstream.pro/*
+// @include     *://*aliezstream1.pro/*
+
 // ==/UserScript==
 
 (function () {
@@ -859,47 +864,14 @@
       pasteStyle(style);
   }
 
-
-  /* ------------------------- */
-  /* apl272.me                 */
-  /* ------------------------- */
-  if (match(current, "*://*apl272.me*")) {
-
-      log("=== "+ current + " ===");
-      var trash = ["#ads"];
-      removeGarbage(trash);
-
-      var style = `
-      body, html, .bg-gray-200, .inside-article {
-        margin: 0;
-        padding: 0;
-        border: none;
-        box-shadow: none;
-      }
-      iframe {
-        border: none;
-      }
-
-      @media (prefers-color-scheme: light) {
-        body, html, .bg-gray-200, .inside-article {
-          background: ${backgLight};
-          background-color: ${backgLight}
-        }
-      }
-      @media (prefers-color-scheme: dark) {
-        body, html, .bg-gray-200, .inside-article {
-          background: ${backgDark};
-          background-color: ${backgDark}
-        }
-      }
-      `;
-      pasteStyle(style);
-  }
-
   /* ------------------------- */
   /* buffstreamz's embed       */
   /* ------------------------- */
-  if (match(current, "*://*buffstreamz.fun/embed*") || match(current, "*://*buffstreamz.fun/webplayer*")) {
+  if (match(current, "*://*buffstreamz.fun/embed*")
+      || match(current, "*://*buffstreamz.fun/webplayer*")
+      || match(current, "*://*xsportbox.com/webplayer*")
+      || match(current, "*://*xsportbox.com/embed*"))
+  {
 
       log("=== "+ current + " ===");
       var trash = [""];
@@ -910,11 +882,19 @@
       });
 
       checkElement('div[style^=margin\\:\\ 20px\\ auto]').then((selector) => {
-            selector.setAttribute('style', '');
+            selector.setAttribute('style', 'margin:auto;text-align: center;max-width: 100%');
+      });
+
+      checkElement('div[style^=max-width\\:\\ 1000px]').then((selector) => {
+            selector.remove();
+      });
+
+      checkElement('div[style^=margin-bottom\\:\\ 20px]').then((selector) => {
+            selector.remove();
       });
 
       checkElement('body').then((selector) => {
-            selector.setAttribute('style', '');
+            selector.setAttribute('style', 'display: flex;padding: 0px;max-width: 100%;');
       });
 
       var style = `
@@ -925,13 +905,7 @@
         border: none;
         box-shadow: none;
       }
-      .box-responsive {
-        position: unset;
-        padding-bottom: 0;
-      }
-      .responsive {
-        max-width: 50vw;
-      }
+
       @media (prefers-color-scheme: light) {
         body, html, .bg-gray-200, .inside-article, iframe, .responsive {
           background: ${backgLight};
@@ -1106,11 +1080,11 @@
   /* ------------------------- */
   /* apl265.me                 */
   /* ------------------------- */
-  if (match(current, "*://*apl265.me*") || match(current, "*://*livetvstream.pro*")) {
+  if (match(current, "*://*apl284.me*") || match(current, "*://*apl265.me*") || match(current, "*://*apl*.me*") || match(current, "*://*livetvstream.pro*")) {
 
       log("=== "+ current + " ===");
       var trash = [
-                    "#ads", "#adbtm", "div[onclick*=\\(\\)", "#stpd",
+                    "#ads", "#ban1", "#adbtm", "div[onclick*=\\(\\)", "#stpd",
                     "iframe[src*=getbanner\\.php]", "iframe[src*=getbanner\\.php]", "iframe[src*=getbanner\\.php]"
                   ];
 
