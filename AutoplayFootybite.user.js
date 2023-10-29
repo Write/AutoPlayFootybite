@@ -64,6 +64,7 @@
 // @include     *://*poscitech.org/*
 // @include     *://*poscitech.click/*
 // @include     *://*poscitechs.org/*
+// @include     *://*poscihd.com/*
 // @include     *://*specialgame.xyz/*
 // @include     *://nizarstream.com/*
 // @include     *://*.nizarstream.com/*
@@ -246,7 +247,7 @@
 // @include     *://*apl*.me/*
 // @include     *://*wwwstream.pro/*
 // @include     *://*aliezstream1.pro/*
-
+// @include     *://*elgoles.pro/*
 // ==/UserScript==
 
 (function () {
@@ -478,6 +479,55 @@
       `;
       pasteStyle(style);
   }
+
+  /* ------------------------- */
+  /*   elgoles.pro             */
+  /* ------------------------- */
+  if (match(current, "*://*elgoles.pro*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "header#masthead", ".hm-related-posts", ".hm-authorbox", ".nav-links", "#secondary", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      checkElement('.text-dark').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, #entry-content, #primary, .site-content, #content {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      #page {
+        margin-top: 0px;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+
 
   /* ------------------------- */
   /* masterpro.clu             */
@@ -3124,7 +3174,7 @@
   /* *://poscitech.club              */
   /* Inner Iframe Domain: olahdplay  */
   /* ------------------------------- */
-  if (match(current, "*://*poscitech.click*") || match(current, "*://*poscitechs.org*") || match(current, "*://*poscitech.com*") ||
+  if (match(current, "*://*poscihd.com*") || match(current, "*://*poscitech.click*") || match(current, "*://*poscitechs.org*") || match(current, "*://*poscitech.com*") ||
       match(current, "*://*poscitech.org*") || match(current, "*://*specialgame.xyz*")) {
 
       log("=== poscitech ===");
