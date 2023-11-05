@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.7
+// @version     15.1.8
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -684,7 +684,7 @@
   if (match(current, "*://*epllive.net/*")) {
 
       log("=== "+ current + " ===");
-      var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer",
+      var trash = [ ".community-backLink", "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer",
                     ".tag-list", "h1.capitalize", ".nav-teams__inner", ".abblock-msg"];
       removeGarbage(trash);
 
