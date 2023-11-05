@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.6
+// @version     15.1.7
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -248,6 +248,10 @@
 // @include     *://*wwwstream.pro/*
 // @include     *://*aliezstream1.pro/*
 // @include     *://*elgoles.pro/*
+// @include     *://*gameshdlive.net/*
+// @include     *://*liveon.sx/*
+// @include     *://*soccerstream100.co/*
+// @include     *://*kingstreamz.lol/*
 // ==/UserScript==
 
 (function () {
@@ -368,7 +372,7 @@
   * Every website
   * -----------------------
   * */
-  var trash = [ 'iframe[src*=chatango]', 'iframe[src*=live_chat]',
+  var trash = [   'div[id^=vliadb]', 'iframe[src*=chatango]', 'iframe[src*=live_chat]',
                   '#micast_ads', 'iframe[src*=ads\\.php]',
                   '#\\30', '#ni-overlay', 'polygon',
                   'iframe[src*=ads\\.livetv695\\.me]',
@@ -380,6 +384,10 @@
               ];
 
   removeGarbage(trash);
+
+  checkElement('.text-light').then((selector) => {
+      selector.parentElement.remove()
+  });
 
   var allSiteStyle = `
       embed[type="application/pdf"] {
@@ -481,24 +489,27 @@
   }
 
   /* ------------------------- */
-  /*   elgoles.pro             */
+  /* elgoles.pro               */
   /* ------------------------- */
   if (match(current, "*://*elgoles.pro*")) {
 
       log("=== "+ current + " ===");
-      var trash = [ "header#masthead", ".hm-related-posts", ".hm-authorbox", ".nav-links", "#secondary", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      var trash = [ ".hm-related-posts", ".hm-authorbox", ".skip-link", "#secondary", "#site-navigation", ".site-footer", "nav.navigation.post-navigation", "#site-navigation", "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
       removeGarbage(trash);
 
       checkElement('.text-light').then((selector) => {
             selector.parentElement.remove()
       });
-
       checkElement('.text-dark').then((selector) => {
             selector.parentElement.remove()
       });
 
       var style = `
-      body, html, .bg-gray-200, .inside-article, article, #entry-content, #primary, .site-content, #content {
+
+      #page.hitmag-wrapper {
+        margin-top: 0;
+      }
+      body, html, .bg-gray-200, .inside-article, article, .blog-post-item, .entry-content, .single-post-wrap, .site-content {
         margin: 0;
         padding: 0;
         border: none;
@@ -507,10 +518,99 @@
       iframe {
         border: none;
       }
-      #page {
-        margin-top: 0px;
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+
+  /* ------------------------- */
+  /* extremosports.club        */
+  /* ------------------------- */
+  if (match(current, "*://*extremosports.club*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "#secondary", "#site-navigation", ".site-footer", "nav.navigation.post-navigation", "#site-navigation", "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+      checkElement('.text-dark').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, .blog-post-item, .entry-content, .single-post-wrap {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
       }
 
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+
+  /* ------------------------- */
+  /* masterpro.clu             */
+  /* ------------------------- */
+  if (match(current, "*://*masterpro.club/*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer",
+                    ".tag-list", "h1.capitalize", ".nav-teams__inner"];
+      removeGarbage(trash);
+
+      checkElement('.adblock_title').then((selector) => {
+          document.querySelector('.adblock_title').parentElement.parentElement.parentElement.parentElement.parentElement.remove()
+      });
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, .container, .entry-content {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      .vpn-wrapper, h1.capitalize, .nav-teams__inner, header, div.tag-list, footer.footer, aside {
+        display: none;
+      }
       @media (prefers-color-scheme: light) {
         body, html, .bg-gray-200, .inside-article, article {
           background: ${backgLight};
@@ -922,6 +1022,12 @@
       || match(current, "*://*xsportbox.com/webplayer*")
       || match(current, "*://*xsportbox.com/embed*"))
   {
+
+      // bypass links
+      checkElement('a#third-party-source').then((selector) => {
+          var url = selector.href;
+          window.location = url;
+      });
 
       log("=== "+ current + " ===");
       var trash = [""];
