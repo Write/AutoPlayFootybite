@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.8
+// @version     15.1.9
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -100,6 +100,7 @@
 // @include     *://dzeko11.net/*
 // @include     *://streamsoccers.com/*
 // @include     *://streamhd247.online/*
+// @include     *://streamhd247.info/*
 // @include     *://stakes100.xyz/*
 // @include     *://youpit.xyz/*
 // @include     *://youpits.xyz/*
@@ -253,6 +254,8 @@
 // @include     *://*liveon.sx/*
 // @include     *://*soccerstream100.co/*
 // @include     *://*kingstreamz.lol/*
+// @include     *://*extremosports.club/*
+// @include     *://*freetvsports.com/*
 // ==/UserScript==
 
 (function () {
@@ -464,6 +467,46 @@
 
       var style = `
       body, html, .bg-gray-200, .inside-article, article {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* freetvsports              */
+  /* ------------------------- */
+  if (match(current, "*://*freetvsports.com*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "h2", "header#masthead", "nav.site-navigation", ".site-credits", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      body, html, .bg-gray-200, .inside-article, article, .site-content.site-singular {
         margin: 0;
         padding: 0;
         border: none;
@@ -815,7 +858,7 @@
   if (match(current, "*://*ronaldo7.pro/*")) {
 
       log("=== "+ current + " ===");
-      var trash = ["footer", "div.inside-navigation.grid-container", ".entry-title", ".site-info", ".entry-meta", "div.inside-right-sidebar", "header#masthead", ".comments-area"];
+      var trash = [ "nav.navbar.navbar-default", ".clearfix", "div.footer.container", "hr", "#display1327", "footer", "div.inside-navigation.grid-container", ".entry-title", ".site-info", ".entry-meta", "div.inside-right-sidebar", "header#masthead", ".comments-area"];
       removeGarbage(trash);
 
       checkElement('.text-dark').then((selector) => {
@@ -1102,11 +1145,11 @@
   /* ------------------------- */
   /* streamhd247.online        */
   /* ------------------------- */
-  if (match(current, "*://*streamhd247.online*")) {
+  if (match(current, "*://*streamhd247.online*") || match(current, "*://*streamhd247.info*")) {
 
       log("=== "+ current + " ===");
-      var trash = [""];
-      // removeGarbage(trash);
+      var trash = [".red.col-lg-12"];
+      removeGarbage(trash);
 
       var style = `
       html.body, body, html, .bg-gray-200, .inside-article, well, div.well, table, td,
