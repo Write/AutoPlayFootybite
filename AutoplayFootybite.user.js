@@ -5,6 +5,7 @@
 // @namespace   Autoplay Block Ads Footybite
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
 //
+// @updateURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/AutoplayFootybite.user.js
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/AutoplayFootybite.user.js
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
 //
