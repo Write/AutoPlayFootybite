@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.1.9
+// @version     15.1.10
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -181,6 +181,7 @@
 // @include     *://*wevgames.com/*
 // @include     *://*daddylivehd.sx/*
 // @include     *://*daddylivehd.click/*
+// @include     *://*daddylivehd.online/*
 // @include     *://*qwebplay.xyz/*
 // @include     *://*tonnestreamz.xyz/*
 // @include     *://*bein-sports.online/*
@@ -256,6 +257,9 @@
 // @include     *://*kingstreamz.lol/*
 // @include     *://*extremosports.club/*
 // @include     *://*freetvsports.com/*
+// @include     *://*sjumbotvs1.me/*
+// @include     *://*s.cdn2.link/*
+// @include     *://*sportshub.stream/*
 // ==/UserScript==
 
 (function () {
@@ -583,10 +587,14 @@
   /* ------------------------- */
   /* extremosports.club        */
   /* ------------------------- */
-  if (match(current, "*://*extremosports.club*")) {
+  if (match(current, "*://*extremosports.club*") || match(current, "*://*hdfungamezz.xyz")) {
 
       log("=== "+ current + " ===");
-      var trash = [ "#secondary", "#site-navigation", ".site-footer", "nav.navigation.post-navigation", "#site-navigation", "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      var trash = [ "div[style^=pointer-events]","iframe[style^=position\\:\\ absolute]",
+                    "iframe[src^=about\\:blank]",
+                    "#secondary", "#site-navigation", ".site-footer", "nav.navigation.post-navigation",
+                    "#site-navigation", "header#masthead", ".comments-area", ".entry-title", ".entry-meta",
+                    ".site-info", "header", "footer"];
       removeGarbage(trash);
 
       checkElement('.text-light').then((selector) => {
@@ -1058,6 +1066,36 @@
       pasteStyle(style);
   }
 
+
+  /* ------------------------- */
+  /* Buffstreams mains website */
+  /* ------------------------- */
+  if (match(current, "*://*sportshub.stream*")) {
+
+      log("=== "+ current + " ===");
+
+      var trash = ["iframe[src^=about\\:blank]", "iframe[style^=position\\:\\ absolute]", "iframe[style^=position\\:\\ absolute]"];
+      removeGarbage(trash);
+
+  }
+
+
+  /* ------------------------- */
+  /* cdn2.link                 */
+  /* ------------------------- */
+  if (match(current, "*://*cdn2.link*") || match(current, "*://*daddylivehd.online/*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ '.overlay_video', 'div.ad', '#dontfoid', "#adholder", "iframe[src^=about\\:blank]","iframe[src^=about\\:blank]", "div[style^=pointer-events]", "div[style^=pointer-events]"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+  }
+
+
   /* ------------------------- */
   /* buffstreamz's embed       */
   /* ------------------------- */
@@ -1074,8 +1112,8 @@
       });
 
       log("=== "+ current + " ===");
-      var trash = [""];
-      // removeGarbage(trash);
+      var trash = ["iframe[src^=about\\:blank]", "iframe[style^=position\\:\\ absolute]", "iframe[style^=position\\:\\ absolute]"];
+      removeGarbage(trash);
 
       checkElement('div[style^=margin-bottom\\:\\ 20px\\;]').then((selector) => {
             selector.setAttribute('style', '');
@@ -3861,7 +3899,7 @@
       }
 
       /* name of js files (href) to remove */
-      var jsBlacklist = [ 'doruffleton', 'mo.min.js', 'migimsas.net', 'pvtypsgueyqey.com', '2734478852',
+      var jsBlacklist = [ 'ut.js', 'chulhawakened.com', 'oongouha.xyz', 'doruffleton', 'mo.min.js', 'migimsas.net', 'pvtypsgueyqey.com', '2734478852',
                          'pop.js', 'player-bundle.min.js', 'aoa-functions', 'greeter.me', 'footylight\-dubzstream-one.js', 'chatango', 'ads.min.js',
                          'deblocker.min.js', 'themoneytizer.com', 'console-ban', 'relationsquiver.com', 'amung.us',
                          'grandclemencydirt.com', 'showads.js', 'ltv_popup.php', 'cpxinteractive', 'tag.min.js',
