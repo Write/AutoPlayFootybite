@@ -1,11 +1,11 @@
 // ==UserScript==
-// @version     15.1.11
+// @version     15.2.0
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
 // @description AutoPlay and Block ads on Reddit Soccerstream's streams
 //
-// @updateURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/AutoplayFootybite.user.js
+// @updateURL   https://github.com/Write/AutoPlaySoccerStreams/raw/main/AutoplayFootybite.user.js
 // @downloadURL https://github.com/Write/AutoPlaySoccerStreams/raw/main/AutoplayFootybite.user.js
 // @homepageURL https://github.com/Write/AutoPlaySoccerStreams
 //
@@ -244,6 +244,7 @@
 // @include     *://dlhd.sx/*
 // @include     *://masterpro.club/*
 // @include     *://*buffstreamz.fun/*
+// @include     *://*buffsports.stream/*
 // @include     *://*xsportbox.com/*
 // @include     *://*apl284.me/*
 // @include     *://*apl272.me/*
@@ -260,6 +261,7 @@
 // @include     *://*sjumbotvs1.me/*
 // @include     *://*s.cdn2.link/*
 // @include     *://*sportshub.stream/*
+// @include     *://*sportshub.fan/*
 // @include     *://*streambtw.com/*
 // ==/UserScript==
 
@@ -272,6 +274,7 @@
   /* Functions / Utils       */
   /* ----------------------- */
   const isDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? true : false;
+  const platform = window.navigator.platform
 
   /*
    * Adapt background of all websites
@@ -1071,13 +1074,103 @@
   /* ------------------------- */
   /* Buffstreams mains website */
   /* ------------------------- */
-  if (match(current, "*://*sportshub.stream*")) {
+  if (match(current, "*://*sportshub.stream*") || match(current, "*://*sportshub.fan*") || match(current, "*//*buffsports.stream*")) {
 
       log("=== "+ current + " ===");
 
       var trash = ["iframe[src^=about\\:blank]", "iframe[style^=position\\:\\ absolute]", "iframe[style^=position\\:\\ absolute]"];
       removeGarbage(trash);
 
+      // Add platform-specific redirect to acestream proxy
+      // Require IINA player installed on macOS
+      log("Platform: " + platform)
+
+      checkElement('a[href^=acestream]').then((selector) => {
+
+              // remove uselesss sibling links
+              document.querySelectorAll('a[href^=acestream]').forEach(function(e) {e.innerText = "Open in Player (AceProxy)"; e.parentElement.width = "200"; e.parentElement.align = "center"; e.parentElement.previousElementSibling.remove() } );
+
+              if (platform.includes('MacIntel')) {
+                  log("MacOS detected")
+                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "iina://weblink?url=http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
+                  log("Acestream's links replaced for macOS")
+              }
+              else if (platform.includes('iPhone') || platform.includes('iPad')) {
+                  log("iOS detected")
+                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "vlc://http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
+                  log("Acestream's links replaced for iOS")
+              }
+              else if (platform.includes('win32')) {
+                  log("Windows detected")
+                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "vlc://http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
+                  log("Acestream's links replaced for Windows")
+              }
+              else {
+                  log("Unknown platform detected");
+                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "vlc://http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
+                  log("Acestream's links replaced for Unknown platform -- generic replacement")
+              }
+      });
+
+      // checkElement('.fluid.search .menu .item').then((selector) => {
+      //     var searchEventsElement = document.querySelector('#search-events');
+      //     function isLeagueMatchSoon(leaguename) {
+      //       allEvents = document.querySelectorAll('.list-events .event-desc')
+      //       for (var i=0, item; item = allEvents[i]; i++) {
+      //           var leaguename = leaguename.replace(/\s*|\t|\r|\n/gm, '');
+      //           var eventName = item.innerText.trim().replace(/\s*|\t|\r|\n/gm, '');
+      //           //console.log(item.innerHTML)
+      //           //console.log(item.innerHTML)
+      //           //console.log("Comparing event: " + eventName + " to league: " + leaguename)
+      //           if (eventName.includes(leaguename)) {
+      //             console.log("match")
+      //             break;
+      //             return true;
+      //           }
+      //       }
+      //       return false
+      //     }
+      //   document.querySelectorAll('.fluid.search .menu .item').forEach(function(e) {
+      //       var searchEventsElement = document.querySelector('#search-events');
+      //       var inputEl = document.querySelector('input[name^=search-events]')
+      //       var leaguename = e.innerText.trim()
+      //     //if (!isLeagueMatchSoon(leaguename)) {
+      //       //console.log("League not present : " + leaguename)
+      //       //return;
+      //      // }
+      //       var el = document.createElement("a")
+      //           el.innerHTML=leaguename;
+      //           el.style="cursor: pointer;";
+      //           el.ariaLabel="fastlink";
+      //       searchEventsElement.parentElement.appendChild(el)
+      //       el.addEventListener("click", function(ev) {
+      //       inputEl.value = "";
+      //       inputEl.focus();
+      //       document.execCommand('insertText', false, ev.target.innerText);
+      //       console.log(ev.target.innerText);
+      //     });
+      //   })
+      // });
+
+
+      style =`
+
+      #news_ { display: none; }
+      #top-events { height: 100%; }
+      a[href^=acestream], a[href^=vlc], a[href^=iina], a[aria-label^=fastlink] {
+        border: 1px solid #ccc;
+        margin: 0px;
+        padding: 5px;
+        background: #505050;
+        color: #fff;
+        border-radius: 3px;
+      }
+      a[href^=acestream]:hover, a[href^=vlc]:hover, a[href^=iina]:hover, a[aria-label^=fastlink]:hover {
+        font-weight: bold;
+      }
+      `
+
+      pasteStyle(style);
   }
 
 
