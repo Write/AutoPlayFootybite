@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.0
+// @version     15.2.1
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -17,7 +17,6 @@
 // @include     *://footybite.to/*
 // @include     *://footybite.cc/*
 // @include     *://*.footybite.cc/*
-// @include     *://*livetv.unblckd.pw/*
 // @include     *://*livetv.sx/*
 // @include     *://tinyurl.is/*
 // @include     *://tinyurl.so/*
@@ -243,8 +242,6 @@
 // @include     *://*adisports.xyz/*
 // @include     *://dlhd.sx/*
 // @include     *://masterpro.club/*
-// @include     *://*buffstreamz.fun/*
-// @include     *://*buffsports.stream/*
 // @include     *://*xsportbox.com/*
 // @include     *://*apl284.me/*
 // @include     *://*apl272.me/*
@@ -260,9 +257,12 @@
 // @include     *://*freetvsports.com/*
 // @include     *://*sjumbotvs1.me/*
 // @include     *://*s.cdn2.link/*
-// @include     *://*sportshub.stream/*
-// @include     *://*sportshub.fan/*
-// @include     *://*streambtw.com/*
+// @include     *://*buffstreamz.fun/*
+// @include     *://*buffsports.stream/*
+// @include     *://*sportshub.stream*
+// @include     *://*sportshub.fan*
+// @include     *://*streambtw.com*
+// @include     *://*livetv.unblckd.pw/*
 // ==/UserScript==
 
 (function () {
@@ -1074,7 +1074,7 @@
   /* ------------------------- */
   /* Buffstreams mains website */
   /* ------------------------- */
-  if (match(current, "*://*sportshub.stream*") || match(current, "*://*sportshub.fan*") || match(current, "*//*buffsports.stream*")) {
+  if (match(current, "*://*sportshub.stream*") || match(current, "*://*sportshub.fan*") || match(current, "*//*buffsports.stream*") || match(current,"*://*livetv.unblckd.pw*") ) {
 
       log("=== "+ current + " ===");
 
