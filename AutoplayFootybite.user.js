@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.3
+// @version     15.2.4
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -265,6 +265,9 @@
 // @include     *://*livetv.unblckd.pw/*
 // @include     *://*givemereddit.eu/*
 // @include     *://*weakspell.org/*
+// @include     *://*score808.football/*
+// @include     *://*sportsnest.co/*
+//
 // ==/UserScript==
 
 (function () {
@@ -476,7 +479,7 @@
       });
 
       var style = `
-      body, html, .bg-gray-200, .inside-article, article {
+      html body, body, html, .bg-gray-200, .inside-article, article {
         margin: 0;
         padding: 0;
         border: none;
@@ -484,6 +487,95 @@
       }
       iframe {
         border: none;
+      }
+      br, hr {
+        display: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* sportsnest                */
+  /* ------------------------- */
+  if (match(current, "*://*sportsnest.co*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "strong", "strong", "p", "p", ".yuki-sidebar", "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      html body, body, html, .bg-gray-200, .inside-article, article {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      br, hr {
+        display: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgLight};
+          background-color: ${backgLight}
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, html, .bg-gray-200, .inside-article, article {
+          background: ${backgDark};
+          background-color: ${backgDark}
+        }
+      }
+      `;
+      pasteStyle(style);
+  }
+
+  /* ------------------------- */
+  /* score808                  */
+  /* ------------------------- */
+  if (match(current, "*://*score808.football*")) {
+
+      log("=== "+ current + " ===");
+      var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
+      removeGarbage(trash);
+
+      checkElement('.text-light').then((selector) => {
+            selector.parentElement.remove()
+      });
+
+      var style = `
+      html body, body, html, .bg-gray-200, .inside-article, article {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      iframe {
+        border: none;
+      }
+      br, hr {
+        display: none;
       }
 
       @media (prefers-color-scheme: light) {
