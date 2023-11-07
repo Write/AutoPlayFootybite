@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.2
+// @version     15.2.3
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -264,6 +264,7 @@
 // @include     *://*streambtw.com*
 // @include     *://*livetv.unblckd.pw/*
 // @include     *://*givemereddit.eu/*
+// @include     *://*weakspell.org/*
 // ==/UserScript==
 
 (function () {
