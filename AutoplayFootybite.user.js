@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.7
+// @version     15.2.8
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -1184,24 +1184,33 @@
               selector.parentElement.parentElement.parentElement.parentElement.width = "100%"
               selector.parentElement.parentElement.parentElement.parentElement.style = "display: block"
 
+              var tBodyParent = selector.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+
+
               document.querySelectorAll('a[href^=acestream]').forEach(function(selector) {
+
+                  /* check if adjacent <td> exist, if so, move it */
+                  //if (selector.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling != null) {
+                  //    var elTD = selector.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+                  //    tBodyParent.appendChild(elTD)
+                  //}
 
                   var elTD = document.createElement("td")
                       elTD.align="center";
-                      elTD.width="200";
+                      elTD.width="85";
                       elTD.style="cursor: pointer";
 
                   var elA = document.createElement("a")
                       elA.innerHTML=""
                       elA.style="cursor: pointer;";
                       elA.ariaLabel="acelink2";
-                      elA.innerText = "Open in Player [2]";
+                      elA.innerText = "Player [2]";
 
                   var player2 = selector.parentElement.parentElement.appendChild(elTD);
                       player2.appendChild(elA)
 
-                  selector.innerText = "Open in Player [1]";
-                  selector.parentElement.width = "200";
+                  selector.innerText = "Player [1]";
+                  selector.parentElement.width = "85";
                   selector.parentElement.align = "center";
                   selector.parentElement.previousElementSibling.remove();
 
@@ -1288,7 +1297,7 @@
 
       style =`
 
-      #news_ { display: none; }
+      #news_, .bitrate { display: none; }
       #top-events { height: 100%; }
       a[href^=acestream], a[href^=vlc], a[href^=iina], a[aria-label^=fastlink] {
         border: 1px solid #ccc;
