@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.5
+// @version     15.2.7
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -4127,7 +4127,7 @@
       }
 
       /* name of js files (href) to remove */
-      var jsBlacklist = [ 'ut.js', 'chulhawakened.com', 'oongouha.xyz', 'doruffleton', 'mo.min.js', 'migimsas.net', 'pvtypsgueyqey.com', '2734478852',
+      var jsBlacklist = [ '\/scripts\/ads.js', 'ut.js', 'chulhawakened.com', 'oongouha.xyz', 'doruffleton', 'mo.min.js', 'migimsas.net', 'pvtypsgueyqey.com', '2734478852',
                          'pop.js', 'player-bundle.min.js', 'aoa-functions', 'greeter.me', 'footylight\-dubzstream-one.js', 'chatango', 'ads.min.js',
                          'deblocker.min.js', 'themoneytizer.com', 'console-ban', 'relationsquiver.com', 'amung.us',
                          'grandclemencydirt.com', 'showads.js', 'ltv_popup.php', 'cpxinteractive', 'tag.min.js',
