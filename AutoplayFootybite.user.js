@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.4
+// @version     15.2.5
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -1181,29 +1181,68 @@
 
       checkElement('a[href^=acestream]').then((selector) => {
 
-              // remove uselesss sibling links
-              document.querySelectorAll('a[href^=acestream]').forEach(function(e) {e.innerText = "Open in Player (AceProxy)"; e.parentElement.width = "200"; e.parentElement.align = "center"; e.parentElement.previousElementSibling.remove() } );
+              selector.parentElement.parentElement.parentElement.parentElement.width = "100%"
+              selector.parentElement.parentElement.parentElement.parentElement.style = "display: block"
 
-              if (platform.includes('MacIntel')) {
-                  log("MacOS detected")
-                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "iina://weblink?url=http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
-                  log("Acestream's links replaced for macOS")
-              }
-              else if (platform.includes('iPhone') || platform.includes('iPad')) {
-                  log("iOS detected")
-                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "vlc://http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
-                  log("Acestream's links replaced for iOS")
-              }
-              else if (platform.includes('win32')) {
-                  log("Windows detected")
-                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "vlc://http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
-                  log("Acestream's links replaced for Windows")
-              }
-              else {
-                  log("Unknown platform detected");
-                  document.querySelectorAll('a[href^=acestream]').forEach(function(e) { var aceID = e.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1]; e.href = "vlc://http://acestreamproxy.duckdns.org/ace/getstream?id=" + aceID })
-                  log("Acestream's links replaced for Unknown platform -- generic replacement")
-              }
+              document.querySelectorAll('a[href^=acestream]').forEach(function(selector) {
+
+                  var elTD = document.createElement("td")
+                      elTD.align="center";
+                      elTD.width="200";
+                      elTD.style="cursor: pointer";
+
+                  var elA = document.createElement("a")
+                      elA.innerHTML=""
+                      elA.style="cursor: pointer;";
+                      elA.ariaLabel="acelink2";
+                      elA.innerText = "Open in Player [2]";
+
+                  var player2 = selector.parentElement.parentElement.appendChild(elTD);
+                      player2.appendChild(elA)
+
+                  selector.innerText = "Open in Player [1]";
+                  selector.parentElement.width = "200";
+                  selector.parentElement.align = "center";
+                  selector.parentElement.previousElementSibling.remove();
+
+                  var aceID = selector.toString().match("acestream:\/\/([a-zA-Z0-9]+)")[1];
+                  var proxy1 = "http://acestreamproxy.duckdns.org/1/ace/getstream?id=" + aceID
+                  var proxy2 = "http://acestreamproxy.duckdns.org/2/ace/getstream?id=" + aceID
+
+                  if (platform.includes('MacIntel')) {
+                      log("MacOS detected")
+
+                      selector.href = "iina://weblink?url=" + proxy1
+                      elA.href      = "iina://weblink?url=" + proxy2
+
+                      log("Acestream's links replaced for macOS")
+                  }
+                  else if (platform.includes('iPhone') || platform.includes('iPad')) {
+                      log("iOS detected")
+
+                      selector.href = "vlc://" + proxy1
+                      elA.href      = "vlc://" + proxy2
+
+                      log("Acestream's links replaced for iOS")
+                  }
+                  else if (platform.includes('win32')) {
+                      log("Windows detected")
+
+                      selector.href = "vlc://" + proxy1
+                      elA.href      = "vlc://" + proxy2
+
+                      log("Acestream's links replaced for Windows")
+                  }
+                  else {
+                      log("Unknown platform detected");
+
+                      selector.href = "vlc://" + proxy1
+                      elA.href      = "vlc://" + proxy2
+
+                      log("Acestream's links replaced for Unknown platform -- generic replacement")
+                  }
+
+            });
       });
 
       // checkElement('.fluid.search .menu .item').then((selector) => {
@@ -1258,6 +1297,7 @@
         background: #505050;
         color: #fff;
         border-radius: 3px;
+        cursor: pointer;
       }
       a[href^=acestream]:hover, a[href^=vlc]:hover, a[href^=iina]:hover, a[aria-label^=fastlink]:hover {
         font-weight: bold;
