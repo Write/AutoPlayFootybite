@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.8
+// @version     15.2.9
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -579,13 +579,13 @@
       }
 
       @media (prefers-color-scheme: light) {
-        body, html, .bg-gray-200, .inside-article, article {
+        html body, body, html, .bg-gray-200, .inside-article, article {
           background: ${backgLight};
           background-color: ${backgLight}
         }
       }
       @media (prefers-color-scheme: dark) {
-        body, html, .bg-gray-200, .inside-article, article {
+        html body, body, html, .bg-gray-200, .inside-article, article {
           background: ${backgDark};
           background-color: ${backgDark}
         }
