@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.2.9
+// @version     15.3.0
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -266,7 +266,9 @@
 // @include     *://*givemereddit.eu/*
 // @include     *://*weakspell.org/*
 // @include     *://*score808.football/*
+// @include     *://*worldcupglory.com/*
 // @include     *://*sportsnest.co/*
+// @include     *://*weakstreams.online/*
 //
 // ==/UserScript==
 
@@ -389,7 +391,7 @@
   * Every website
   * -----------------------
   * */
-  var trash = [   'div[id^=vliadb]', 'iframe[src*=chatango]', 'iframe[src*=live_chat]',
+  var trash = [   '#ad', 'div[id^=vliadb]', 'iframe[src*=chatango]', 'iframe[src*=live_chat]',
                   '#micast_ads', 'iframe[src*=ads\\.php]',
                   '#\\30', '#ni-overlay', 'polygon',
                   'iframe[src*=ads\\.livetv695\\.me]',
@@ -554,7 +556,7 @@
   /* ------------------------- */
   /* score808                  */
   /* ------------------------- */
-  if (match(current, "*://*score808.football*")) {
+  if (match(current, "*://*score808.football*") || match(current, "*://*worldcupglory.com*")) {
 
       log("=== "+ current + " ===");
       var trash = [ "header#masthead", ".comments-area", ".entry-title", ".entry-meta", ".site-info", "header", "footer"];
