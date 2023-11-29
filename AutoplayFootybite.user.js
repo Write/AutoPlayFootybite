@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version     15.3.0
+// @version     15.3.1
 // @author      Write
 // @name        AutoplayFootybite
 // @namespace   Autoplay Block Ads Footybite
@@ -269,6 +269,7 @@
 // @include     *://*worldcupglory.com/*
 // @include     *://*sportsnest.co/*
 // @include     *://*weakstreams.online/*
+// @include     *://*cdn.livetv*.me/*
 //
 // ==/UserScript==
 
@@ -1191,6 +1192,12 @@
 
               document.querySelectorAll('a[href^=acestream]').forEach(function(selector) {
 
+                  var tdParent = selector.parentElement.parentElement.parentElement.parentElement.parentElement;
+                  var tdTableParent = selector.parentElement.parentElement.parentElement.parentElement;
+                  console.log(tdParent)
+                  tdParent.width = 250;
+                  tdTableParent.width = 250;
+
                   /* check if adjacent <td> exist, if so, move it */
                   //if (selector.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling != null) {
                   //    var elTD = selector.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
@@ -1299,7 +1306,8 @@
 
       style =`
 
-      #news_, .bitrate { display: none; }
+      .lnktbj { background: none; }
+      #news_, .bitrate, img[src*=rate0] { display: none; }
       #top-events { height: 100%; }
       a[href^=acestream], a[href^=vlc], a[href^=iina], a[aria-label^=fastlink] {
         border: 1px solid #ccc;
@@ -1694,19 +1702,14 @@
   /* ------------------------- */
   /* livetv695.me              */
   /* ------------------------- */
-  if (match(current, "*://*livetv695.me/*") || match(current, "*://*livetv6*.me/*")) {
+  if (match(current, "*://*livetv695.me/*") || match(current, "*://*livetv6*.me/*") || match(current, "*://*livetv*.me/*")) {
 
       log("=== "+ current + " ===");
       var trash = [ "#localpp", "td[background*=h_bg_p]"];
       removeGarbage(trash);
 
       var style = `
-      #playerblock {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: 100%
-      }
+
       iframe {
         width: 100%;
         height: 100%;
@@ -4324,7 +4327,7 @@
                         addScript(currentScript);
                         log('Sketchy js found and removed | data:application/pdf;base64')
                     }
-                    else if ((node.textContent.search('window.location') >= 0 || node.textContent.search('document.location') >= 0) &&
+                    else if ((node.textContent.search('window.location') >= 0 || node.textContent.search('document.location') >= 0) && node.textContent.search('document.location.protocol') <= 0 &&
                               node.textContent.search('window.location.reload') <= 0 &&
                               node.textContent.search('window.location.href') <= 0) {
 
@@ -4345,7 +4348,6 @@
 
                         node.remove()
 
-                        addScript(currentScript);
                         log("Mutation observer: window.location removed");
                     }
                     // prevent scripts from clearing console.
