@@ -40,7 +40,7 @@ AutoPlayFootybite.user.js is an Userscript (read below to know how to install, I
 
 # ⚙️ Usage and Installation
 Install **one** Userscript Manager such as ViolentMonkey, TamperMonkey or [Userscripts for Safari](https://apps.apple.com/us/app/userscripts/id1463298887) (macOS and iOS support) (*Links below*)  
-Then, simply click this link : [AutoplayFootybite.user.js](https://github.com/Write/AutoPlaySoccerStreams/blob/main/AutoplayFootybite.user.js)  
+Then, simply click this link : [AutoplayFootybite.user.js](https://raw.githubusercontent.com/Write/AutoPlayFootybite/main/AutoplayFootybite.user.js)
 Your Userscript Manager will simply open a new windows, and you'll simply have to click on Install.  
 
 ## Userscripts Manager
